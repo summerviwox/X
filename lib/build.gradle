@@ -85,4 +85,5 @@ dependencies {
     api 'me.yokeyword:eventbus-activity-scope:1.1.0'//碎片管理
     api 'com.blankj:utilcodex:1.23.7'//工具类
     api 'com.gyf.immersionbar:immersionbar:2.3.2'//沉浸式状态栏
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'//万能adapter
 }
