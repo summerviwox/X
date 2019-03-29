@@ -1,6 +1,6 @@
 package com.summer.x.base.ui;
 
-public abstract class DE {
+public class DE {
 
     public DE(){
 
@@ -8,5 +8,5 @@ public abstract class DE {
     /**
      * 不建议在此初始化大量数据 会卡顿
      */
-    public abstract void initDE();
+    public void initDE(){};
 }

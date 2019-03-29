@@ -6,6 +6,8 @@ import android.view.View;
 import com.gyf.barlibrary.ImmersionBar;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
@@ -29,6 +31,7 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
         ImmersionBar.with(this).transparentBar().transparentNavigationBar().transparentStatusBar().init();//默认状态栏透明
         initOpe();
         setContentView(getOpe().getUI().getUI().getRoot());
@@ -97,6 +100,14 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
             }
 
         }
+    }
+
+    /**
+     * 消息总线处理
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void dealMesage(Object event) {
+
     }
 
     protected boolean isRegistEvent(){

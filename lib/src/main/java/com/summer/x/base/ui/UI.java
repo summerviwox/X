@@ -10,30 +10,26 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 
-import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-public abstract class UI<A extends ViewDataBinding>{
+public class UI<A extends ViewDataBinding>{
 
     private A ui;
 
     private Context context;
 
-    private UI(){
+    public UI(){
 
     }
 
-    public UI(Context context){
-        this.context = context;
-    }
-
-    public abstract void initUI();
+    public void initUI(){}
 
     /**
      * 绑定xml
      * @param context
      */
     public void bindUI(Context context) {
+        this.context = context;
         if (ui == null) {
             if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
                 Class<A> a = (Class<A>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
