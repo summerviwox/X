@@ -2,13 +2,19 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+
     defaultConfig {
-        applicationId "com.summer.x"
+        applicationId "com.summer.app"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //解决annotationProcessor注解类继承不了的问题
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
     }
     buildTypes {
         release {
@@ -16,9 +22,43 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    //自定义资源目录
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res/base',
+                    'src/main/res/zxing',
+            ]
+            jniLibs.srcDirs = [
+                    'libDir',
+            ]
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    //为了解决部分第三方库重复打包了META-INF的问题
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+    dexOptions {
+        preDexLibraries false
+        jumboMode true
+        javaMaxHeapSize "4g"
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':lib')
 }
