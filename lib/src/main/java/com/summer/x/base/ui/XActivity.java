@@ -114,7 +114,19 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
         return true;
     }
 
-    public Ope<A, B, C> getOpe() {
+    public A getUI(){
+        return getOpe().getUI();
+    }
+
+    public B getDE(){
+        return getOpe().getDE();
+    }
+
+    public C getVA(){
+        return getOpe().getVA();
+    }
+
+    private Ope<A, B, C> getOpe() {
         return ope;
     }
 

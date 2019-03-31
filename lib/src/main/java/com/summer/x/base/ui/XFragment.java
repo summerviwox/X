@@ -117,6 +117,18 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         return true;
     }
 
+    public A getUI(){
+        return getOpe().getUI();
+    }
+
+    public B getDE(){
+        return getOpe().getDE();
+    }
+
+    public C getVA(){
+        return getOpe().getVA();
+    }
+
     public Ope<A, B, C> getOpe() {
         return ope;
     }
