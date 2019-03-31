@@ -2,9 +2,13 @@ package com.summer.x.base.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
@@ -30,6 +34,18 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         }
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        initOpe(container);
+        return getUI().getUI().getRoot();
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+    }
+
     /**
      *完成UI,DE,VA的初始化
      *注解初始化
@@ -40,17 +56,10 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initOpe();
         ButterKnife.bind(getOpe().getUI().getUI().getRoot());
         if(isRegistEvent()){
             EventBus.getDefault().register(this);
         }
-    }
-
-    @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
-
     }
 
     @Override
@@ -67,9 +76,17 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     }
 
     /**
+     * 消息总线处理
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void dealMesage(Object event) {
+
+    }
+
+    /**
      * 自动化反射生成UI,DA,VA文件
      */
-    private void initOpe(){
+    private void initOpe(ViewGroup viewGroup){
         if(getOpe()==null){
             ope =  new Ope<>(null,null,null);
             //生成UI文件
@@ -78,7 +95,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
                     Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
                     Constructor<A> uic =ui.getConstructor();
                     A aa = uic.newInstance();
-                    aa.bindUI(getActivity());
+                    aa.bindUI(getActivity(),viewGroup);
                     aa.initUI();
                     getOpe().setUI(aa);
                 } catch (Exception e) {

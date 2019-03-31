@@ -6,15 +6,15 @@
             type="String"/>
     </data>
 
-<RelativeLayout
-    android:id="@+id/mainroot"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@color/yellow"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:textColor="#000000"
-        android:text="jfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfg"
+        android:text="ddddddddddddddddddd"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,5 +22,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
