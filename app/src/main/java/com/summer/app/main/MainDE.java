@@ -8,4 +8,8 @@ public class MainDE extends DE {
     public void initDE() {
 
     }
+
+    public void getTestData(){
+
+    }
 }

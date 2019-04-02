@@ -86,4 +86,7 @@ dependencies {
     api 'com.blankj:utilcodex:1.23.7'//工具类
     api 'com.gyf.immersionbar:immersionbar:2.3.2'//沉浸式状态栏
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'//万能adapter
+    api 'com.squareup.okhttp3:okhttp:3.14.0'//网络请求
+    api 'com.squareup.retrofit2:retrofit:2.5.0'//网络请求
+    api 'com.squareup.retrofit2:converter-gson:2.5.0'//网络请求
 }
