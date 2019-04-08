@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
-
+def dbflow_version = "4.2.4"
 android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.summer.app"
+        applicationId "com.summer.record"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -29,7 +29,9 @@ android {
             res.srcDirs = [
                     'src/main/res',
                     'src/main/res/base',
-                    'src/main/res/zxing',
+                    'src/main/res/main',
+                    'src/main/res/picture',
+                    'src/main/res/loading',
             ]
             jniLibs.srcDirs = [
                     'libDir',
@@ -61,4 +63,10 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api project(':lib')
+    api 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    api "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    api "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+    api "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dbflow_version}"
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
 }
