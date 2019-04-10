@@ -1,4 +1,4 @@
-package com.summer.record.ui.pictures.pictures;
+package com.summer.record.ui.pictures.home;
 
 import android.content.Context;
 

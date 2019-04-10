@@ -1,15 +1,13 @@
-package com.summer.record.ui.pictures.pictures;
+package com.summer.record.ui.pictures.home;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.summer.record.R;
-import com.summer.record.constant.NetConstant;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.databinding.ItemImageImageBinding;
 import com.summer.x.GlideApp;

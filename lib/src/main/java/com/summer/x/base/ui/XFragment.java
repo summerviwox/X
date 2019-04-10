@@ -26,6 +26,11 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
 
     private XFragment fragment;
 
+    public XFragment(){
+        setArguments(new Bundle());
+        initDEVA();
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -37,7 +42,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        initOpe(container);
+        initUI(container);
         return getUI().getUI().getRoot();
     }
 
@@ -86,47 +91,52 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     /**
      * 自动化反射生成UI,DA,VA文件
      */
-    private void initOpe(ViewGroup viewGroup){
-        if(getOpe()==null){
-            ope =  new Ope<>(null,null,null);
-            //生成UI文件
-            if(getClass().getGenericSuperclass() instanceof ParameterizedType){
-                try {
-                    Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-                    Constructor<A> uic =ui.getConstructor();
-                    A aa = uic.newInstance();
-                    aa.bindUI(getActivity(),viewGroup);
-                    aa.initUI();
-                    getOpe().setUI(aa);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    private void initUI(ViewGroup viewGroup){
+        if(getOpe()==null) {
+            ope = new Ope<>(null, null, null);
+        }
+        //生成UI文件
+        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+            try {
+                Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+                Constructor<A> uic =ui.getConstructor();
+                A aa = uic.newInstance();
+                aa.bindUI(getActivity(),viewGroup);
+                aa.initUI();
+                getOpe().setUI(aa);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            //生成DE文件
-            if(getClass().getGenericSuperclass() instanceof ParameterizedType){
-                try {
-                    Class<B> decl = (Class<B>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-                    Constructor<B> deco = decl.getConstructor();
-                    B de = deco.newInstance();
-                    de.initDE();
-                    getOpe().setDE(de);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            //生成VA文件
-            if(getClass().getGenericSuperclass() instanceof ParameterizedType){
-                try {
-                    Class<C> vacl = (Class<C>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[2];
-                    Constructor<C> vaco = vacl.getConstructor();
-                    C va = vaco.newInstance();
-                    va.initVA();
-                    getOpe().setVA(va);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        }
+    }
 
+    public void initDEVA(){
+        if(getOpe()==null) {
+            ope = new Ope<>(null, null, null);
+        }
+        //生成DE文件
+        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+            try {
+                Class<B> decl = (Class<B>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+                Constructor<B> deco = decl.getConstructor();
+                B de = deco.newInstance();
+                de.initDE();
+                getOpe().setDE(de);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        //生成VA文件
+        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+            try {
+                Class<C> vacl = (Class<C>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[2];
+                Constructor<C> vaco = vacl.getConstructor();
+                C va = vaco.newInstance();
+                va.initVA();
+                getOpe().setVA(va);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

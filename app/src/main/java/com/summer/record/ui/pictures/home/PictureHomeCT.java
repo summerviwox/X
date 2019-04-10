@@ -1,18 +1,17 @@
-package com.summer.record.ui.pictures.pictures;
+package com.summer.record.ui.pictures.home;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.ui.loading.LoadingFrag;
+import com.summer.record.ui.pictures.detail.PictureDetailCT;
 import com.summer.record.ui.pictures.picture.FragPicture;
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.XFragment;
-import com.summer.x.util.HandleUtil;
 
 import java.util.ArrayList;
 
@@ -61,8 +60,10 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        FragPicture fragment = FragPicture.getInstance(getVA().getPictures().get(position));
-        extraTransaction().startDontHideSelf(fragment);
+        start(PictureDetailCT.getInstance(getVA().getPictures(),getVA().getPictures().get(position).id));
+        //getAct().start();
+        //FragPicture fragment = FragPicture.getInstance(getVA().getPictures().get(position));
+       // extraTransaction().startDontHideSelf(fragment);
 //        // LOLLIPOP(5.0)系统的 SharedElement支持有 系统BUG， 这里判断大于 > LOLLIPOP
 //        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
 //            setExitTransition(new Fade());
@@ -89,13 +90,16 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
             return true;
         }
         getVA().setIsdoing(true);
-        getDE().uploadRecordsAndChangeStatus(getVA().getPictures(), new OnProgressI() {
+       ArrayList<PictureB> datas =  getDE().getUploadPictures(getVA().getPictures());
+       ToastUtils.showShort(datas.size()+"张未上传");
+        getDE().uploadRecordsAndChangeStatus(datas, new OnProgressI() {
             @Override
             public void onProgress(String tag, int status, Object data) {
                 switch (status){
                     case DOING:
                         getVA().setIsdoing(false);
-                        ToastUtils.showShort(""+data);
+                        PictureB pictureB = (PictureB) data;
+                        ToastUtils.showShort(""+pictureB.getNetpath());
                         break;
                     case END:
                         ToastUtils.showShort("全部上传成功");

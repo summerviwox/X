@@ -3,7 +3,7 @@ package com.summer.record.ui.main.page.first;
 import android.os.Bundle;
 
 import com.summer.record.ui.main.page.base.BasePageFrag;
-import com.summer.record.ui.pictures.pictures.PictureHomeCT;
+import com.summer.record.ui.pictures.home.PictureHomeCT;
 import com.summer.x.base.ui.DE;
 import com.summer.x.base.ui.VA;
 

@@ -1,4 +1,4 @@
-package com.summer.record.ui.pictures.pictures;
+package com.summer.record.ui.pictures.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,18 +9,14 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.GsonUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.data.net.Net;
 import com.summer.record.tool.DBTool;
-import com.summer.record.tool.FileTool;
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.DE;
 import com.summer.x.data.net.BaseCallBack;
 import com.summer.x.data.net.ListData;
-import com.summer.x.util.HandleUtil;
 
 import java.io.File;
 import java.text.ParseException;
@@ -31,15 +27,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.TimeZone;
 
-import androidx.annotation.ArrayRes;
 import androidx.loader.content.CursorLoader;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Response;
 
-import static com.summer.record.ui.pictures.pictures.PictureHomeUI.SPANCOUNT;
+import static com.summer.record.ui.pictures.home.PictureHomeUI.SPANCOUNT;
 
 public class PictureHomeDE extends DE {
 
@@ -67,13 +60,13 @@ public class PictureHomeDE extends DE {
            @Override
            public void onSuccess(ListData<String> s) {
                super.onSuccess(s);
-               onFinishI.onFinished(true);
+               onFinishI.onFinished(s==null?null:s.getData()==null?null:s.getData().size()==0?null:s.getData().get(0));
            }
 
            @Override
            public void onError(int code, String error) {
                super.onError(code, error);
-               onFinishI.onFinished(false);
+               onFinishI.onFinished(null);
            }
        });
     }
@@ -113,8 +106,9 @@ public class PictureHomeDE extends DE {
         uploadRecords(pictureBS.get(index), new OnFinishI() {
             @Override
             public void onFinished(Object o) {
+                pictureBS.get(index).setNetpath(o.toString());
+                onProgressI.onProgress("uploadRecords",o!=null?OnProgressI.SUCCESS:OnProgressI.ERROR,pictureBS.get(index));
                 index++;
-                onProgressI.onProgress("uploadRecords",(Boolean)o?OnProgressI.SUCCESS:OnProgressI.ERROR,pictureBS.get(index));
                 uploadRecords(pictureBS,onProgressI);
             }
         });
@@ -127,9 +121,8 @@ public class PictureHomeDE extends DE {
                 switch (status){
                     case SUCCESS:
                         PictureB pictureB = (PictureB) data;
-                        pictureB.setIsupload(1);
                         pictureB.save();
-                        onProgressI.onProgress("uploadRecordsAndChangeStatus",DOING,pictureB.getLocpath());
+                        onProgressI.onProgress("uploadRecordsAndChangeStatus",DOING,pictureB);
                         break;
                     case END:
                         onProgressI.onProgress("uploadRecordsAndChangeStatus",END,pictureBS);
@@ -474,6 +467,23 @@ public class PictureHomeDE extends DE {
                 }
             }
         });
+    }
+
+    public ArrayList<PictureB> getUploadPictures(ArrayList<PictureB> ori){
+        ArrayList<PictureB> pictureBS = new ArrayList<>();
+        for(int i=0;i<ori.size();i++){
+            //未上传
+            if(TextUtils.isEmpty(ori.get(i).getNetpath())){
+                if(ori.get(i).getLocpath()!=null){
+                    File file = new File(ori.get(i).getLocpath());
+                    //本地有该文件
+                    if(file.exists()){
+                        pictureBS.add(ori.get(i));
+                    }
+                }
+            }
+        }
+        return pictureBS;
     }
 
 

@@ -1,13 +1,11 @@
 package com.summer.record.ui.pictures.picture;
 
-import com.bumptech.glide.Glide;
-import com.summer.record.constant.NetConstant;
 import com.summer.record.data.model.PictureB;
-import com.summer.record.databinding.FragPictureBinding;
+import com.summer.record.databinding.ItemPictureBinding;
 import com.summer.x.GlideApp;
 import com.summer.x.base.ui.UI;
 
-public class PictureUI extends UI<FragPictureBinding> {
+public class PictureUI extends UI<ItemPictureBinding> {
 
     @Override
     public void initUI() {

@@ -2,6 +2,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 <data/>
 <FrameLayout
+    android:fitsSystemWindows="false"
     android:id="@+id/frag_first_container"
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"

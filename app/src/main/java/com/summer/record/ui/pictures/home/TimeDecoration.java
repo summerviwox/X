@@ -1,4 +1,4 @@
-package com.summer.record.ui.pictures.pictures;
+package com.summer.record.ui.pictures.home;
 
 //by summer on 2018-04-03.
 
@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.summer.record.R;
 import com.summer.record.data.model.PictureB;
 import com.summer.x.constant.Value;

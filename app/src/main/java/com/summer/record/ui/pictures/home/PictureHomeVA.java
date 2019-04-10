@@ -1,4 +1,4 @@
-package com.summer.record.ui.pictures.pictures;
+package com.summer.record.ui.pictures.home;
 
 import com.summer.record.data.model.PictureB;
 import com.summer.x.base.ui.VA;

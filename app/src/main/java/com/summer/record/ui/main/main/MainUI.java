@@ -1,5 +1,7 @@
 package com.summer.record.ui.main.main;
 
+import android.view.View;
+
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.gyf.barlibrary.ImmersionBar;
@@ -41,6 +43,10 @@ public class MainUI extends UI<ActMainBinding> {
 
     public int getRootId(){
         return getUI().mainContainer.getId();
+    }
+
+    public void setBottomVisible(boolean visible){
+        getUI().bottommenu.setVisibility(visible? View.VISIBLE:View.GONE);
     }
 
 }

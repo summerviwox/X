@@ -5,9 +5,11 @@ import com.summer.x.base.ui.VA;
 
 import lombok.Getter;
 import lombok.Setter;
-
+@Getter
+@Setter
 public class PictureVA extends VA {
-    @Getter
-    @Setter
+
     private PictureB picture;
+
+    private boolean uploading = false;
 }

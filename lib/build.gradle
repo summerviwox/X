@@ -109,6 +109,9 @@ dependencies {
     //图片加载
     api 'com.journeyapps:zxing-android-embedded:3.6.0'
 
+    //图片控件
+    api 'com.github.chrisbanes:PhotoView:2.3.0'
+
     //二维码
     api 'com.google.code.gson:gson:2.3.1'
 
@@ -148,7 +151,10 @@ dependencies {
     //网络请求
     api 'com.squareup.retrofit2:converter-gson:2.5.0'
 
-    //网络请求
+    //recycleview 帮助类
+    api 'com.github.rubensousa:gravitysnaphelper:2.0'
+
+    //数据库
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
     api "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
     api "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
