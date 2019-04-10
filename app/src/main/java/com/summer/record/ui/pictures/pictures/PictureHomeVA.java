@@ -10,6 +10,10 @@ import lombok.Setter;
 
 public class PictureHomeVA extends VA {
 
+    @Setter
+    @Getter
+    private boolean isdoing = false;
+
     @Getter
     private ArrayList<PictureB> pictures = new ArrayList<>();
 
@@ -19,12 +23,6 @@ public class PictureHomeVA extends VA {
      */
     public void setPictures(ArrayList<PictureB> pictures) {
         this.pictures.clear();
-        for(int i=0;i<pictures.size();i++){
-            if(pictures.get(i).getNetpath()!=null){
-                String str = pictures.get(i).getNetpath().substring("E:\\".length(),pictures.get(i).getNetpath().length()).replace("\\","/");
-                pictures.get(i).setNetpath(str);
-            }
-            this.pictures.add(pictures.get(i));
-        }
+        this.pictures.addAll(pictures);
     }
 }

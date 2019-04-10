@@ -1,8 +1,15 @@
 apply plugin: 'com.android.application'
 def dbflow_version = "4.2.4"
 android {
+    signingConfigs {
+        config {
+            keyAlias 'summer'
+            keyPassword 'summer'
+            storeFile file('D:/android/key/summer.jks')
+            storePassword 'summer'
+        }
+    }
     compileSdkVersion 28
-
     defaultConfig {
         applicationId "com.summer.record"
         minSdkVersion 19
@@ -20,9 +27,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
-
     //自定义资源目录
     sourceSets {
         main {
@@ -38,11 +48,9 @@ android {
             ]
         }
     }
-
     dataBinding {
         enabled = true
     }
-
     //为了解决部分第三方库重复打包了META-INF的问题
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
@@ -52,7 +60,6 @@ android {
         abortOnError false
         checkReleaseBuilds false
     }
-
     dexOptions {
         preDexLibraries false
         jumboMode true
@@ -64,6 +71,8 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api project(':lib')
     api 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
+    api 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
     api "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
     api "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"

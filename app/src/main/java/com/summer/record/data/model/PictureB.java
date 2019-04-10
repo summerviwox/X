@@ -5,7 +5,9 @@ import android.net.Uri;
 import com.blankj.utilcode.util.TimeUtils;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
+import com.summer.record.data.db.AppDataBase;
 import com.summer.x.base.ui.VA;
 
 import java.io.File;
@@ -20,6 +22,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Table(database = AppDataBase.class)
 public class PictureB extends BaseModel implements Serializable {
 
 
@@ -36,30 +39,36 @@ public class PictureB extends BaseModel implements Serializable {
      */
 
     @PrimaryKey(autoincrement = true)
-    private int id;
+    public Integer id;
     @Column
-    private String locpath;
+    public String locpath;
     @Column
-    private String netpath;
+    public String netpath;
     @Column
-    private long ctime;
+    public Long ctime;
     @Column
-    private long utime;
+    public Long utime;
     @Column
-    private String atype;
+    public String atype;
     @Column
-    private Long duration;
+    public Long duration;
     @Column
-    private String name;
+    public String name;
+    @Column
+    public Integer isupload;
 
-    private int isUploaded;
+    public String dateStr;
 
-    private String dateStr;
+    public boolean isFrist;
 
-    private boolean isFrist;
+    public static final String ATYPE_VIDEO = "video";
 
+    public static final String ATYPE_IMAGE = "image";
 
-    public PictureB(String type,int id, String locpath,long ctime, long utime, Long duration, String name) {
+    public PictureB() {
+    }
+
+    public PictureB(String type, int id, String locpath, long ctime, long utime, Long duration, String name) {
         this.atype = type;
         this.id = id;
         this.locpath = locpath;
@@ -67,6 +76,10 @@ public class PictureB extends BaseModel implements Serializable {
         this.utime = utime;
         this.duration = duration;
         this.name = name;
+        initDateStr();
+    }
+
+    public void initDateStr(){
         Date d=new Date((ctime));
         DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));

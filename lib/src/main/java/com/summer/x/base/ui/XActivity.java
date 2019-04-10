@@ -35,7 +35,7 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
         ImmersionBar.with(this).transparentBar().transparentNavigationBar().transparentStatusBar().init();//默认状态栏透明
         initOpe();
         setContentView(getOpe().getUI().getUI().getRoot());
-        ButterKnife.bind(getOpe().getUI().getUI().getRoot());
+        ButterKnife.bind(this,getOpe().getUI().getUI().getRoot());
         if(isRegistEvent()){
             EventBus.getDefault().register(this);
         }

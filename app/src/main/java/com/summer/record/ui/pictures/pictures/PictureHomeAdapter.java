@@ -1,6 +1,8 @@
 package com.summer.record.ui.pictures.pictures;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -10,6 +12,7 @@ import com.summer.record.R;
 import com.summer.record.constant.NetConstant;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.databinding.ItemImageImageBinding;
+import com.summer.x.GlideApp;
 
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
@@ -24,14 +27,19 @@ public class PictureHomeAdapter extends BaseQuickAdapter<PictureB, BaseViewHolde
         super(R.layout.item_image_image);
         this.context = context;
         requestOptions = new RequestOptions();
-        requestOptions.encodeQuality(5).centerCrop().placeholder(R.color.zxing_transparent).skipMemoryCache(false);
+        requestOptions.encodeQuality(15).centerCrop().placeholder(R.color.zxing_transparent).skipMemoryCache(false);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, PictureB item) {
+        if(TextUtils.isEmpty(item.getAtype())){
+            helper.itemView.setVisibility(View.INVISIBLE);
+            return;
+        }
+        helper.itemView.setVisibility(View.VISIBLE);
         ItemImageImageBinding itemImageImageBinding = DataBindingUtil.bind(helper.itemView);
         //Glide.with(context).asBitmap().apply(requestOptions).load(NetConstant.URL +item.getNetpath()).into(itemImageImageBinding.ivVideo);
-        Glide.with(context).asBitmap().apply(requestOptions).load(item.getLocpath()).into(itemImageImageBinding.ivVideo);
+        GlideApp.with(context).asBitmap().load(item.getLocpath()).apply(requestOptions).into(itemImageImageBinding.ivVideo);
         ViewCompat.setTransitionName(itemImageImageBinding.ivVideo,String.valueOf(helper.getLayoutPosition()+"_image"));
     }
 }

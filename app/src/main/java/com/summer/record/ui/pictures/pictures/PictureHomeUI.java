@@ -17,10 +17,11 @@ public class PictureHomeUI extends UI<FragPictureHomeBinding> {
 
     public static final int SPANCOUNT = 6;
 
-    public void initRecord(Context context,ArrayList<PictureB> pictures, BaseQuickAdapter.OnItemClickListener onItemClickListener){
+    public void initRecord(Context context, ArrayList<PictureB> pictures, BaseQuickAdapter.OnItemClickListener onItemClickListener, BaseQuickAdapter.OnItemLongClickListener onItemLongClickListener){
         pictureHomeAdapter= new PictureHomeAdapter(context);
         getUI().recycle.setLayoutManager(new GridLayoutManager(context,SPANCOUNT));
         pictureHomeAdapter.setOnItemClickListener(onItemClickListener);
+        pictureHomeAdapter.setOnItemLongClickListener(onItemLongClickListener);
         pictureHomeAdapter.bindToRecyclerView(getUI().recycle);
         getUI().recycle.addItemDecoration(new TimeDecoration(context,pictures,SPANCOUNT));
     }

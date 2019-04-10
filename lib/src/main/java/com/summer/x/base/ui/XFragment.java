@@ -56,7 +56,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(getOpe().getUI().getUI().getRoot());
+        ButterKnife.bind(this,view);
         if(isRegistEvent()){
             EventBus.getDefault().register(this);
         }

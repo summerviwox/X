@@ -1,4 +1,6 @@
 package com.summer.record.ui.loading;
 
-public class LoadingVA {
+import com.summer.x.base.ui.VA;
+
+public class LoadingVA extends VA {
 }

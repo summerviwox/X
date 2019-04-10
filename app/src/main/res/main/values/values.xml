@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fixed_max_width">168dp</dimen>
+    <dimen name="fixed_min_width">168dp</dimen>
+    <dimen name="fixed_label_active">12sp</dimen>
+    <dimen name="fixed_height_bottom_padding">4dp</dimen>
+</resources>

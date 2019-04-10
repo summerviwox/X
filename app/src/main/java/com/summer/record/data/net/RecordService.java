@@ -20,6 +20,9 @@ public interface RecordService {
     Call<ListData<PictureB>> getRecordsWithTypeSize(@Query("type") String type, @Query("index") String index);
 
     @Multipart
-    @POST("uploadPicture")
-    Call<String> uploadRecords(@Path("localPath")String localPath,@Part MultipartBody.Part file);
+    @POST("picture/uploadPicture")
+    Call<ListData<String>> uploadRecords(@Query("data")String data,@Part MultipartBody.Part file);
+
+    @GET("picture/getAllPictures")
+    Call<ListData<PictureB>> getAllPictures(@Query("startTime") String startTime, @Query("endTime") String endTime);
 }

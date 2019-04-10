@@ -6,12 +6,14 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.summer.record.data.model.PictureB;
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.i.OnProgressI;
+import com.summer.x.util.HandleUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class FileTool {
      * @param onProgressI
      * @return
      */
-    public static void getPictures(Context context, String[] timeduraion, OnProgressI onProgressI){
+    public static ArrayList<PictureB> getPictures(Context context, String[] timeduraion, OnProgressI onProgressI){
         ArrayList<PictureB> pictureBS = new ArrayList<>();
         String[] projection = new String[]{MediaStore.Files.FileColumns._ID,
                 MediaStore.Files.FileColumns.MEDIA_TYPE,
@@ -62,9 +64,17 @@ public class FileTool {
             );
             //record.init();
             pictureBS.add(pictureB);
-            onProgressI.onProgress("getPictures",OnProgressI.DOING,pictureB);
+            if(onProgressI!=null){
+                onProgressI.onProgress("getPictures",OnProgressI.DOING,pictureB);
+            }
         }
         ToastUtils.showShort(pictureBS.size()+"");
-        onProgressI.onProgress("getPictures",OnProgressI.END,pictureBS);
+        if(onProgressI!=null){
+            onProgressI.onProgress("getPictures",OnProgressI.END,pictureBS);
+        }
+        return pictureBS;
     }
+
+
+
 }

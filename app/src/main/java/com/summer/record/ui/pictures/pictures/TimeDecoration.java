@@ -13,6 +13,7 @@ import android.view.View;
 import com.blankj.utilcode.util.SizeUtils;
 import com.summer.record.R;
 import com.summer.record.data.model.PictureB;
+import com.summer.x.constant.Value;
 
 import java.util.ArrayList;
 
@@ -28,12 +29,14 @@ public class TimeDecoration extends RecyclerView.ItemDecoration {
 
     int num = 3;
 
+
+
     @SuppressLint("ResourceAsColor")
     public TimeDecoration(Context context, ArrayList<PictureB> records, int num){
         this.records = records;
         this.num = num;
         paint.setColor(Color.DKGRAY);
-        paint.setTextSize(SizeUtils.sp2px(14));
+        paint.setTextSize(Value.SP_1*16);
         paint.setAntiAlias(true);
         linecolor= context.getResources().getColor(R.color.color_main);
     }
@@ -50,7 +53,7 @@ public class TimeDecoration extends RecyclerView.ItemDecoration {
 //                paint.setColor(linecolor);
 //                c.drawRect(ScreenUtil.最小DIMEN*2,parent.getChildAt(i).getTop()-ScreenUtil.最小DIMEN*25,parent.getChildAt(i).getWidth(),parent.getChildAt(i).getTop(),paint);
                 //paint.setColor(Color.GRAY);
-                c.drawText(records.get(pos).getDateStr(),parent.getChildAt(i).getLeft()+ SizeUtils.dp2px(2),parent.getChildAt(i).getTop()-SizeUtils.dp2px(9),paint);
+                c.drawText(records.get(pos).getDateStr(),parent.getChildAt(i).getLeft()+ Value.DP_1*2,parent.getChildAt(i).getTop()-Value.DP_1*11,paint);
             }
         }
     }
@@ -64,17 +67,17 @@ public class TimeDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         int pos = parent.getChildAdapterPosition(view);
-        outRect.left = (int) (SizeUtils.dp2px(2));
-        outRect.right = (int) (SizeUtils.dp2px(2));
-        outRect.top = (int) (SizeUtils.dp2px(2));
-        outRect.bottom = (int) (SizeUtils.dp2px(2));
+        outRect.left = Value.DP_1*2;
+        outRect.right = Value.DP_1*2;
+        outRect.top = Value.DP_1*2;
+        outRect.bottom = Value.DP_1*2;
 
         if(pos>=records.size()){
             return;
         }
 
         if(records.get(pos).isFrist()){
-            outRect.top = (int) (SizeUtils.dp2px(30));
+            outRect.top = Value.DP_1*30;
         }
     }
 }

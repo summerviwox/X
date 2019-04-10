@@ -2,12 +2,19 @@ package com.summer.record.ui.main.main;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.gyf.barlibrary.ImmersionBar;
 import com.summer.record.R;
 import com.summer.record.databinding.ActMainBinding;
 import com.summer.x.base.ui.UI;
+import com.summer.x.base.ui.XActivity;
 
 public class MainUI extends UI<ActMainBinding> {
 
+
+    public void ImmersionBar(XActivity activity){
+        //ImmersionBar.with(activity).statusBarColor(R.color.color_grey_50).init();
+        //ImmersionBar.with(activity).statusBarColor(R.color.zxing_transparent).init();
+    }
 
     /**
      * 初始化底部菜单
@@ -21,7 +28,7 @@ public class MainUI extends UI<ActMainBinding> {
                 .setFirstSelectedPosition(0)
                 //.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
                 .setMode(BottomNavigationBar.MODE_FIXED)
-                .setBarBackgroundColor(R.color.white)
+                .setBarBackgroundColor(R.color.color_grey_50)
                 .setTabSelectedListener(new OnSelectListener(){
                     @Override
                     public void onTabSelected(int position) {

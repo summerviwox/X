@@ -1,5 +1,8 @@
 package com.summer.x.data.net;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -21,8 +24,13 @@ public class NetDataHelper {
 
 
     public void init(String url){
+        OkHttpClient client = new OkHttpClient.Builder().
+                connectTimeout(60, TimeUnit.SECONDS).
+                readTimeout(600, TimeUnit.SECONDS).
+                writeTimeout(600, TimeUnit.SECONDS).build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
