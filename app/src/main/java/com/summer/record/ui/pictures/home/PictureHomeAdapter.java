@@ -39,5 +39,10 @@ public class PictureHomeAdapter extends BaseQuickAdapter<PictureB, BaseViewHolde
         //Glide.with(context).asBitmap().apply(requestOptions).load(NetConstant.URL +item.getNetpath()).into(itemImageImageBinding.ivVideo);
         GlideApp.with(context).asBitmap().load(item.getLocpath()).apply(requestOptions).into(itemImageImageBinding.ivVideo);
         ViewCompat.setTransitionName(itemImageImageBinding.ivVideo,String.valueOf(helper.getLayoutPosition()+"_image"));
+        if(item.isSelected()){
+            itemImageImageBinding.ivVideo.setAlpha(0.3f);
+        }else{
+            itemImageImageBinding.ivVideo.setAlpha(1f);
+        }
     }
 }

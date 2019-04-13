@@ -2,6 +2,7 @@ package com.summer.record.ui.pictures.detail;
 
 import android.os.Bundle;
 
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.summer.record.R;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.ui.main.main.MainAct;
@@ -15,10 +16,10 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 public class PictureDetailCT extends XFragment<PictureDetailUI,PictureDetailDE,PictureDetailVA> {
 
 
-    public static PictureDetailCT getInstance(ArrayList<PictureB> datas,int id){
+    public static PictureDetailCT getInstance(ArrayList<PictureB> datas,String localpath){
         PictureDetailCT pictureDetailCT = new PictureDetailCT();
         pictureDetailCT.getVA().setDatas(pictureDetailCT.getDE().init(datas));
-        pictureDetailCT.getVA().setPos(pictureDetailCT.getDE().getPos(pictureDetailCT.getVA().getDatas(),id));
+        pictureDetailCT.getVA().setPos(pictureDetailCT.getDE().getPos(pictureDetailCT.getVA().getDatas(),localpath));
         return pictureDetailCT;
     }
 
@@ -39,5 +40,26 @@ public class PictureDetailCT extends XFragment<PictureDetailUI,PictureDetailDE,P
     public void onDestroy() {
         super.onDestroy();
         ((MainAct)getAct()).getUI().setBottomVisible(true);
+        GSYVideoManager.releaseAllVideos();
+        if(getUI().getPlayCT()!=null&&getUI().getPlayCT().getUI()!=null&&getUI().getPlayCT().getUI().getPlayer()!=null){
+            if (getUI().getPlayCT().getUI().getOrientationUtils() != null)
+                getUI().getPlayCT().getUI().getOrientationUtils().releaseListener();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(getUI().getPlayCT()!=null&&getUI().getPlayCT().getUI()!=null&&getUI().getPlayCT().getUI().getPlayer()!=null){
+            getUI().getPlayCT().getUI().getPlayer().onVideoPause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(getUI().getPlayCT()!=null&&getUI().getPlayCT().getUI()!=null&&getUI().getPlayCT().getUI().getPlayer()!=null){
+            getUI().getPlayCT().getUI().getPlayer().onVideoResume();
+        }
     }
 }

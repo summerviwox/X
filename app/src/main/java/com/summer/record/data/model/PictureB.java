@@ -65,6 +65,9 @@ public class PictureB extends BaseModel implements Serializable {
 
     public static final String ATYPE_IMAGE = "image";
 
+    private boolean selected;
+
+
     public PictureB() {
     }
 

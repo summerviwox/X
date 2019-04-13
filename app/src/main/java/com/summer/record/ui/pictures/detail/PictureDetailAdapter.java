@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.summer.record.data.model.PictureB;
 import com.summer.record.ui.pictures.picture.FragPicture;
+import com.summer.record.ui.play.PlayCT;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,11 @@ public class PictureDetailAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return FragPicture.getInstance(datas.get(position));
+        if(datas.get(position).getAtype().equals(PictureB.ATYPE_IMAGE)){
+            return FragPicture.getInstance(datas.get(position));
+        }else{
+            return PlayCT.getInstance(datas.get(position));
+        }
     }
 
     @Override

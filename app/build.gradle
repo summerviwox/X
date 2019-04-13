@@ -42,6 +42,9 @@ android {
                     'src/main/res/main',
                     'src/main/res/picture',
                     'src/main/res/loading',
+                    'src/main/res/album',
+                    'src/main/res/menu',
+                    'src/main/res/play',
             ]
             jniLibs.srcDirs = [
                     'libDir',
@@ -77,5 +80,6 @@ dependencies {
     api "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
     api "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
     api "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dbflow_version}"
+    implementation 'com.shuyu:GSYVideoPlayer:7.0.1'
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
 }

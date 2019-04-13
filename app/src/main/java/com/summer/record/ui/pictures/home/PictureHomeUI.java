@@ -1,6 +1,8 @@
 package com.summer.record.ui.pictures.home;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.summer.record.data.model.PictureB;
@@ -28,6 +30,14 @@ public class PictureHomeUI extends UI<FragPictureHomeBinding> {
 
     public void refreshRecord(ArrayList<PictureB> pictures){
         pictureHomeAdapter.setNewData(pictures);
+    }
+
+    public void setSureVisible(int model){
+        getUI().sure.setVisibility(model==PictureHomeCT.MODEL_SELECT?View.VISIBLE: View.GONE);
+    }
+
+    public void notifyItemChanged(int pos){
+        pictureHomeAdapter.notifyItemChanged(pos);
     }
 
 }

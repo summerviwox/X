@@ -24,11 +24,12 @@ public class PictureDetailDE extends DE {
         return datas;
     }
 
-    public int getPos(ArrayList<PictureB> ori,int id){
+    public int getPos(ArrayList<PictureB> ori,String locpath){
         int pos = 0;
         for(int i=0;i<ori.size();i++){
-            if(ori.get(i).getId().equals(id)){
+            if(ori.get(i).getLocpath().equals(locpath)){
                 pos = i;
+                break;
             }
         }
         return pos;

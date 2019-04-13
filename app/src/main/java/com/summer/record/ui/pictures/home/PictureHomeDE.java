@@ -49,7 +49,7 @@ public class PictureHomeDE extends DE {
     }
 
     public void uploadRecords(PictureB pictureB,OnFinishI onFinishI){
-        if(pictureB==null||pictureB.getLocpath()==null||(pictureB.getIsupload()!=null&&1==pictureB.getIsupload())){
+        if(pictureB==null||pictureB.getLocpath()==null||pictureB.getNetpath()!=null){
             onFinishI.onFinished(false);
             return;
         }
@@ -73,7 +73,7 @@ public class PictureHomeDE extends DE {
 
 
     public void uploadRecords(PictureB pictureB,OnProgressI onProgressI){
-        if(pictureB==null||pictureB.getLocpath()==null||(pictureB.getIsupload()!=null&&1==pictureB.getIsupload())){
+        if(pictureB==null||pictureB.getLocpath()==null||pictureB.getNetpath()!=null){
             onProgressI.onProgress("",OnProgressI.ERROR,"无需上传");
             return;
         }
@@ -106,7 +106,10 @@ public class PictureHomeDE extends DE {
         uploadRecords(pictureBS.get(index), new OnFinishI() {
             @Override
             public void onFinished(Object o) {
-                pictureBS.get(index).setNetpath(o.toString());
+                if(o!=null){
+                    pictureBS.get(index).setNetpath(o.toString());
+                    pictureBS.get(index).update();
+                }
                 onProgressI.onProgress("uploadRecords",o!=null?OnProgressI.SUCCESS:OnProgressI.ERROR,pictureBS.get(index));
                 index++;
                 uploadRecords(pictureBS,onProgressI);
@@ -121,7 +124,6 @@ public class PictureHomeDE extends DE {
                 switch (status){
                     case SUCCESS:
                         PictureB pictureB = (PictureB) data;
-                        pictureB.save();
                         onProgressI.onProgress("uploadRecordsAndChangeStatus",DOING,pictureB);
                         break;
                     case END:
@@ -178,7 +180,7 @@ public class PictureHomeDE extends DE {
                 publishProgress("获取完成");
                 publishProgress("获取手机记录");
                 while (cursor.moveToNext()){
-                    PictureB pictureB = new PictureB(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MEDIA_TYPE)).equals(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE)?PictureB.ATYPE_IMAGE:PictureB.ATYPE_VIDEO,
+                    PictureB pictureB = new PictureB(cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MEDIA_TYPE))==(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE)?PictureB.ATYPE_IMAGE:PictureB.ATYPE_VIDEO,
                             cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns._ID)),
                             cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA)),
                             cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_ADDED))*1000,
@@ -478,7 +480,7 @@ public class PictureHomeDE extends DE {
                     File file = new File(ori.get(i).getLocpath());
                     //本地有该文件
                     if(file.exists()){
-                        pictureBS.add(ori.get(i));
+                         pictureBS.add(ori.get(i));
                     }
                 }
             }

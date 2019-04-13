@@ -22,7 +22,7 @@ public class FristPageFrag extends BasePageFrag<FirstPageUI, DE, VA> {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         if(findChildFragment(PictureHomeCT.class)==null){
-            loadRootFragment(getUI().getRootId(), PictureHomeCT.getInstance());
+            loadRootFragment(getUI().getRootId(), PictureHomeCT.getInstance(PictureHomeCT.MODEL_SCAN));
         }
     }
 }

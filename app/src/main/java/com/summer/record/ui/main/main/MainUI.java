@@ -1,12 +1,20 @@
 package com.summer.record.ui.main.main;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.summer.record.R;
 import com.summer.record.databinding.ActMainBinding;
+import com.summer.record.databinding.ItemGlobalmenuBinding;
 import com.summer.x.base.ui.UI;
 import com.summer.x.base.ui.XActivity;
 
@@ -39,6 +47,19 @@ public class MainUI extends UI<ActMainBinding> {
                     }
                 })
                 .initialise();
+    }
+
+    public void initGlobalMenu(Context context, View.OnClickListener listener){
+        ItemGlobalmenuBinding itemGlobalmenuBinding = ItemGlobalmenuBinding.inflate(LayoutInflater.from(context));
+        itemGlobalmenuBinding.getRoot().setX(ScreenUtils.getScreenWidth()/2);
+        itemGlobalmenuBinding.getRoot().setY(ScreenUtils.getScreenHeight()/2);
+        getUI().mainContainer.addView(itemGlobalmenuBinding.getRoot());
+        itemGlobalmenuBinding.getRoot().setLayoutParams(new FrameLayout.LayoutParams(SizeUtils.dp2px(40),SizeUtils.dp2px(40)));
+        itemGlobalmenuBinding.getRoot().setOnTouchListener(new StackViewTouchListener(itemGlobalmenuBinding.getRoot(), SizeUtils.dp2px(10)));
+        itemGlobalmenuBinding.getRoot().setOnClickListener(listener);
+        for(int i=0;i<getUI().mainContainer.getChildCount();i++){
+            getUI().mainContainer.getChildAt(i);
+        }
     }
 
     public int getRootId(){

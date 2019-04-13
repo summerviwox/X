@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.summer.record.data.model.PictureB;
 import com.summer.record.databinding.CtPicturedetailBinding;
+import com.summer.record.ui.play.PlayCT;
 import com.summer.x.base.ui.UI;
 import com.summer.x.base.ui.XActivity;
 
@@ -20,6 +21,14 @@ public class PictureDetailUI extends UI<CtPicturedetailBinding> {
         pictureDetailAdapter = new PictureDetailAdapter(context,fm,datas);
         getUI().viewpager.setAdapter(pictureDetailAdapter);
         getUI().viewpager.setCurrentItem(pos);
+    }
+
+    public PlayCT getPlayCT(){
+        PlayCT playCT = null;
+        if(pictureDetailAdapter!=null&&getUI()!=null&&pictureDetailAdapter.getItem(getUI().viewpager.getCurrentItem()) instanceof PlayCT){
+            playCT = (PlayCT) pictureDetailAdapter.getItem(getUI().viewpager.getCurrentItem());
+        }
+        return playCT;
     }
 
 }

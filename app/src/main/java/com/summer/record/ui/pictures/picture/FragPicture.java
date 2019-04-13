@@ -63,7 +63,7 @@ public class FragPicture extends XFragment<PictureUI, PictureHomeDE,PictureVA> {
                         ToastUtils.showLong(""+data);
                         switch (status){
                             case SUCCESS:
-                                getVA().getPicture().setIsupload(1);
+                                getVA().getPicture().setNetpath(data.toString());
                                 getVA().getPicture().save();
                                 break;
                             case ERROR:

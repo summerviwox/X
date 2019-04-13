@@ -7,15 +7,17 @@ import java.util.ArrayList;
 
 import lombok.Getter;
 import lombok.Setter;
-
+@Setter
+@Getter
 public class PictureHomeVA extends VA {
 
-    @Setter
-    @Getter
     private boolean isdoing = false;
 
-    @Getter
+    private int model;
+
     private ArrayList<PictureB> pictures = new ArrayList<>();
+
+    private ArrayList<PictureB> selectPictures = new ArrayList<>();
 
     /**
      * 添加数据
@@ -24,5 +26,15 @@ public class PictureHomeVA extends VA {
     public void setPictures(ArrayList<PictureB> pictures) {
         this.pictures.clear();
         this.pictures.addAll(pictures);
+    }
+
+    public ArrayList<PictureB> getSelectPictures(ArrayList<PictureB> datas){
+        getSelectPictures().clear();
+        for(int i=0;i<datas.size();i++){
+            if(datas.get(i).isSelected()){
+                getSelectPictures().add(datas.get(i));
+            }
+        }
+        return getSelectPictures();
     }
 }

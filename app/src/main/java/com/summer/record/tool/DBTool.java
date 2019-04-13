@@ -68,8 +68,6 @@ public class DBTool {
         }
     }
 
-
-
     /**
      * 获取时间段内所有记录
      * @param ctime
