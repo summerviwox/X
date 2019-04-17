@@ -55,4 +55,9 @@ public interface RecordService {
     Call<ObjectData<Boolean>> deleteAlbumItem(@Field("albumid") String albumid,@Field("recordid") String recordid);
 
 
+    @GET("record/getMaxMinDateStamp")
+    Call<ObjectData<Long[]>> getMaxMinDateStamp();
+
+
+
 }

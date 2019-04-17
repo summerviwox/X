@@ -17,6 +17,7 @@ public class MenuUI extends UI<FragMenuBinding> {
     public void initList(Context context, ArrayList<String> items, BaseQuickAdapter.OnItemClickListener onItemClickListener){
         menuAdapter = new MenuAdapter();
         getUI().recycle.setLayoutManager(new LinearLayoutManager(context));
+        getUI().recycle.getLayoutManager().setAutoMeasureEnabled(true);
         menuAdapter.bindToRecyclerView(getUI().recycle);
         menuAdapter.setOnItemClickListener(onItemClickListener);
         menuAdapter.setNewData(items);

@@ -59,6 +59,8 @@ public class PictureB extends BaseModel implements Serializable {
 
     public String dateStr;
 
+    public String yyyyMM;
+
     public boolean isFrist;
 
     public static final String ATYPE_VIDEO = "video";
@@ -87,5 +89,8 @@ public class PictureB extends BaseModel implements Serializable {
         DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
         dateStr = df.format(d);
+        df=new SimpleDateFormat("yyyy-MM");
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+        yyyyMM = df.format(d);
     }
 }

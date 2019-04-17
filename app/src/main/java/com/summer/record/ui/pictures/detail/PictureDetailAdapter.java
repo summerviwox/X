@@ -1,6 +1,7 @@
 package com.summer.record.ui.pictures.detail;
 
 import android.content.Context;
+import android.provider.MediaStore;
 
 import com.summer.record.data.model.PictureB;
 import com.summer.record.ui.pictures.picture.FragPicture;
@@ -27,7 +28,7 @@ public class PictureDetailAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if(datas.get(position).getAtype().equals(PictureB.ATYPE_IMAGE)){
+        if(datas.get(position).getAtype().equals(PictureB.ATYPE_IMAGE)||datas.get(position).getAtype().equals(""+MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE)){
             return FragPicture.getInstance(datas.get(position));
         }else{
             return PlayCT.getInstance(datas.get(position));

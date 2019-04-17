@@ -37,7 +37,7 @@ public class AddAlbumCT extends XFragment<AddAlbumUI,AddAlbumDE,AddAlbumVA> impl
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        extraTransaction().startForResultDontHideSelf(PictureHomeCT.getInstance(PictureHomeCT.MODEL_SELECT),0);
+        extraTransaction().startForResultDontHideSelf(PictureHomeCT.getInstance(PictureHomeCT.MODEL_SELECT,null),0);
     }
 
 

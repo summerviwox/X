@@ -50,7 +50,7 @@ public class PlayUI extends UI<ItemPlayBinding> {
                 context.onBackPressed();
             }
         });
-        videoPlayer.startPlayLogic();
+        //videoPlayer.startPlayLogic();
     }
 
     public StandardGSYVideoPlayer getPlayer(){

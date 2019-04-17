@@ -11,9 +11,10 @@ import com.summer.x.base.ui.XFragment;
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-public class PictureDetailCT extends XFragment<PictureDetailUI,PictureDetailDE,PictureDetailVA> {
+public class PictureDetailCT extends XFragment<PictureDetailUI,PictureDetailDE,PictureDetailVA> implements ViewPager.OnPageChangeListener {
 
 
     public static PictureDetailCT getInstance(ArrayList<PictureB> datas,String localpath){
@@ -27,7 +28,7 @@ public class PictureDetailCT extends XFragment<PictureDetailUI,PictureDetailDE,P
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         ((MainAct)getAct()).getUI().setBottomVisible(false);
-        getUI().init(getActivity(),getFragmentManager(),getVA().getDatas(),getVA().getPos());
+        getUI().init(getActivity(),getFragmentManager(),getVA().getDatas(),getVA().getPos(),this);
     }
 
 
@@ -61,5 +62,22 @@ public class PictureDetailCT extends XFragment<PictureDetailUI,PictureDetailDE,P
         if(getUI().getPlayCT()!=null&&getUI().getPlayCT().getUI()!=null&&getUI().getPlayCT().getUI().getPlayer()!=null){
             getUI().getPlayCT().getUI().getPlayer().onVideoResume();
         }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if(!getVA().getDatas().get(position).getAtype().equals(PictureB.ATYPE_VIDEO)){
+            GSYVideoManager.releaseAllVideos();
+        }
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.summer.record.R;
+import com.summer.record.constant.NetConstant;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.ui.loading.LoadingFrag;
 import com.summer.record.ui.main.main.MainAct;
@@ -25,16 +26,17 @@ import butterknife.Optional;
 /**
  * 相册首页
  */
-public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, PictureHomeVA> implements BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemLongClickListener {
+public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, PictureHomeVA> implements BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemLongClickListener,OnProgressI{
 
     public static int MODEL_SCAN = 0;//浏览模式
 
     public static int MODEL_SELECT = 1;//选择模式
 
-    public static PictureHomeCT getInstance(int model){
+    public static PictureHomeCT getInstance(int model,Long[] times){
         PictureHomeCT pictureHomeCT = new PictureHomeCT();
         pictureHomeCT.setArguments(new Bundle());
         pictureHomeCT.getVA().setModel(model);
+        pictureHomeCT.getVA().setTimes(times);
         return pictureHomeCT;
     }
 
@@ -43,36 +45,19 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
         super.onViewCreated(view, savedInstanceState);
         getUI().setSureVisible(getVA().getModel());
         getUI().initRecord(getAct(),getVA().getPictures(),PictureHomeCT.this,PictureHomeCT.this);
-        LoadingFrag loadingfrag = LoadingFrag.getInstance();
-        extraTransaction().startDontHideSelf(loadingfrag,STANDARD);
-        loadingfrag.setOnFinishI(new OnFinishI() {
+        initData();
+    }
+
+    public void initData(){
+        getVA().setLoadingfrag(LoadingFrag.getInstance());
+        extraTransaction().startDontHideSelf(getVA().getLoadingfrag(),STANDARD);
+        getVA().getLoadingfrag().setOnFinishI(new OnFinishI() {
             @Override
             public void onFinished(Object o) {
-                getDE().init(getAct(), new OnProgressI() {
-                    @Override
-                    public void onProgress(String tag, int status, Object data) {
-                        switch (status){
-                            case DOING:
-                                loadingfrag.getUI().setText(data+"");
-                                break;
-                            case END:
-                                getVA().setPictures((ArrayList<PictureB>) data);
-                                getUI().refreshRecord(getVA().getPictures());
-                                loadingfrag.pop();
-                                break;
-                        }
-                    }
-                });
-            }
-        });
-        getDE().getPictures(new OnProgressI() {
-            @Override
-            public void onProgress(String tag, int status, Object data) {
-
+                getDE().asyncGetPicturesFromDB(getVA().getPictureGetDE(),getDE(),getAct(),getVA().getTimes(),PictureHomeCT.this);
             }
         });
     }
-
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -105,6 +90,8 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
     }
 
 
+
+
     @Override
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
         if(getVA().isIsdoing()){
@@ -114,7 +101,7 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
         getVA().setIsdoing(true);
        ArrayList<PictureB> datas =  getDE().getUploadPictures(getVA().getPictures());
        ToastUtils.showShort(datas.size()+"张未上传");
-        getDE().uploadRecordsAndChangeStatus(datas, new OnProgressI() {
+        getVA().getPictureUploadDE().uploadRecordsAndChangeStatus(datas, new OnProgressI() {
             @Override
             public void onProgress(String tag, int status, Object data) {
                 switch (status){
@@ -146,6 +133,17 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
             case R.id.globalmenu:
 
                 //悬浮菜单
+                break;
+        }
+    }
+
+    @Override
+    public void onProgress(String tag, int status, Object data) {
+        switch (tag){
+            case "aysncDeal":
+                getVA().setPictures((ArrayList<PictureB>) data);
+                getUI().refreshRecord(getAct(),getVA().getPictures());
+                getVA().getLoadingfrag().pop();
                 break;
         }
     }

@@ -9,9 +9,13 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.GsonUtils;
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.summer.record.constant.NetConstant;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.data.net.Net;
 import com.summer.record.tool.DBTool;
+import com.summer.record.ui.pictures.home.model.ItemEntity;
+import com.summer.record.ui.pictures.home.model.TitleEntity;
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.DE;
@@ -23,8 +27,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.TimeZone;
 
 import androidx.loader.content.CursorLoader;
@@ -32,204 +38,21 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-import static com.summer.record.ui.pictures.home.PictureHomeUI.SPANCOUNT;
 
 public class PictureHomeDE extends DE {
 
-    public void getPictures(OnProgressI onProgressI){
-        Net.getInstance().getRecordsWithTypeSize("image","0").enqueue(new BaseCallBack<ListData<PictureB>>(){
-            @Override
-            public void onSuccess(ListData<PictureB> pictureBListData) {
-                super.onSuccess(pictureBListData);
-                if(pictureBListData!=null&&pictureBListData.getData()!=null){
-                    onProgressI.onProgress("",OnProgressI.SUCCESS,pictureBListData.getData());
-                }
-            }
-        });
-    }
 
-    public void uploadRecords(PictureB pictureB,OnFinishI onFinishI){
-        if(pictureB==null||pictureB.getLocpath()==null||pictureB.getNetpath()!=null){
-            onFinishI.onFinished(false);
-            return;
-        }
-        File file = new File(pictureB.getLocpath());
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getPath(), requestFile);
-       Net.getInstance().uploadRecords(GsonUtils.toJson(pictureB),body).enqueue(new BaseCallBack<ListData<String>>(){
-           @Override
-           public void onSuccess(ListData<String> s) {
-               super.onSuccess(s);
-               onFinishI.onFinished(s==null?null:s.getData()==null?null:s.getData().size()==0?null:s.getData().get(0));
-           }
-
-           @Override
-           public void onError(int code, String error) {
-               super.onError(code, error);
-               onFinishI.onFinished(null);
-           }
-       });
-    }
-
-
-    public void uploadRecords(PictureB pictureB,OnProgressI onProgressI){
-        if(pictureB==null||pictureB.getLocpath()==null||pictureB.getNetpath()!=null){
-            onProgressI.onProgress("",OnProgressI.ERROR,"无需上传");
-            return;
-        }
-        File file = new File(pictureB.getLocpath());
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getPath(), requestFile);
-        Net.getInstance().uploadRecords(GsonUtils.toJson(pictureB),body).enqueue(new BaseCallBack<ListData<String>>(){
-            @Override
-            public void onSuccess(ListData<String> s) {
-                super.onSuccess(s);
-                onProgressI.onProgress("",OnProgressI.SUCCESS,s.getData().get(0));
-            }
-
-            @Override
-            public void onError(int code, String error) {
-                super.onError(code, error);
-                onProgressI.onProgress("",OnProgressI.ERROR,error);
-            }
-        });
-    }
-
-    int index  = 0;
-
-    public void uploadRecords(ArrayList<PictureB> pictureBS,OnProgressI onProgressI){
-        if(pictureBS.size()<=index){
-            index = 0;
-            onProgressI.onProgress("",OnProgressI.END,pictureBS);
-            return;
-        }
-        uploadRecords(pictureBS.get(index), new OnFinishI() {
-            @Override
-            public void onFinished(Object o) {
-                if(o!=null){
-                    pictureBS.get(index).setNetpath(o.toString());
-                    pictureBS.get(index).update();
-                }
-                onProgressI.onProgress("uploadRecords",o!=null?OnProgressI.SUCCESS:OnProgressI.ERROR,pictureBS.get(index));
-                index++;
-                uploadRecords(pictureBS,onProgressI);
-            }
-        });
-    }
-
-    public void uploadRecordsAndChangeStatus(ArrayList<PictureB> pictureBS,OnProgressI onProgressI){
-        uploadRecords(pictureBS, new OnProgressI() {
+    public void asyncGetPicturesFromDB(PictureGetDE pictureGetDE, PictureHomeDE pictureHomeDE,Context context, Long[] time, OnProgressI onProgressI){
+        pictureGetDE.asyncGetPicturesFromDB(context, time, new OnProgressI() {
             @Override
             public void onProgress(String tag, int status, Object data) {
                 switch (status){
                     case SUCCESS:
-                        PictureB pictureB = (PictureB) data;
-                        onProgressI.onProgress("uploadRecordsAndChangeStatus",DOING,pictureB);
-                        break;
-                    case END:
-                        onProgressI.onProgress("uploadRecordsAndChangeStatus",END,pictureBS);
+                        pictureHomeDE.aysncDeal((ArrayList<PictureB>) data, NetConstant.SPANCOUNT,onProgressI);
                         break;
                 }
             }
         });
-    }
-
-    /**
-     * 获取图片
-     * @param context
-     * @param onProgressI
-     * @return
-     */
-    @SuppressLint("StaticFieldLeak")
-    public ArrayList<PictureB> asyncGetPictures(Context context,OnProgressI onProgressI){
-        ArrayList<PictureB> pictureBS = new ArrayList<>();
-        String[] timeduraion = new String[]{""+DBTool.getLasPictureTime()/1000,""+System.currentTimeMillis()/1000};
-        String[] projection = new String[]{MediaStore.Files.FileColumns._ID,
-                MediaStore.Files.FileColumns.MEDIA_TYPE,
-                MediaStore.Files.FileColumns.DATA,
-                MediaStore.Files.FileColumns.DATE_ADDED,
-                MediaStore.Files.FileColumns.DATE_MODIFIED,
-                MediaStore.Files.FileColumns.DISPLAY_NAME};
-        String selection = "("+MediaStore.Files.FileColumns.MEDIA_TYPE + "="+ MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
-                + " OR "
-                + MediaStore.Files.FileColumns.MEDIA_TYPE + "=" + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO+")"
-                +" AND "
-                +MediaStore.Files.FileColumns.DATE_ADDED+"> ? AND "+MediaStore.Images.Media.DATE_ADDED+"<= ? ";
-        Uri queryUri = MediaStore.Files.getContentUri("external");
-        CursorLoader cursorLoader = new CursorLoader(
-                context,
-                queryUri,
-                projection,
-                selection,
-                timeduraion,
-                MediaStore.Files.FileColumns.DATE_ADDED + " DESC" // Sort order.
-        );
-        new AsyncTask<String,String,ArrayList<PictureB>>(){
-
-            @Override
-            protected ArrayList<PictureB> doInBackground(String... strings) {
-                //先从本地数据取出所有数据
-                publishProgress("从数据库获取历史记录");
-                ArrayList<PictureB> localPictures = DBTool.getAllRecord(new long[]{0,System.currentTimeMillis()});
-                if(localPictures!=null){
-                    pictureBS.addAll(localPictures);
-                }
-                //然后从手机取出本地数据库最后一条保存时间到现在的所有数据
-                Cursor cursor = cursorLoader.loadInBackground();
-                ArrayList<PictureB> phonePictures = new ArrayList<>();
-                publishProgress("获取完成");
-                publishProgress("获取手机记录");
-                while (cursor.moveToNext()){
-                    PictureB pictureB = new PictureB(cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MEDIA_TYPE))==(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE)?PictureB.ATYPE_IMAGE:PictureB.ATYPE_VIDEO,
-                            cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns._ID)),
-                            cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA)),
-                            cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_ADDED))*1000,
-                            cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_MODIFIED))*1000,
-                            0l,
-                            cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DISPLAY_NAME))
-                    );
-                    //record.init();
-                    phonePictures.add(pictureB);
-                    publishProgress("获取完成");
-                }
-                pictureBS.addAll(phonePictures);
-//                for(int i=0;i<pictureBS.size();i++){
-//                    if(pictureBS.get(i).getNetpath()!=null){
-//                        String str = pictureBS.get(i).getNetpath().substring("E:\\".length(),pictureBS.get(i).getNetpath().length()).replace("\\","/");
-//                        pictureBS.get(i).setNetpath(str);
-//                    }
-//                }
-                //处理图片
-                publishProgress("处理图片");
-                dealRecord(pictureBS,SPANCOUNT);
-                //保存没有保存过的记录
-                DBTool.savePictures(phonePictures ,new OnProgressI() {
-                    @Override
-                    public void onProgress(String tag, int status, Object data) {
-                        switch (status){
-                            case DOING:
-                                publishProgress(data+"");
-                                break;
-                        }
-                    }
-                });
-                publishProgress("保存完成");
-                return pictureBS;
-            }
-
-            @Override
-            protected void onProgressUpdate(String... values) {
-                super.onProgressUpdate(values);
-                onProgressI.onProgress("getPictures",OnProgressI.DOING,values[0]);
-            }
-
-            @Override
-            protected void onPostExecute(ArrayList<PictureB> pictureBS) {
-                super.onPostExecute(pictureBS);
-                onProgressI.onProgress("getPictures",OnProgressI.END,pictureBS);
-            }
-        }.execute();
-        return pictureBS;
     }
 
 
@@ -332,6 +155,74 @@ public class PictureHomeDE extends DE {
         return videos;
     }
 
+
+    public void aysncDeal(ArrayList<PictureB> videos, int num,OnProgressI progressI){
+        new AsyncTask<String, String, ArrayList<PictureB>>() {
+            @Override
+            protected ArrayList<PictureB> doInBackground(String... strings) {
+                return dealRecord(videos,num);
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<PictureB> pictureBS) {
+                super.onPostExecute(pictureBS);
+                progressI.onProgress("aysncDeal",OnProgressI.SUCCESS,pictureBS);
+            }
+        }.execute();
+    }
+
+    /**
+     * 按月排序
+     * @param videos
+     * @param num
+     * @return
+     */
+    public ArrayList<MultiItemEntity> getMothSortModel(ArrayList<PictureB> videos, int num){
+        ArrayList<MultiItemEntity> datas = new ArrayList<>();
+        //获取只精确到日的时间字符串
+        for(int i=0;videos!=null&&i<videos.size();i++){
+            videos.get(i).initDateStr();
+        }
+        //按 月分类
+        HashMap<String, ArrayList<PictureB>> map = new HashMap<>();
+        for(int i=0;i<videos.size();i++){
+            if(map.get(videos.get(i).getYyyyMM())==null){
+                map.put(videos.get(i).getYyyyMM(),new ArrayList<>());
+            }
+            map.get(videos.get(i).getYyyyMM()).add(videos.get(i));
+        }
+        ArrayList<String> months = new ArrayList<>();
+        Iterator<String> iterator = map.keySet().iterator();
+        while (iterator.hasNext()){
+            months.add(iterator.next());
+        }
+        HashMap<Integer,String> monthmap = new HashMap<>();
+        ArrayList<Integer> sizes = new ArrayList<>();
+        //对月排序
+        for(int i=0;i<months.size();i++){
+            String[] m = months.get(i).split("-");
+            int size = Integer.parseInt(m[0])*10+Integer.parseInt(m[1]);
+            sizes.add(size);
+            monthmap.put(size,months.get(i));
+        }
+        Collections.sort(sizes);
+        ArrayList<String> newmonth = new ArrayList<>();
+        for(int i=0;i<sizes.size();i++){
+            newmonth.add(monthmap.get(sizes.get(i)));
+        }
+        for(int i=0;i<newmonth.size();i++){
+            TitleEntity titleEntity = new TitleEntity();
+            titleEntity.setTitle(newmonth.get(i));
+            for(int j=0;j<map.get(newmonth.get(i)).size();j++){
+                ItemEntity itemEntity = new ItemEntity();
+                itemEntity.setItem(map.get(newmonth.get(i)).get(j));
+                titleEntity.addSubItem(itemEntity);
+            }
+            datas.add(titleEntity);
+        }
+        return datas;
+    }
+
     /**
      *取网络数据和本地数据的并集
      * @param netdata
@@ -373,12 +264,17 @@ public class PictureHomeDE extends DE {
     public void init(Context context,OnProgressI onProgressI){
         //初始化过
         if(DBTool.isInit()){
-            asyncGetPictures(context,onProgressI);
+            addLastPicturesToDB(context,onProgressI);
         }else{
             fristInit(context,onProgressI);
         }
     }
 
+    /**
+     * 第一次安装app同步网络数据和本地数据到本地数据库
+     * @param context
+     * @param onProgressI
+     */
     public void fristInit(Context context,OnProgressI onProgressI){
         ArrayList<PictureB> netdata=new ArrayList<>();
         ArrayList<PictureB> localdata=new ArrayList<>();
@@ -435,7 +331,8 @@ public class PictureHomeDE extends DE {
                                 }
                                 localdata.addAll(pictureBS);
                                 ArrayList<PictureB> alldata = getNetAndLocalData(netdata,localdata);
-                                dealRecord(alldata,SPANCOUNT);
+                                //dealRecord(alldata,NetConstant.SPANCOUNT);
+                                //getMothSortModel(pictureBS,NetConstant.SPANCOUNT);
                                 DBTool.savePictures(alldata, new OnProgressI() {
                                     @Override
                                     public void onProgress(String tag, int status, Object data) {
@@ -489,5 +386,97 @@ public class PictureHomeDE extends DE {
     }
 
 
+    /**
+     * 将本地最新数据添加到数据库
+     * @param context
+     * @param onProgressI
+     * @return
+     */
+    @SuppressLint("StaticFieldLeak")
+    public ArrayList<PictureB> addLastPicturesToDB(Context context,OnProgressI onProgressI){
+        ArrayList<PictureB> pictureBS = new ArrayList<>();
+        String[] timeduraion = new String[]{""+DBTool.getLasPictureTime()/1000,""+System.currentTimeMillis()/1000};
+        String[] projection = new String[]{MediaStore.Files.FileColumns._ID,
+                MediaStore.Files.FileColumns.MEDIA_TYPE,
+                MediaStore.Files.FileColumns.DATA,
+                MediaStore.Files.FileColumns.DATE_ADDED,
+                MediaStore.Files.FileColumns.DATE_MODIFIED,
+                MediaStore.Files.FileColumns.DISPLAY_NAME};
+        String selection = "("+MediaStore.Files.FileColumns.MEDIA_TYPE + "="+ MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
+                + " OR "
+                + MediaStore.Files.FileColumns.MEDIA_TYPE + "=" + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO+")"
+                +" AND "
+                +MediaStore.Files.FileColumns.DATE_ADDED+"> ? AND "+MediaStore.Images.Media.DATE_ADDED+"<= ? ";
+        Uri queryUri = MediaStore.Files.getContentUri("external");
+        CursorLoader cursorLoader = new CursorLoader(
+                context,
+                queryUri,
+                projection,
+                selection,
+                timeduraion,
+                MediaStore.Files.FileColumns.DATE_ADDED + " DESC" // Sort order.
+        );
+        new AsyncTask<String,String,ArrayList<PictureB>>(){
+
+            @Override
+            protected ArrayList<PictureB> doInBackground(String... strings) {
+                //先从本地数据取出所有数据
+                publishProgress("从数据库获取历史记录");
+                ArrayList<PictureB> localPictures = DBTool.getAllRecord(new long[]{0,System.currentTimeMillis()});
+                if(localPictures!=null){
+                    pictureBS.addAll(localPictures);
+                }
+                //然后从手机取出本地数据库最后一条保存时间到现在的所有数据
+                Cursor cursor = cursorLoader.loadInBackground();
+                ArrayList<PictureB> phonePictures = new ArrayList<>();
+                publishProgress("获取完成");
+                publishProgress("获取手机记录");
+                while (cursor.moveToNext()){
+                    PictureB pictureB = new PictureB(cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MEDIA_TYPE))==(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE)?PictureB.ATYPE_IMAGE:PictureB.ATYPE_VIDEO,
+                            cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns._ID)),
+                            cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA)),
+                            cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_ADDED))*1000,
+                            cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_MODIFIED))*1000,
+                            0l,
+                            cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DISPLAY_NAME))
+                    );
+                    //record.init();
+                    phonePictures.add(pictureB);
+                    publishProgress("获取完成");
+                }
+                pictureBS.addAll(phonePictures);
+                //处理图片
+                publishProgress("处理图片");
+                //dealRecord(pictureBS, NetConstant.SPANCOUNT);
+                //getMothSortModel(pictureBS,NetConstant.SPANCOUNT);
+                //保存没有保存过的记录
+                DBTool.savePictures(phonePictures ,new OnProgressI() {
+                    @Override
+                    public void onProgress(String tag, int status, Object data) {
+                        switch (status){
+                            case DOING:
+                                publishProgress(data+"");
+                                break;
+                        }
+                    }
+                });
+                publishProgress("保存完成");
+                return pictureBS;
+            }
+
+            @Override
+            protected void onProgressUpdate(String... values) {
+                super.onProgressUpdate(values);
+                onProgressI.onProgress("getPictures",OnProgressI.DOING,values[0]);
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<PictureB> pictureBS) {
+                super.onPostExecute(pictureBS);
+                onProgressI.onProgress("getPictures",OnProgressI.END,pictureBS);
+            }
+        }.execute();
+        return pictureBS;
+    }
 
 }

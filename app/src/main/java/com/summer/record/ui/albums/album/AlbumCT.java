@@ -81,7 +81,7 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
                 switch (index){
                     case 0:
                         //新增
-                        extraTransaction().startForResult(PictureHomeCT.getInstance(PictureHomeCT.MODEL_SELECT),1);
+                        extraTransaction().startForResult(PictureHomeCT.getInstance(PictureHomeCT.MODEL_SELECT,null),1);
                         break;
                     case 1:
                         //删除

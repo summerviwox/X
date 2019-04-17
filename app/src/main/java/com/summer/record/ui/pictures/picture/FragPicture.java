@@ -55,7 +55,7 @@ public class FragPicture extends XFragment<PictureUI, PictureHomeDE,PictureVA> {
                     return;
                 }
                 getVA().setUploading(true);
-                getDE().uploadRecords(getVA().getPicture(), new OnProgressI() {
+                getVA().getPictureUploadDE().uploadRecords(getVA().getPicture(), new OnProgressI() {
 
                     @Override
                     public void onProgress(String tag, int status, Object data) {

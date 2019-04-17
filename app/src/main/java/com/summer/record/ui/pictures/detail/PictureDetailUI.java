@@ -11,16 +11,18 @@ import com.summer.x.base.ui.XActivity;
 import java.util.ArrayList;
 
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 
 public class PictureDetailUI extends UI<CtPicturedetailBinding> {
 
     private PictureDetailAdapter pictureDetailAdapter;
 
-    public void init(Context context,FragmentManager fm, ArrayList<PictureB> datas, int pos){
+    public void init(Context context, FragmentManager fm, ArrayList<PictureB> datas, int pos, ViewPager.OnPageChangeListener onPageChangeListener){
         pictureDetailAdapter = new PictureDetailAdapter(context,fm,datas);
         getUI().viewpager.setAdapter(pictureDetailAdapter);
         getUI().viewpager.setCurrentItem(pos);
+        getUI().viewpager.addOnPageChangeListener(onPageChangeListener);
     }
 
     public PlayCT getPlayCT(){

@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.summer.record.R;
 import com.summer.x.base.ui.XFragment;
 
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
+import butterknife.OnClick;
 
 public class MenuFrag extends XFragment<MenuUI,MenuDE,MenuVA> implements BaseQuickAdapter.OnItemClickListener{
 
@@ -33,5 +35,15 @@ public class MenuFrag extends XFragment<MenuUI,MenuDE,MenuVA> implements BaseQui
         bundle.putInt("index",position);
         setFragmentResult(0,bundle);
         pop();
+    }
+
+    @OnClick({R.id.menuroot})
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.menuroot:
+                pop();
+                break;
+        }
     }
 }

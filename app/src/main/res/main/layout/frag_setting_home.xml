@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout><data/>
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/root_setting"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_alignParentBottom="true"
-            android:text="setting"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+      <TextView
+          android:layout_marginTop="30dp"
+          android:id="@+id/imagenum"
+          android:paddingLeft="10dp"
+          android:text="每排图片个数"
+          android:gravity="center_vertical"
+          android:textSize="20sp"
+          android:textColor="@color/black"
+          android:layout_width="match_parent"
+          android:layout_height="50dp" />
+    </LinearLayout>
 </layout>

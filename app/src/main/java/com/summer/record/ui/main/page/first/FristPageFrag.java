@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.summer.record.ui.main.page.base.BasePageFrag;
 import com.summer.record.ui.pictures.home.PictureHomeCT;
+import com.summer.record.ui.pictures.home.PictureMonthAdapter;
+import com.summer.record.ui.pictures.mothpicture.MothPictureCT;
 import com.summer.x.base.ui.DE;
 import com.summer.x.base.ui.VA;
 
@@ -22,7 +24,7 @@ public class FristPageFrag extends BasePageFrag<FirstPageUI, DE, VA> {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         if(findChildFragment(PictureHomeCT.class)==null){
-            loadRootFragment(getUI().getRootId(), PictureHomeCT.getInstance(PictureHomeCT.MODEL_SCAN));
+            loadRootFragment(getUI().getRootId(), MothPictureCT.getInstance());
         }
     }
 }

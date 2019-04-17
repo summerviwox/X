@@ -1,6 +1,7 @@
 package com.summer.record.ui.pictures.picture;
 
 import com.summer.record.data.model.PictureB;
+import com.summer.record.ui.pictures.home.PictureUploadDE;
 import com.summer.x.base.ui.VA;
 
 import lombok.Getter;
@@ -12,4 +13,6 @@ public class PictureVA extends VA {
     private PictureB picture;
 
     private boolean uploading = false;
+
+    private PictureUploadDE pictureUploadDE= new PictureUploadDE();
 }

@@ -46,5 +46,9 @@ public class MainVA extends VA {
         pageFragments = new XFragment[]{FristPageFrag.getInstance(), SecondtPageFrag.getInstance(), ThreePageFrag.getInstance()};
     }
 
+    public XFragment getCurrentFrag(){
+        return getPageFragments()[getLastindex()];
+    }
+
 
 }
