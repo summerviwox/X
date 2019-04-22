@@ -1,18 +1,15 @@
 package com.summer.record.ui.albums.albums;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.summer.record.R;
-import com.summer.record.data.model.PictureB;
 import com.summer.record.ui.albums.addalbum.AddAlbumCT;
 import com.summer.record.ui.albums.album.AlbumCT;
 import com.summer.record.ui.albums.bean.Album;
 import com.summer.record.ui.menu.MenuFrag;
 import com.summer.x.base.i.OnProgressI;
-import com.summer.x.base.ui.DE;
 import com.summer.x.base.ui.XFragment;
 
 import java.util.ArrayList;
@@ -63,7 +60,7 @@ public class AlbumHomeCT extends XFragment<AlbumHomeUI, AlbumHomeDE, AlbumHomeVA
         super.onClick(v);
         switch (v.getId()){
             case R.id.globalmenu:
-                extraTransaction().startForResultDontHideSelf(MenuFrag.getInstance(getVA().getMenus()),1);
+                extraTransaction().startForResultDontHideSelf(MenuFrag.getOldInstance(getVA().getMenus()),1);
                 break;
         }
     }
@@ -104,7 +101,7 @@ public class AlbumHomeCT extends XFragment<AlbumHomeUI, AlbumHomeDE, AlbumHomeVA
     @Override
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
         getVA().setSelectedAlbum(getVA().getAlbums().get(position));
-        extraTransaction().startForResultDontHideSelf(MenuFrag.getInstance(getVA().getMenus()),1);
+        extraTransaction().startForResultDontHideSelf(MenuFrag.getOldInstance(getVA().getMenus()),1);
         return true;
     }
 }

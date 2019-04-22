@@ -6,12 +6,10 @@ import android.view.View;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.summer.record.R;
-import com.summer.record.constant.NetConstant;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.ui.loading.LoadingFrag;
-import com.summer.record.ui.main.main.MainAct;
+import com.summer.record.ui.menu.MenuFrag;
 import com.summer.record.ui.pictures.detail.PictureDetailCT;
-import com.summer.record.ui.pictures.picture.FragPicture;
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.XFragment;
@@ -69,8 +67,8 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
             start(PictureDetailCT.getInstance(getVA().getPictures(),getVA().getPictures().get(position).getLocpath()));
         }
         //getAct().start();
-        //FragPicture fragment = FragPicture.getInstance(getVA().getPictures().get(position));
-       // extraTransaction().startDontHideSelf(fragment);
+        //FragPicture fragment = FragPicture.getOldInstance(getVA().getPictures().get(position));
+        // extraTransaction().startDontHideSelf(fragment);
 //        // LOLLIPOP(5.0)系统的 SharedElement支持有 系统BUG， 这里判断大于 > LOLLIPOP
 //        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
 //            setExitTransition(new Fade());
@@ -94,29 +92,105 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
 
     @Override
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-        if(getVA().isIsdoing()){
-            ToastUtils.showShort("正在上传");
-            return true;
-        }
-        getVA().setIsdoing(true);
-       ArrayList<PictureB> datas =  getDE().getUploadPictures(getVA().getPictures());
-       ToastUtils.showShort(datas.size()+"张未上传");
-        getVA().getPictureUploadDE().uploadRecordsAndChangeStatus(datas, new OnProgressI() {
-            @Override
-            public void onProgress(String tag, int status, Object data) {
-                switch (status){
-                    case DOING:
-                        PictureB pictureB = (PictureB) data;
-                        ToastUtils.showShort(""+pictureB.getNetpath());
+        extraTransaction().startForResultDontHideSelf(MenuFrag.getOldInstance(getVA().getMenus()),0);
+        return true;
+    }
+
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 0:
+                if(data==null){
+                    return;
+                }
+                int index = data.getInt("index",-1);
+                if(index==-1){
+                    return;
+                }
+                switch (index){
+                    case 0:
+                        if(getVA().isIsdoing()){
+                            ToastUtils.showShort("正在上传");
+                            return;
+                        }
+                        getVA().setIsdoing(true);
+                        ArrayList<PictureB> datas =  getDE().getUploadPictures(getVA().getPictures());
+                        ToastUtils.showShort(datas.size()+"张未上传");
+                        getVA().getPictureUploadDE().uploadRecordsAndChangeStatus(datas, new OnProgressI() {
+                            @Override
+                            public void onProgress(String tag, int status, Object data) {
+                                switch (status){
+                                    case DOING:
+                                        PictureB pictureB = (PictureB) data;
+                                        ToastUtils.showShort(""+pictureB.getNetpath());
+                                        break;
+                                    case END:
+                                        getVA().setIsdoing(false);
+                                        ToastUtils.showShort("全部上传成功");
+                                        break;
+                                }
+                            }
+                        });
                         break;
-                    case END:
-                        getVA().setIsdoing(false);
-                        ToastUtils.showShort("全部上传成功");
+                    case 1:
+                        //下载全部
+                        ArrayList<PictureB> undownloaddatas = getVA().getAlbumDE().getUndownLoadPictures(getVA().getPictures());
+                        getVA().getPictureDownDE().downloadList(undownloaddatas, 0, new OnProgressI() {
+                            @Override
+                            public void onProgress(String tag, int status, Object data) {
+                                switch (status){
+                                    case DOING:
+                                        PictureB pictureB = (PictureB) data;
+                                        ToastUtils.showLong(pictureB.getNetpath());
+                                        getUI().scrollToPosition(pictureB.id);
+                                        getUI().notifyItemChanged(pictureB.id);
+                                        break;
+                                    case END:
+                                        ToastUtils.showLong("已全部下载完毕");
+                                        break;
+                                }
+                            }
+                        });
+                    case 2:
+                        //下载全部图片
+                        getVA().getPictureDownDE().downloadList(getVA().getAlbumDE().getUndownLoadPictures(getVA().getAlbumDE().getImagePicture(getVA().getPictures())), 0, new OnProgressI() {
+                            @Override
+                            public void onProgress(String tag, int status, Object data) {
+                                switch (status){
+                                    case DOING:
+                                        PictureB pictureB = (PictureB) data;
+                                        ToastUtils.showLong(pictureB.getLocpath());
+                                        getUI().notifyItemChanged(pictureB.getId());
+                                        break;
+                                    case END:
+                                        ToastUtils.showLong("已全部下载完毕");
+                                        break;
+                                }
+                            }
+                        });
+                        break;
+                    case 3:
+                        //下载全部视频
+                        getVA().getPictureDownDE().downloadList(getVA().getAlbumDE().getUndownLoadPictures(getVA().getAlbumDE().getVideoPicture(getVA().getPictures())), 0, new OnProgressI() {
+                            @Override
+                            public void onProgress(String tag, int status, Object data) {
+                                switch (status){
+                                    case DOING:
+                                        PictureB pictureB = (PictureB) data;
+                                        ToastUtils.showLong(pictureB.getLocpath());
+                                        getUI().notifyItemChanged(pictureB.getId());
+                                        break;
+                                    case END:
+                                        ToastUtils.showLong("已全部下载完毕");
+                                        break;
+                                }
+                            }
+                        });
                         break;
                 }
-            }
-        });
-        return true;
+                break;
+        }
     }
 
     @Optional

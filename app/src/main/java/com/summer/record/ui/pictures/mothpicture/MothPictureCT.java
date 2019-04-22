@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.summer.record.ui.pictures.home.PictureHomeCT;
+import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.XFragment;
 
@@ -38,8 +39,18 @@ public class MothPictureCT extends XFragment<MothPictureUI,MothPictureDE,MothPic
                 break;
             case "getPictures":
                 switch (status){
+                    case PREPARE:
+                        getVA().getLoadingFrag().setOnFinishI(new OnFinishI() {
+                            @Override
+                            public void onFinished(Object o) {
+
+                            }
+                        });
+                        extraTransaction().startDontHideSelf(getVA().getLoadingFrag(),STANDARD);
+                        break;
                     case END:
                         getDE().getMaxMinDateStamp(this);
+                        getVA().getLoadingFrag().pop();
                         break;
                 }
                 break;

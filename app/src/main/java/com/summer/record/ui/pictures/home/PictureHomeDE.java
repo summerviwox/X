@@ -262,6 +262,7 @@ public class PictureHomeDE extends DE {
     }
 
     public void init(Context context,OnProgressI onProgressI){
+        onProgressI.onProgress("getPictures",OnProgressI.PREPARE,"");
         //初始化过
         if(DBTool.isInit()){
             addLastPicturesToDB(context,onProgressI);
@@ -371,6 +372,9 @@ public class PictureHomeDE extends DE {
     public ArrayList<PictureB> getUploadPictures(ArrayList<PictureB> ori){
         ArrayList<PictureB> pictureBS = new ArrayList<>();
         for(int i=0;i<ori.size();i++){
+            if(TextUtils.isEmpty(ori.get(i).getAtype())){
+                continue;
+            }
             //未上传
             if(TextUtils.isEmpty(ori.get(i).getNetpath())){
                 if(ori.get(i).getLocpath()!=null){
@@ -384,6 +388,7 @@ public class PictureHomeDE extends DE {
         }
         return pictureBS;
     }
+
 
 
     /**

@@ -110,4 +110,8 @@ public class DBTool {
         }
         return max!=0;
     }
+
+    public static void upDataByLocalPath(String locpath,String netpath){
+        SQLite.update(PictureB.class).set(PictureB_Table.netpath.eq(netpath)).where(PictureB_Table.locpath.eq(locpath)).execute();
+    }
 }

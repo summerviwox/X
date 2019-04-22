@@ -1,5 +1,8 @@
 package com.summer.record.ui.albums.album;
 
+import android.provider.MediaStore;
+import android.text.TextUtils;
+
 import com.blankj.utilcode.util.GsonUtils;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.data.net.Net;
@@ -11,6 +14,7 @@ import com.summer.x.data.net.BaseCallBack;
 import com.summer.x.data.net.ListData;
 import com.summer.x.data.net.ObjectData;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class AlbumDE extends DE {
@@ -69,6 +73,72 @@ public class AlbumDE extends DE {
             strs.add(pictureBS.get(i).getLocpath());
         }
         return strs;
+    }
+
+    public void setAlbumHead(String id,String head,OnProgressI onProgressI){
+        Net.getInstance().setAlbumHead(id,head).enqueue(new BaseCallBack<ObjectData<Boolean>>(){
+            @Override
+            public void onSuccess(ObjectData<Boolean> booleanObjectData) {
+                super.onSuccess(booleanObjectData);
+                onProgressI.onProgress("setAlbumHead",OnProgressI.SUCCESS,booleanObjectData.getData());
+            }
+
+            @Override
+            public void onError(int code, String error) {
+                super.onError(code, error);
+                onProgressI.onProgress("setAlbumHead",OnProgressI.ERROR,false);
+            }
+        });
+    }
+
+
+
+    /**
+     * 获取图片类别的数据
+     * @param datas
+     * @return
+     */
+    public  ArrayList<PictureB> getImagePicture(ArrayList<PictureB> datas){
+        ArrayList<PictureB> list = new ArrayList<>();
+        for(int i=0;i<datas.size();i++){
+            if(PictureB.ATYPE_IMAGE.equals(datas.get(i).getAtype())|| ((""+ MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE).equals(datas.get(i).getAtype()))){
+                list.add(datas.get(i));
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取视频类别的数据
+     * @param datas
+     * @return
+     */
+    public  ArrayList<PictureB> getVideoPicture(ArrayList<PictureB> datas){
+        ArrayList<PictureB> list = new ArrayList<>();
+        for(int i=0;i<datas.size();i++){
+            if(PictureB.ATYPE_VIDEO.equals(datas.get(i).getAtype())|| ((""+MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO).equals(datas.get(i).getAtype()))){
+                list.add(datas.get(i));
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<PictureB> getUndownLoadPictures(ArrayList<PictureB> ori){
+        ArrayList<PictureB> pictureBS = new ArrayList<>();
+        for(int i=0;i<ori.size();i++){
+            if(TextUtils.isEmpty(ori.get(i).getAtype())){
+                continue;
+            }
+            if(ori.get(i).getNetpath()==null){
+                continue;
+            }
+            File file = new File(ori.get(i).getLocpath());
+            //本地有该文件
+            if(!file.exists()){
+                pictureBS.add(ori.get(i));
+            }
+        }
+        return pictureBS;
     }
 
 }

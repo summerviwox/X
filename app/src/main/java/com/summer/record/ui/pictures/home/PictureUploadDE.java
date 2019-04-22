@@ -3,6 +3,7 @@ package com.summer.record.ui.pictures.home;
 import com.blankj.utilcode.util.GsonUtils;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.data.net.Net;
+import com.summer.record.tool.DBTool;
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.DE;
@@ -80,7 +81,8 @@ public class PictureUploadDE extends DE {
             public void onFinished(Object o) {
                 if(o!=null){
                     pictureBS.get(index).setNetpath(o.toString());
-                    pictureBS.get(index).update();
+                    DBTool.upDataByLocalPath(pictureBS.get(index).locpath,o.toString());
+                    //pictureBS.get(index).update();
                 }
                 onProgressI.onProgress("uploadRecords",o!=null?OnProgressI.SUCCESS:OnProgressI.ERROR,pictureBS.get(index));
                 index++;

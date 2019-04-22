@@ -2,7 +2,9 @@ package com.summer.record.ui.pictures.home;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.summer.record.data.model.PictureB;
+import com.summer.record.ui.albums.album.AlbumDE;
 import com.summer.record.ui.loading.LoadingFrag;
+import com.summer.record.ui.pictures.picture.PictureDownDE;
 import com.summer.x.base.ui.VA;
 
 import java.util.ArrayList;
@@ -30,6 +32,23 @@ public class PictureHomeVA extends VA {
     private ArrayList<MultiItemEntity> multiItemEntities = new ArrayList<>();
 
     private PictureUploadDE pictureUploadDE = new PictureUploadDE();
+
+    private PictureDownDE pictureDownDE = new PictureDownDE();
+
+    private ArrayList<String> menus = new ArrayList<>();
+
+    private AlbumDE albumDE = new AlbumDE();
+
+    @Override
+    public void initVA() {
+        super.initVA();
+        menus.add("上传当前月");
+        menus.add("下载当前月");
+        menus.add("下载全部图片");
+        menus.add("下载全部视频");
+//        menus.add("上传全部");
+//        menus.add("下载全部");
+    }
 
     /**
      * 添加数据

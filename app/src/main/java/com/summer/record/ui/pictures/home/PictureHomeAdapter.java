@@ -3,6 +3,7 @@ package com.summer.record.ui.pictures.home;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.request.RequestOptions;
@@ -16,6 +17,7 @@ import com.summer.x.GlideApp;
 
 import java.io.File;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 
@@ -50,9 +52,17 @@ public class PictureHomeAdapter extends BaseQuickAdapter<PictureB, BaseViewHolde
         }
         File file = new File(item.getLocpath());
         if(!file.exists()){
-            GlideApp.with(context).asBitmap().load((NetConstant.URL+item.getNetpath().replace("E:\\record","records").replace("\\","/"))).apply(requestOptions).into(itemImageImageBinding.ivVideo);
+            GlideApp.with(context).asBitmap().load(R.color.white).apply(requestOptions).into(itemImageImageBinding.ivVideo);
+            //GlideApp.with(context).asBitmap().load((NetConstant.URL+item.getNetpath().replace("E:\\record","records").replace("\\","/"))).apply(requestOptions).into(itemImageImageBinding.ivVideo);
         }else{
             GlideApp.with(context).asBitmap().load(item.getLocpath()).apply(requestOptions).into(itemImageImageBinding.ivVideo);
         }
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull BaseViewHolder holder) {
+        super.onViewRecycled(holder);
+        ImageView imageView = holder.getView(R.id.iv_video);
+        GlideApp.with(context).clear(imageView);
     }
 }

@@ -9,9 +9,7 @@ import com.summer.record.constant.NetConstant;
 import com.summer.record.ui.main.main.MainAct;
 import com.summer.record.ui.menu.MenuFrag;
 import com.summer.record.ui.pictures.home.PictureHomeCT;
-import com.summer.record.ui.pictures.picture.FragPicture;
 import com.summer.x.base.ui.DE;
-import com.summer.x.base.ui.VA;
 import com.summer.x.base.ui.XFragment;
 
 import androidx.annotation.Nullable;
@@ -31,8 +29,8 @@ public class FragSettingHome extends XFragment<SettingHomeUI, DE, SettingHomeVA>
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        //getChildFragmentManager().beginTransaction().add(R.id.root_setting, FragPicture.getInstance()).commit();
-        //start(FragPicture.getInstance());
+        //getChildFragmentManager().beginTransaction().add(R.id.root_setting, FragPicture.getOldInstance()).commit();
+        //start(FragPicture.getOldInstance());
     }
 
     @OnClick({R.id.imagenum})
@@ -40,7 +38,7 @@ public class FragSettingHome extends XFragment<SettingHomeUI, DE, SettingHomeVA>
         super.onClick(v);
         switch (v.getId()){
             case R.id.imagenum:
-                extraTransaction().startForResultDontHideSelf(MenuFrag.getInstance(getVA().getNums()),0);
+                extraTransaction().startForResultDontHideSelf(MenuFrag.getOldInstance(getVA().getNums()),0);
                 break;
         }
     }

@@ -3,16 +3,13 @@ package com.summer.record.ui.albums.album;
 import android.os.Bundle;
 import android.view.View;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.summer.record.R;
 import com.summer.record.data.model.PictureB;
-import com.summer.record.ui.albums.albums.AlbumHomeVA;
-import com.summer.record.ui.albums.bean.Album;
 import com.summer.record.ui.main.main.MainAct;
 import com.summer.record.ui.menu.MenuFrag;
 import com.summer.record.ui.pictures.detail.PictureDetailCT;
 import com.summer.record.ui.pictures.home.PictureHomeCT;
-import com.summer.record.ui.pictures.picture.PictureDE;
 import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.XFragment;
 
@@ -65,7 +62,7 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
     @Override
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
         getVA().setCurrentPictures(getVA().getDatas().get(position));
-        extraTransaction().startForResultDontHideSelf(MenuFrag.getInstance(getVA().getMenus()),0);
+        extraTransaction().startForResultDontHideSelf(MenuFrag.getOldInstance(getVA().getMenus()),0);
         return true;
     }
 
@@ -93,6 +90,73 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
                                         getAllAlbumItemsById();
                                         break;
 
+                                }
+                            }
+                        });
+                        break;
+                    case 2:
+                        //下载全部
+                        getVA().getPictureDownDE().downloadList(getVA().getDatas(), 0, new OnProgressI() {
+                            @Override
+                            public void onProgress(String tag, int status, Object data) {
+                                switch (status){
+                                    case DOING:
+                                        PictureB pictureB = (PictureB) data;
+                                        ToastUtils.showLong(pictureB.getLocpath());
+                                        getUI().notifyItemChanged(pictureB.getId());
+                                        break;
+                                    case END:
+                                        ToastUtils.showLong("已全部下载完毕");
+                                        break;
+                                }
+                            }
+                        });
+                        break;
+                    case 3:
+                        //下载全部图片
+                        getVA().getPictureDownDE().downloadList(getDE().getUndownLoadPictures(getDE().getImagePicture(getVA().getDatas())), 0, new OnProgressI() {
+                            @Override
+                            public void onProgress(String tag, int status, Object data) {
+                                switch (status){
+                                    case DOING:
+                                        PictureB pictureB = (PictureB) data;
+                                        ToastUtils.showLong(pictureB.getLocpath());
+                                        getUI().notifyItemChanged(pictureB.getId());
+                                        break;
+                                    case END:
+                                        ToastUtils.showLong("已全部下载完毕");
+                                        break;
+                                }
+                            }
+                        });
+                        break;
+                    case 4:
+                        //下载全部视频
+                        getVA().getPictureDownDE().downloadList(getDE().getUndownLoadPictures(getDE().getVideoPicture(getVA().getDatas())), 0, new OnProgressI() {
+                            @Override
+                            public void onProgress(String tag, int status, Object data) {
+                                switch (status){
+                                    case DOING:
+                                        PictureB pictureB = (PictureB) data;
+                                        ToastUtils.showLong(pictureB.getLocpath());
+                                        getUI().notifyItemChanged(pictureB.getId());
+                                        break;
+                                    case END:
+                                        ToastUtils.showLong("已全部下载完毕");
+                                        break;
+                                }
+                            }
+                        });
+                        break;
+                    case 5:
+                        //设置为封面
+                        getDE().setAlbumHead(getVA().getAlbumid(), getVA().getCurrentPictures().getLocpath(), new OnProgressI() {
+                            @Override
+                            public void onProgress(String tag, int status, Object data) {
+                                switch (status){
+                                    case SUCCESS:
+                                        //
+                                        break;
                                 }
                             }
                         });

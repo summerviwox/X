@@ -30,5 +30,13 @@ public class AlbumUI extends UI<CtAlbumBinding> {
         albumAdapter.setNewData(datas);
     }
 
+    public void notifyDataSetChanged(){
+        albumAdapter.notifyDataSetChanged();
+    }
+
+    public void notifyItemChanged(int pos){
+        albumAdapter.notifyItemChanged(pos);
+    }
+
 
 }

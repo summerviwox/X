@@ -5,11 +5,14 @@ import android.content.Context;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.summer.record.R;
+import com.summer.record.constant.NetConstant;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.databinding.ItemAlbumBinding;
 import com.summer.record.databinding.ItemImageImageBinding;
 import com.summer.record.ui.albums.bean.Album;
 import com.summer.x.GlideApp;
+
+import java.io.File;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -26,6 +29,11 @@ public class AlbumAdapter extends BaseQuickAdapter<PictureB, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, PictureB item) {
         ItemImageImageBinding itemImageImageBinding = DataBindingUtil.bind(helper.itemView);
-        GlideApp.with(context).load(item.getLocpath()).into(itemImageImageBinding.ivVideo);
+        File file = new File(item.getLocpath());
+        if(!file.exists()){
+            GlideApp.with(context).asBitmap().load((NetConstant.getNetPath(item))).into(itemImageImageBinding.ivVideo);
+        }else{
+            GlideApp.with(context).asBitmap().load(item.getLocpath()).into(itemImageImageBinding.ivVideo);
+        }
     }
 }

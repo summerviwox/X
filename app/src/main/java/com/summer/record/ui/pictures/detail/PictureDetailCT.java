@@ -2,13 +2,16 @@ package com.summer.record.ui.pictures.detail;
 
 import android.os.Bundle;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.summer.record.R;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.ui.main.main.MainAct;
+import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.XFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
@@ -79,5 +82,20 @@ public class PictureDetailCT extends XFragment<PictureDetailUI,PictureDetailDE,P
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+
+
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 0:
+                if(data==null||data.get("data")==null){
+                    return;
+                }
+                getUI().getCurrentFrag().onFragmentResult(requestCode,resultCode,data);
+                break;
+        }
     }
 }

@@ -47,4 +47,12 @@ public class PictureHomeUI extends UI<FragPictureHomeBinding> {
         pictureHomeAdapter.notifyItemChanged(pos);
     }
 
+    public void notifyDataSetChanged(){
+        pictureHomeAdapter.notifyDataSetChanged();
+    }
+
+    public void scrollToPosition(int pos){
+        getUI().recycle.getLayoutManager().scrollToPosition(pos);
+    }
+
 }

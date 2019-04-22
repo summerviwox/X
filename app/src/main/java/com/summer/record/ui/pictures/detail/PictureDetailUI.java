@@ -7,6 +7,7 @@ import com.summer.record.databinding.CtPicturedetailBinding;
 import com.summer.record.ui.play.PlayCT;
 import com.summer.x.base.ui.UI;
 import com.summer.x.base.ui.XActivity;
+import com.summer.x.base.ui.XFragment;
 
 import java.util.ArrayList;
 
@@ -33,4 +34,7 @@ public class PictureDetailUI extends UI<CtPicturedetailBinding> {
         return playCT;
     }
 
+    public XFragment getCurrentFrag(){
+        return pictureDetailAdapter.getFragmentHashMap().get(getUI().viewpager.getCurrentItem());
+    }
 }

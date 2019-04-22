@@ -14,7 +14,7 @@
 
 
         <ImageView
-            android:src="@drawable/cutcamera"
+            android:src="@color/white"
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
