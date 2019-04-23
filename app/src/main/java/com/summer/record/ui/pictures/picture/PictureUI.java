@@ -17,21 +17,25 @@ public class PictureUI extends UI<ItemPictureBinding> {
 
     public void initPicture(PictureB pictureB){
 
-        File file = new File(pictureB.getLocpath());
-        if(!file.exists()){
-            if(pictureB.getLocpath().toLowerCase().endsWith("gif")){
-                GlideApp.with(getContext()).asGif().load((NetConstant.URL+pictureB.getNetpath().replace("E:\\record","records").replace("\\","/"))).into(getUI().picture);
-            }else{
-                GlideApp.with(getContext()).asBitmap().load((NetConstant.URL+pictureB.getNetpath().replace("E:\\record","records").replace("\\","/"))).into(getUI().picture);
-            }
-
+//        File file = new File(pictureB.getLocpath());
+//        if(!file.exists()){
+//            if(pictureB.getLocpath().toLowerCase().endsWith("gif")){
+//                GlideApp.with(getContext()).asGif().load((NetConstant.URL+pictureB.getNetpath().replace("E:\\record","records").replace("\\","/"))).into(getUI().picture);
+//            }else{
+//                GlideApp.with(getContext()).asBitmap().load((NetConstant.URL+pictureB.getNetpath().replace("E:\\record","records").replace("\\","/"))).into(getUI().picture);
+//            }
+//
+//        }else{
+//
+//
+//        }
+        if(pictureB.getLocpath()==null){
+            return;
+        }
+        if(pictureB.getLocpath().toLowerCase().endsWith("gif")){
+            GlideApp.with(getContext()).asGif().load(pictureB.getLocpath()).into(getUI().picture);
         }else{
-            if(pictureB.getLocpath().toLowerCase().endsWith("gif")){
-                GlideApp.with(getContext()).asGif().load(pictureB.getLocpath()).into(getUI().picture);
-            }else{
-                GlideApp.with(getContext()).asBitmap().load(pictureB.getLocpath()).into(getUI().picture);
-            }
-
+            GlideApp.with(getContext()).asBitmap().load(pictureB.getLocpath()).into(getUI().picture);
         }
     }
 }

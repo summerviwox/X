@@ -31,7 +31,7 @@ public class AlbumAdapter extends BaseQuickAdapter<PictureB, BaseViewHolder> {
         ItemImageImageBinding itemImageImageBinding = DataBindingUtil.bind(helper.itemView);
         File file = new File(item.getLocpath());
         if(!file.exists()){
-            GlideApp.with(context).asBitmap().load((NetConstant.getNetPath(item))).into(itemImageImageBinding.ivVideo);
+            GlideApp.with(context).asBitmap().load(R.color.white).into(itemImageImageBinding.ivVideo);
         }else{
             GlideApp.with(context).asBitmap().load(item.getLocpath()).into(itemImageImageBinding.ivVideo);
         }
