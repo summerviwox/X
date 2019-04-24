@@ -64,7 +64,7 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
             getVA().getPictures().get(position).setSelected(!getVA().getPictures().get(position).isSelected());
             getUI().notifyItemChanged(position);
         }else{
-            start(PictureDetailCT.getInstance(getVA().getPictures(),getVA().getPictures().get(position).getLocpath()));
+            start(PictureDetailCT.getInstance(getVA().getNonullPictures(),getVA().getPictures().get(position).getPos()));
         }
         //getAct().start();
         //FragPicture fragment = FragPicture.getOldInstance(getVA().getPictures().get(position));
@@ -216,6 +216,7 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
         switch (tag){
             case "aysncDeal":
                 getVA().setPictures((ArrayList<PictureB>) data);
+                getVA().setNonullPictures(getDE().removeNullPictures(getVA().getPictures()));
                 getUI().refreshRecord(getAct(),getVA().getPictures());
                 getVA().getLoadingfrag().pop();
                 break;

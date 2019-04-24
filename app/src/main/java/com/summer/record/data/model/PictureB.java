@@ -69,6 +69,8 @@ public class PictureB extends BaseModel implements Serializable {
 
     private boolean selected;
 
+    private int pos;
+
 
     public PictureB() {
     }

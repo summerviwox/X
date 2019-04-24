@@ -27,6 +27,8 @@ public class PictureHomeVA extends VA {
 
     private ArrayList<PictureB> pictures = new ArrayList<>();
 
+    private ArrayList<PictureB> nonullPictures = new ArrayList<>();
+
     private ArrayList<PictureB> selectPictures = new ArrayList<>();
 
     private ArrayList<MultiItemEntity> multiItemEntities = new ArrayList<>();
@@ -46,8 +48,8 @@ public class PictureHomeVA extends VA {
         menus.add("下载当前月");
         menus.add("下载全部图片");
         menus.add("下载全部视频");
-//        menus.add("上传全部");
-//        menus.add("下载全部");
+//        itemMenus.add("上传全部");
+//        itemMenus.add("下载全部");
     }
 
     /**

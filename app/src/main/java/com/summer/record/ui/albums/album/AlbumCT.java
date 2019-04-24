@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.summer.record.R;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.ui.main.main.MainAct;
 import com.summer.record.ui.menu.MenuFrag;
@@ -14,8 +15,10 @@ import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.XFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import androidx.annotation.Nullable;
+import butterknife.OnClick;
 
 public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemLongClickListener{
 
@@ -62,8 +65,18 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
     @Override
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
         getVA().setCurrentPictures(getVA().getDatas().get(position));
-        extraTransaction().startForResultDontHideSelf(MenuFrag.getOldInstance(getVA().getMenus()),0);
+        extraTransaction().startForResultDontHideSelf(MenuFrag.getOldInstance(getVA().getItemMenus()),0);
         return true;
+    }
+
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.globalmenu:
+                //
+                extraTransaction().startForResultDontHideSelf(MenuFrag.getInstance(getVA().getMenus()),0);
+                break;
+        }
     }
 
     @Override
@@ -71,16 +84,16 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
         super.onFragmentResult(requestCode, resultCode, data);
         switch (requestCode){
             case 0:
-                if(data==null||data.getInt("index",-1)==-1){
+                if(data==null||data.getSerializable("data")==null){
                     return;
                 }
-                int index = data.getInt("index");
-                switch (index){
-                    case 0:
+                HashMap<String,String> map = (HashMap<String, String>) data.getSerializable("data");
+                switch (map.get("text")){
+                    case "新增":
                         //新增
                         extraTransaction().startForResult(PictureHomeCT.getInstance(PictureHomeCT.MODEL_SELECT,null),1);
                         break;
-                    case 1:
+                    case "删除":
                         //删除
                         getDE().deleteAlbumItem(getVA().getAlbumid(),getVA().getCurrentPictures().getId()+"", new OnProgressI() {
                             @Override
@@ -94,7 +107,7 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
                             }
                         });
                         break;
-                    case 2:
+                    case "下载全部":
                         //下载全部
                         getVA().getPictureDownDE().downloadList(getVA().getDatas(), 0, new OnProgressI() {
                             @Override
@@ -103,7 +116,7 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
                                     case DOING:
                                         PictureB pictureB = (PictureB) data;
                                         ToastUtils.showLong(pictureB.getLocpath());
-                                        getUI().notifyItemChanged(pictureB.getId());
+                                        getUI().notifyItemChanged(pictureB.getPos());
                                         break;
                                     case END:
                                         ToastUtils.showLong("已全部下载完毕");
@@ -112,7 +125,7 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
                             }
                         });
                         break;
-                    case 3:
+                    case "下载全部图片":
                         //下载全部图片
                         getVA().getPictureDownDE().downloadList(getDE().getUndownLoadPictures(getDE().getImagePicture(getVA().getDatas())), 0, new OnProgressI() {
                             @Override
@@ -124,13 +137,14 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
                                         getUI().notifyItemChanged(pictureB.getId());
                                         break;
                                     case END:
+                                        getUI().notifyDataSetChanged();
                                         ToastUtils.showLong("已全部下载完毕");
                                         break;
                                 }
                             }
                         });
                         break;
-                    case 4:
+                    case "下载全部视频":
                         //下载全部视频
                         getVA().getPictureDownDE().downloadList(getDE().getUndownLoadPictures(getDE().getVideoPicture(getVA().getDatas())), 0, new OnProgressI() {
                             @Override
@@ -148,7 +162,7 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
                             }
                         });
                         break;
-                    case 5:
+                    case "设置为封面":
                         //设置为封面
                         getDE().setAlbumHead(getVA().getAlbumid(), getVA().getCurrentPictures().getLocpath(), new OnProgressI() {
                             @Override

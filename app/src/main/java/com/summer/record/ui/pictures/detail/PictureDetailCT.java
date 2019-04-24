@@ -27,6 +27,13 @@ public class PictureDetailCT extends XFragment<PictureDetailUI,PictureDetailDE,P
         return pictureDetailCT;
     }
 
+    public static PictureDetailCT getInstance(ArrayList<PictureB> datas,int pos){
+        PictureDetailCT pictureDetailCT = new PictureDetailCT();
+        pictureDetailCT.getVA().setDatas(datas);
+        pictureDetailCT.getVA().setPos(pos);
+        return pictureDetailCT;
+    }
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);

@@ -484,4 +484,22 @@ public class PictureHomeDE extends DE {
         return pictureBS;
     }
 
+    /**
+     * 去掉填充的数据
+     * @param ori
+     * @return
+     */
+    public ArrayList<PictureB> removeNullPictures(ArrayList<PictureB> ori){
+        ArrayList<PictureB> datas = new ArrayList<>();
+        for(int i=0;i<ori.size();i++){
+            if(!TextUtils.isEmpty(ori.get(i).getAtype())){
+                datas.add(ori.get(i));
+            }
+        }
+        for(int i=0;i<datas.size();i++){
+            datas.get(i).setPos(i);
+        }
+        return datas;
+    }
+
 }

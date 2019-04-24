@@ -25,6 +25,9 @@ public class AlbumDE extends DE {
             public void onSuccess(ListData<PictureB> albumItemListData) {
                 super.onSuccess(albumItemListData);
                 if(albumItemListData!=null&&albumItemListData.getData()!=null){
+                    for(int i=0;i<albumItemListData.getData().size();i++){
+                        albumItemListData.getData().get(i).setPos(i);
+                    }
                     onProgressI.onProgress("getAllAlbumItemsById",OnProgressI.SUCCESS,albumItemListData.getData());
                 }
             }
