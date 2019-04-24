@@ -1,5 +1,8 @@
 package com.summer.record.ui.pictures.picture;
 
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.Target;
 import com.summer.record.constant.NetConstant;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.databinding.ItemPictureBinding;
@@ -33,9 +36,11 @@ public class PictureUI extends UI<ItemPictureBinding> {
             return;
         }
         if(pictureB.getLocpath().toLowerCase().endsWith("gif")){
-            GlideApp.with(getContext()).asGif().load(pictureB.getLocpath()).into(getUI().picture);
+            GlideApp.with(getContext()).asGif().encodeQuality(100).diskCacheStrategy(DiskCacheStrategy.RESOURCE) // NONE if you load from sdcard
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).load(pictureB.getLocpath()).into(getUI().picture);
         }else{
-            GlideApp.with(getContext()).asBitmap().load(pictureB.getLocpath()).into(getUI().picture);
+            GlideApp.with(getContext()).asBitmap().encodeQuality(100).diskCacheStrategy(DiskCacheStrategy.RESOURCE) // NONE if you load from sdcard
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).load(pictureB.getLocpath()).into(getUI().picture);
         }
     }
 }
