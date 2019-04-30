@@ -37,26 +37,18 @@ public class PictureHomeAdapter extends BaseQuickAdapter<PictureB, BaseViewHolde
 
     @Override
     protected void convert(BaseViewHolder helper, PictureB item) {
-        if(TextUtils.isEmpty(item.getAtype())){
-            helper.itemView.setVisibility(View.INVISIBLE);
-            return;
-        }
-        helper.itemView.setVisibility(View.VISIBLE);
         ItemImageImageBinding itemImageImageBinding = DataBindingUtil.bind(helper.itemView);
-        //Glide.with(context).asBitmap().apply(requestOptions).load(NetConstant.URL +item.getNetpath()).into(itemImageImageBinding.ivVideo);
-        ViewCompat.setTransitionName(itemImageImageBinding.ivVideo,String.valueOf(helper.getLayoutPosition()+"_image"));
         if(item.isSelected()){
             itemImageImageBinding.ivVideo.setAlpha(0.3f);
         }else{
             itemImageImageBinding.ivVideo.setAlpha(1f);
         }
-        File file = new File(item.getLocpath());
-        if(!file.exists()){
+        if(item.getLocpath()==null){
             GlideApp.with(context).asBitmap().load(R.color.white).apply(requestOptions).into(itemImageImageBinding.ivVideo);
-            //GlideApp.with(context).asBitmap().load((NetConstant.URL+item.getNetpath().replace("E:\\record","records").replace("\\","/"))).apply(requestOptions).into(itemImageImageBinding.ivVideo);
         }else{
             GlideApp.with(context).asBitmap().load(item.getLocpath()).apply(requestOptions).into(itemImageImageBinding.ivVideo);
         }
+
     }
 
     @Override

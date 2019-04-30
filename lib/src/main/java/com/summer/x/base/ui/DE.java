@@ -1,6 +1,8 @@
 package com.summer.x.base.ui;
 
-public class DE {
+import java.io.Serializable;
+
+public class DE implements Serializable {
 
     public DE(){
 

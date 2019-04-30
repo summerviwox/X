@@ -3,6 +3,8 @@
     <data/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/abc"
+        android:clickable="true"
+        android:background="@color/white"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -11,6 +13,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycle"
+            android:background="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"

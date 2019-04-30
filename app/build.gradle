@@ -22,6 +22,7 @@ android {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
         }
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -45,6 +46,7 @@ android {
                     'src/main/res/album',
                     'src/main/res/menu',
                     'src/main/res/play',
+                    'src/main/res/test',
             ]
             jniLibs.srcDirs = [
                     'libDir',
@@ -76,6 +78,8 @@ dependencies {
     api 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
     api 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    implementation 'xyz.zpayh:hdimageview:2.1.2'
+    implementation 'xyz.zpayh:hdimageview-glide:2.1.2'
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
     api "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
     api "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"

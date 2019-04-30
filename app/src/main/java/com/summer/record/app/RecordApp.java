@@ -6,10 +6,11 @@ import com.blankj.utilcode.util.SPUtils;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.summer.record.BuildConfig;
 import com.summer.record.constant.NetConstant;
+import com.summer.x.app.XApp;
 
 import me.yokeyword.fragmentation.Fragmentation;
 
-public class RecordApp extends Application {
+public class RecordApp extends XApp {
 
     @Override
     public void onCreate() {

@@ -51,7 +51,7 @@ public class AlbumHomeCT extends XFragment<AlbumHomeUI, AlbumHomeDE, AlbumHomeVA
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        start(AlbumCT.getInstance(getVA().getAlbums().get(position).getId()+""));
+        extraTransaction().startForResultDontHideSelf(AlbumCT.getInstance(getVA().getAlbums().get(position).getId()+""),2);
     }
 
 

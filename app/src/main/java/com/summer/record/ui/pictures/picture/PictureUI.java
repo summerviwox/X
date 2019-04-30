@@ -1,5 +1,7 @@
 package com.summer.record.ui.pictures.picture;
 
+import android.net.Uri;
+
 import com.summer.record.constant.NetConstant;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.databinding.ItemPictureBinding;
@@ -7,6 +9,9 @@ import com.summer.x.GlideApp;
 import com.summer.x.base.ui.UI;
 
 import java.io.File;
+
+import xyz.zpayh.hdimage.ImageSource;
+import xyz.zpayh.hdimage.ImageSourceBuilder;
 
 public class PictureUI extends UI<ItemPictureBinding> {
 
@@ -33,9 +38,10 @@ public class PictureUI extends UI<ItemPictureBinding> {
             return;
         }
         if(pictureB.getLocpath().toLowerCase().endsWith("gif")){
-            GlideApp.with(getContext()).asGif().encodeQuality(100).load(pictureB.getLocpath()).into(getUI().picture);
+            GlideApp.with(getContext()).asGif().load(pictureB.getLocpath()).into(getUI().picture);
         }else{
-            GlideApp.with(getContext()).asBitmap().encodeQuality(100).load(pictureB.getLocpath()).into(getUI().picture);
+            GlideApp.with(getContext()).asBitmap().load(pictureB.getLocpath()).into(getUI().picture);
         }
+        //getUI().picture.setImageURI(Uri.fromFile(new File(pictureB.getLocpath())));
     }
 }

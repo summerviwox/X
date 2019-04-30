@@ -1,5 +1,6 @@
 package com.summer.record.ui.pictures.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,9 +11,11 @@ import com.summer.record.data.model.PictureB;
 import com.summer.record.ui.loading.LoadingFrag;
 import com.summer.record.ui.menu.MenuFrag;
 import com.summer.record.ui.pictures.detail.PictureDetailCT;
+import com.summer.record.ui.pictures.test.TestFrag;
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.XFragment;
+import com.summer.x.util.HandleUtil;
 
 import java.util.ArrayList;
 
@@ -52,7 +55,8 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
         getVA().getLoadingfrag().setOnFinishI(new OnFinishI() {
             @Override
             public void onFinished(Object o) {
-                getDE().asyncGetPicturesFromDB(getVA().getPictureGetDE(),getDE(),getAct(),getVA().getTimes(),PictureHomeCT.this);
+                getVA().getPicturesDE().getDataFromDBByTime(getAct(),getVA().getTimes(),PictureHomeCT.this);
+                //getDE().asyncGetPicturesFromDB(getVA().getPictureGetDE(),getDE(),getAct(),getVA().getTimes(),PictureHomeCT.this);
             }
         });
     }
@@ -64,6 +68,7 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
             getVA().getPictures().get(position).setSelected(!getVA().getPictures().get(position).isSelected());
             getUI().notifyItemChanged(position);
         }else{
+            //startActivity(new Intent(getAct(), TestFrag.class));
             start(PictureDetailCT.getInstance(getVA().getNonullPictures(),getVA().getPictures().get(position).getPos()));
         }
         //getAct().start();
@@ -92,7 +97,7 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
 
     @Override
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-        extraTransaction().startForResultDontHideSelf(MenuFrag.getOldInstance(getVA().getMenus()),0);
+        extraTransaction().startForResult(MenuFrag.getInstance(getVA().getNemuMap()),0);
         return true;
     }
 
@@ -205,8 +210,8 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
                 pop();
                 break;
             case R.id.globalmenu:
-
                 //悬浮菜单
+                extraTransaction().startForResultDontHideSelf(MenuFrag.getInstance(getVA().getNemuMap()),0);
                 break;
         }
     }
@@ -214,11 +219,20 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
     @Override
     public void onProgress(String tag, int status, Object data) {
         switch (tag){
-            case "aysncDeal":
-                getVA().setPictures((ArrayList<PictureB>) data);
-                getVA().setNonullPictures(getDE().removeNullPictures(getVA().getPictures()));
-                getUI().refreshRecord(getAct(),getVA().getPictures());
-                getVA().getLoadingfrag().pop();
+            case "getDataFromDBByTime":
+                switch (status){
+                    case END:
+                        HandleUtil.getInstance().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                getVA().getLoadingfrag().pop();
+                                getVA().setPictures((ArrayList<PictureB>) data);
+                                getVA().setNonullPictures(getDE().removeNullPictures(getVA().getPictures()));
+                                getUI().refreshRecord(getAct(),getVA().getPictures());
+                            }
+                        }, 500);
+                        break;
+                }
                 break;
         }
     }

@@ -10,6 +10,8 @@
     <application
         android:name=".app.RecordApp"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -30,6 +32,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.pictures.hdpicture.HDPicutreCT" android:screenOrientation="portrait" android:theme="@style/fullScreen"/>
+        <activity android:name=".ui.pictures.test.TestFrag" android:screenOrientation="portrait" android:theme="@style/fullScreen"/>
     </application>
 
 </manifest>

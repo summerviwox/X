@@ -76,6 +76,50 @@ public class FileTool {
     }
 
 
+    public CursorLoader getCursor(Context context, String[] timeduraion){
+        ArrayList<PictureB> pictureBS = new ArrayList<>();
+        String[] projection = new String[]{MediaStore.Files.FileColumns._ID,
+                MediaStore.Files.FileColumns.MEDIA_TYPE,
+                MediaStore.Files.FileColumns.DATA,
+                MediaStore.Files.FileColumns.DATE_ADDED,
+                MediaStore.Files.FileColumns.DATE_MODIFIED,
+                MediaStore.Files.FileColumns.DISPLAY_NAME};
+        String selection = "("+MediaStore.Files.FileColumns.MEDIA_TYPE + "="+ MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
+                + " OR "
+                + MediaStore.Files.FileColumns.MEDIA_TYPE + "=" + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO+")"
+                +" AND "
+                +MediaStore.Files.FileColumns.DATE_ADDED+">=? AND "+MediaStore.Images.Media.DATE_ADDED+"< ? ";
+        Uri queryUri = MediaStore.Files.getContentUri("external");
+        CursorLoader cursorLoader = new CursorLoader(
+                context,
+                queryUri,
+                projection,
+                selection,
+                timeduraion,
+                MediaStore.Files.FileColumns.DATE_ADDED + " DESC" // Sort order.
+        );
+        return cursorLoader;
+    }
+
+    public ArrayList<PictureB> getData(CursorLoader cursorLoader){
+        ArrayList<PictureB> pictureBS = new ArrayList<>();
+        Cursor cursor = cursorLoader.loadInBackground();
+        while (cursor.moveToNext()){
+            PictureB pictureB = new PictureB(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MEDIA_TYPE)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns._ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA)),
+                    cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_ADDED))*1000,
+                    cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_MODIFIED))*1000,
+                    0l,
+                    cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DISPLAY_NAME))
+            );
+            pictureBS.add(pictureB);
+        }
+        ToastUtils.showShort(pictureBS.size()+"");
+        return pictureBS;
+    }
+
+
 
 
 

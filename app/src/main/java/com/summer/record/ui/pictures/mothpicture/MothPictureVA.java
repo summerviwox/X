@@ -1,6 +1,7 @@
 package com.summer.record.ui.pictures.mothpicture;
 
 import com.summer.record.ui.loading.LoadingFrag;
+import com.summer.record.ui.pictures.de.PicturesDE;
 import com.summer.record.ui.pictures.home.PictureGetDE;
 import com.summer.record.ui.pictures.home.PictureHomeDE;
 import com.summer.x.base.ui.VA;
@@ -13,6 +14,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MothPictureVA extends VA {
+
+    private PicturesDE picturesDE = new PicturesDE();
 
     private PictureHomeDE pictureHomeDE = new PictureHomeDE();
 

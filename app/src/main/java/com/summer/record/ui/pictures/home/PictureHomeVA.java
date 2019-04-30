@@ -4,10 +4,12 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.ui.albums.album.AlbumDE;
 import com.summer.record.ui.loading.LoadingFrag;
+import com.summer.record.ui.pictures.de.PicturesDE;
 import com.summer.record.ui.pictures.picture.PictureDownDE;
 import com.summer.x.base.ui.VA;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +25,8 @@ public class PictureHomeVA extends VA {
 
     private LoadingFrag loadingfrag;
 
+    private PicturesDE picturesDE = new PicturesDE();
+
     private PictureGetDE pictureGetDE = new PictureGetDE();
 
     private ArrayList<PictureB> pictures = new ArrayList<>();
@@ -37,19 +41,21 @@ public class PictureHomeVA extends VA {
 
     private PictureDownDE pictureDownDE = new PictureDownDE();
 
-    private ArrayList<String> menus = new ArrayList<>();
+
+    private ArrayList<HashMap<String,String>> nemuMap = new ArrayList<>();
+
 
     private AlbumDE albumDE = new AlbumDE();
 
     @Override
     public void initVA() {
         super.initVA();
-        menus.add("上传当前月");
-        menus.add("下载当前月");
-        menus.add("下载全部图片");
-        menus.add("下载全部视频");
-//        itemMenus.add("上传全部");
-//        itemMenus.add("下载全部");
+        String[] strings = new String[]{"上传当前月","下载当前月","下载全部图片","下载全部视频"};
+        for(int i=0;i<strings.length;i++){
+            HashMap<String,String> data = new HashMap<>();
+            data.put("text",strings[i]);
+            nemuMap.add(data);
+        }
     }
 
     /**

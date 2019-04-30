@@ -13,6 +13,7 @@ import com.summer.record.ui.pictures.detail.PictureDetailCT;
 import com.summer.record.ui.pictures.home.PictureHomeCT;
 import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.XFragment;
+import com.summer.x.util.HandleUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,23 +32,27 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        ((MainAct)getAct()).getUI().setBottomVisible(false);
         getUI().initUI(getAct(),this,this);
         getAllAlbumItemsById();
     }
 
     public void getAllAlbumItemsById(){
-        getDE().getAllAlbumItemsById(getVA().getAlbumid(), new OnProgressI() {
+        HandleUtil.getInstance().postDelayed(new Runnable() {
             @Override
-            public void onProgress(String tag, int status, Object data) {
-                switch (status){
-                    case SUCCESS:
-                        getVA().setDatas((ArrayList<PictureB>) data);
-                        getUI().setNewData(getVA().getDatas());
-                        break;
-                }
+            public void run() {
+                getDE().getAllAlbumItemsById(getVA().getAlbumid(), new OnProgressI() {
+                    @Override
+                    public void onProgress(String tag, int status, Object data) {
+                        switch (status){
+                            case SUCCESS:
+                                getVA().setDatas((ArrayList<PictureB>) data);
+                                getUI().setNewData(getVA().getDatas());
+                                break;
+                        }
+                    }
+                });
             }
-        });
+        }, 1000);
     }
 
     @Override
@@ -55,11 +60,6 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
         extraTransaction().startDontHideSelf( PictureDetailCT.getInstance(getVA().getDatas(),getVA().getDatas().get(position).getLocpath()));
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ((MainAct)getAct()).getUI().setBottomVisible(true);
-    }
 
 
     @Override

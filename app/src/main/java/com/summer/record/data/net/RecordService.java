@@ -7,6 +7,7 @@ import com.summer.record.ui.albums.bean.AlbumItem;
 import com.summer.x.data.net.ListData;
 import com.summer.x.data.net.ObjectData;
 
+import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -68,6 +69,11 @@ public interface RecordService {
     @FormUrlEncoded
     @POST("album/setAlbumHead")
     Call<ObjectData<Boolean>> setAlbumHead(@Field("id") String id,@Field("head") String head);
+
+
+
+    @GET("picture/getAllPictures")
+    Observable<ListData<PictureB>> getAllPictures2(@Query("startTime") String startTime, @Query("endTime") String endTime);
 
 
 

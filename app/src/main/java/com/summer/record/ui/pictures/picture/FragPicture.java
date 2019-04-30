@@ -13,6 +13,7 @@ import com.summer.record.tool.DownLoadTool;
 import com.summer.record.ui.albums.bean.Album;
 import com.summer.record.ui.menu.MenuFrag;
 import com.summer.record.ui.pictures.detail.PictureDetailCT;
+import com.summer.record.ui.pictures.hdpicture.HDPicutreCT;
 import com.summer.record.ui.pictures.home.PictureHomeDE;
 import com.summer.x.base.i.OnProgressI;
 import com.summer.x.base.ui.XFragment;
@@ -52,7 +53,7 @@ public class FragPicture extends XFragment<PictureUI, PictureDE,PictureVA> {
     }
 
     @Optional
-    @OnClick({R.id.upload,R.id.share,R.id.download,R.id.type})
+    @OnClick({R.id.upload,R.id.share,R.id.download,R.id.type,R.id.hd})
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()){
@@ -113,6 +114,9 @@ public class FragPicture extends XFragment<PictureUI, PictureDE,PictureVA> {
                         }
                     }
                 });
+                break;
+            case R.id.hd:
+                HDPicutreCT.goTo(getAct(),getVA().getPicture());
                 break;
         }
     }

@@ -41,6 +41,7 @@ public class MainAct extends XActivity<MainUI,MainDE,MainVA>  {
     }
 
     public void init(){
+        setDefaultFragmentBackground(R.color.white);
         loadMultipleRootFragment(getUI().getRootId(),0,getVA().getPageFragments());
         getUI().initBottomMenu(new FinishI() {
             @Override
