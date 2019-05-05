@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.summer.record.ui.albums.albums.AlbumHomeCT;
 import com.summer.record.ui.pictures.home.PictureHomeCT;
+import com.summer.record.ui.pictures.test.TestBAct;
 import com.summer.record.ui.pictures.test.TestFrag;
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.i.OnProgressI;
@@ -24,17 +25,17 @@ public class MothPictureCT extends XFragment<MothPictureUI,MothPictureDE,MothPic
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         getUI().initMonth(getAct(),this);
         getVA().getPicturesDE().synchLocalAndNetToDB(getAct(), this);
     }
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        //startActivity(new Intent(getAct(),TestFrag.class));
+        startActivity(new Intent(getAct(), TestBAct.class));
+        //start(PictureHomeCT.getInstance(PictureHomeCT.MODEL_SCAN,getDE().getStartEndTimeStamp(getVA().getStrs().get(position))));
         //extraTransaction().startDontHideSelf(PictureHomeCT.getInstance(PictureHomeCT.MODEL_SCAN,getDE().getStartEndTimeStamp(getVA().getStrs().get(position))));
-        start(PictureHomeCT.getInstance(PictureHomeCT.MODEL_SCAN,getDE().getStartEndTimeStamp(getVA().getStrs().get(position))));
     }
 
     @Override
@@ -62,7 +63,7 @@ public class MothPictureCT extends XFragment<MothPictureUI,MothPictureDE,MothPic
                 break;
             case "getMaxMinDateStamp":
                 getVA().setStrs(getDE().getMonthList((Long[]) data));
-               getUI().setNewData(getVA().getStrs());
+                getUI().setNewData(getVA().getStrs());
                 break;
         }
     }

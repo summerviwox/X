@@ -28,12 +28,11 @@ public class AlbumHomeCT extends XFragment<AlbumHomeUI, AlbumHomeDE, AlbumHomeVA
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         getUI().initRecord(getAct(),this,this);
         getAllAlbums();
     }
-
 
     public void getAllAlbums(){
         getDE().getAllAlbums(new OnProgressI() {

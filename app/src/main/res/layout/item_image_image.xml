@@ -3,10 +3,9 @@
     <data>
     </data>
 
-    <com.summer.record.ui.albums.albums.view.PictureFrameLayout
+    <com.summer.record.ui.albums.albums.view.GridConstraintLayout
         android:elevation="4dp"
-        android:layout_margin="1dp"
-        android:background="#ffffff"
+        android:background="@color/white"
         android:id="@+id/bg"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -14,14 +13,14 @@
 
 
         <ImageView
-            android:elevation="3dp"
-            android:background="@color/white"
-            android:src="@color/white"
-            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_margin="2dp"
             android:id="@+id/iv_video"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
 
-    </com.summer.record.ui.albums.albums.view.PictureFrameLayout>
+    </com.summer.record.ui.albums.albums.view.GridConstraintLayout>
 </layout>

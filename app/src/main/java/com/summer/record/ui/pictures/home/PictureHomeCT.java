@@ -42,8 +42,8 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         getUI().setSureVisible(getVA().getModel());
         getUI().initRecord(getAct(),getVA().getPictures(),PictureHomeCT.this,PictureHomeCT.this);
         initData();
@@ -97,7 +97,7 @@ public class PictureHomeCT extends XFragment<PictureHomeUI, PictureHomeDE, Pictu
 
     @Override
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-        extraTransaction().startForResult(MenuFrag.getInstance(getVA().getNemuMap()),0);
+        extraTransaction().startForResultDontHideSelf(MenuFrag.getInstance(getVA().getNemuMap()),0);
         return true;
     }
 

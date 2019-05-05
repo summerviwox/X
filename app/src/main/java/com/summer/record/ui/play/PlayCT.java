@@ -32,12 +32,12 @@ public class PlayCT extends XFragment<PlayUI, PictureDE,PlayVA> {
         return playCT;
     }
 
+
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         getUI().initPlayer(getAct(),getVA().getPictureB());
     }
-
 
     @Optional
     @OnClick({R.id.upload,R.id.share,R.id.download,R.id.type})

@@ -39,15 +39,9 @@ public class FragPicture extends XFragment<PictureUI, PictureDE,PictureVA> {
         return fragPicture;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
         getVA().setPicture((PictureB)(getArguments().getSerializable("data")));
         getUI().initPicture(getVA().getPicture());
     }

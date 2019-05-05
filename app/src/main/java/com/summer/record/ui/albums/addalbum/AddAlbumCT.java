@@ -29,8 +29,8 @@ public class AddAlbumCT extends XFragment<AddAlbumUI,AddAlbumDE,AddAlbumVA> impl
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         getUI().init(getAct(),this);
         getUI().setNewData(getVA().getDatas());
     }

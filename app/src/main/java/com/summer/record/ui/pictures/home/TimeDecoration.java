@@ -28,7 +28,7 @@ public class TimeDecoration extends RecyclerView.ItemDecoration {
 
     int num = 3;
 
-
+    int dp1;
 
     @SuppressLint("ResourceAsColor")
     public TimeDecoration(Context context, ArrayList<PictureB> records, int num){
@@ -38,41 +38,41 @@ public class TimeDecoration extends RecyclerView.ItemDecoration {
         paint.setTextSize(Value.SP_1*16);
         paint.setAntiAlias(true);
         linecolor= context.getResources().getColor(R.color.color_main);
+        paint.setColor(linecolor);
+        dp1 = Value.DP_1;
     }
 
 
-//    @Override
-//    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
-//        super.onDrawOver(c, parent, state);
-//        for(int i=0;i<parent.getChildCount();i++){
-//            int pos = parent.getChildAdapterPosition(parent.getChildAt(i));
-//            if(pos>=records.size()){
-//                return;
-//            }
-//            if(records.get(pos).isFrist()&&pos%num==0){
-////                paint.setColor(linecolor);
-////                c.drawRect(ScreenUtil.最小DIMEN*2,parent.getChildAt(i).getTop()-ScreenUtil.最小DIMEN*25,parent.getChildAt(i).getWidth(),parent.getChildAt(i).getTop(),paint);
-//                //paint.setColor(Color.GRAY);
-//                //c.drawText(records.get(pos).getDateStr(),parent.getChildAt(i).getLeft()+ Value.DP_1*2,parent.getChildAt(i).getTop()-Value.DP_1*11,paint);
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-//        super.getItemOffsets(outRect, view, parent, state);
-//        int pos = parent.getChildAdapterPosition(view);
-//        outRect.left = Value.DP_1*2;
-//        outRect.right = Value.DP_1*2;
-//        outRect.top = Value.DP_1*2;
-//        outRect.bottom = Value.DP_1*2;
-//
-//        if(pos>=records.size()){
-//            return;
-//        }
-//
-//        if(records.get(pos).isFrist()){
-//            outRect.top = Value.DP_1*30;
-//        }
-//    }
+    @SuppressLint("ResourceAsColor")
+    @Override
+    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+        super.onDrawOver(c, parent, state);
+        for(int i=0;i<parent.getChildCount();i++){
+            int pos = parent.getChildAdapterPosition(parent.getChildAt(i));
+            if(pos>=records.size()){
+                return;
+            }
+            if(records.get(pos).isFrist()&&pos%num==0){
+                c.drawText(records.get(pos).getDateStr(),parent.getChildAt(i).getLeft()+ Value.DP_1*2,parent.getChildAt(i).getTop()-Value.DP_1*11,paint);
+            }
+        }
+    }
+
+    @Override
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        int pos = parent.getChildAdapterPosition(view);
+        outRect.top = dp1*30;
+        outRect.left = Value.DP_1*2;
+        outRect.right = Value.DP_1*2;
+        outRect.top = Value.DP_1*2;
+        outRect.bottom = Value.DP_1*2;
+
+        if(pos>=records.size()){
+            return;
+        }
+
+        if(records.get(pos).isFrist()){
+            outRect.top = dp1*30;
+        }
+    }
 }

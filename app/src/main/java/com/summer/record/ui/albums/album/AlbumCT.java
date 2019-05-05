@@ -30,29 +30,24 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         getUI().initUI(getAct(),this,this);
         getAllAlbumItemsById();
     }
 
     public void getAllAlbumItemsById(){
-        HandleUtil.getInstance().postDelayed(new Runnable() {
+        getDE().getAllAlbumItemsById(getVA().getAlbumid(), new OnProgressI() {
             @Override
-            public void run() {
-                getDE().getAllAlbumItemsById(getVA().getAlbumid(), new OnProgressI() {
-                    @Override
-                    public void onProgress(String tag, int status, Object data) {
-                        switch (status){
-                            case SUCCESS:
-                                getVA().setDatas((ArrayList<PictureB>) data);
-                                getUI().setNewData(getVA().getDatas());
-                                break;
-                        }
-                    }
-                });
+            public void onProgress(String tag, int status, Object data) {
+                switch (status){
+                    case SUCCESS:
+                        getVA().setDatas((ArrayList<PictureB>) data);
+                        getUI().setNewData(getVA().getDatas());
+                        break;
+                }
             }
-        }, 1000);
+        });
     }
 
     @Override

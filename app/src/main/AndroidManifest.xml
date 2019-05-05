@@ -33,7 +33,7 @@
         </activity>
 
         <activity android:name=".ui.pictures.hdpicture.HDPicutreCT" android:screenOrientation="portrait" android:theme="@style/fullScreen"/>
-        <activity android:name=".ui.pictures.test.TestFrag" android:screenOrientation="portrait" android:theme="@style/fullScreen"/>
+        <activity android:name=".ui.pictures.test.TestBAct" android:screenOrientation="portrait" android:theme="@style/fullScreen"/>
     </application>
 
 </manifest>

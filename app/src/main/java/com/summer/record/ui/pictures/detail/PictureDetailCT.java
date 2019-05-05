@@ -35,12 +35,11 @@ public class PictureDetailCT extends XFragment<PictureDetailUI,PictureDetailDE,P
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         ((MainAct)getAct()).getUI().setBottomVisible(false);
         getUI().init(getActivity(),getFragmentManager(),getVA().getDatas(),getVA().getPos(),this);
     }
-
 
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {

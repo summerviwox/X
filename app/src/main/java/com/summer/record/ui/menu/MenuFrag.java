@@ -30,13 +30,12 @@ public class MenuFrag extends XFragment<MenuUI,MenuDE,MenuVA> implements BaseQui
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         if(getVA().getItems()!=null&&getVA().getItems().size()!=0){
             getVA().changeToMap(getVA().getItems());
         }
         getUI().initList(getAct(),getVA().getMaps(),this);
-
     }
 
     @Override

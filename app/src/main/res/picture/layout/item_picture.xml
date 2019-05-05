@@ -11,7 +11,6 @@
 
 
     <com.github.chrisbanes.photoview.PhotoView
-        android:src="@drawable/cutcamera"
         android:id="@+id/picture"
         android:layout_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"

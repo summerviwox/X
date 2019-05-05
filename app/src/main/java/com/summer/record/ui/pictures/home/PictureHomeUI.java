@@ -9,11 +9,14 @@ import com.summer.record.R;
 import com.summer.record.constant.NetConstant;
 import com.summer.record.data.model.PictureB;
 import com.summer.record.databinding.FragPictureHomeBinding;
+import com.summer.x.GlideApp;
 import com.summer.x.base.ui.UI;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class PictureHomeUI extends UI<FragPictureHomeBinding> {
 
