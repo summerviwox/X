@@ -12,18 +12,20 @@ import com.summer.x.base.ui.UI;
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class AlbumUI extends UI<CtAlbumBinding> {
 
     AlbumAdapter albumAdapter;
 
-    public void initUI(Context context, BaseQuickAdapter.OnItemClickListener onItemClickListener, BaseQuickAdapter.OnItemLongClickListener onItemLongClickListener){
+    public void initUI(Context context, BaseQuickAdapter.OnItemClickListener onItemClickListener, BaseQuickAdapter.OnItemLongClickListener onItemLongClickListener, SwipeRefreshLayout.OnRefreshListener onRefreshListener){
         albumAdapter = new AlbumAdapter(context);
-        getUI().recycle.setLayoutManager(new GridLayoutManager(context,4));
+        getUI().recycle.setLayoutManager(new GridLayoutManager(context,5));
         albumAdapter.bindToRecyclerView(getUI().recycle);
-        getUI().recycle.addItemDecoration(new AlbumDecoration(context,4));
+        getUI().recycle.addItemDecoration(new AlbumDecoration(context,5));
         albumAdapter.setOnItemClickListener(onItemClickListener);
         albumAdapter.setOnItemLongClickListener(onItemLongClickListener);
+        getUI().refresh.setOnRefreshListener(onRefreshListener);
     }
 
     public void setNewData(ArrayList<PictureB> datas){
@@ -38,5 +40,9 @@ public class AlbumUI extends UI<CtAlbumBinding> {
         albumAdapter.notifyItemChanged(pos);
     }
 
+
+    public void endRefresh(){
+        getUI().refresh.setRefreshing(false);
+    }
 
 }

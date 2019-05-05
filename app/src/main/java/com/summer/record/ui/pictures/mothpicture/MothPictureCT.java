@@ -33,8 +33,8 @@ public class MothPictureCT extends XFragment<MothPictureUI,MothPictureDE,MothPic
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        startActivity(new Intent(getAct(), TestBAct.class));
-        //start(PictureHomeCT.getInstance(PictureHomeCT.MODEL_SCAN,getDE().getStartEndTimeStamp(getVA().getStrs().get(position))));
+        //startActivity(new Intent(getAct(), TestBAct.class));
+        start(PictureHomeCT.getInstance(PictureHomeCT.MODEL_SCAN,getDE().getStartEndTimeStamp(getVA().getStrs().get(position))));
         //extraTransaction().startDontHideSelf(PictureHomeCT.getInstance(PictureHomeCT.MODEL_SCAN,getDE().getStartEndTimeStamp(getVA().getStrs().get(position))));
     }
 

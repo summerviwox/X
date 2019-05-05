@@ -50,11 +50,12 @@ public class TestBAct extends FragmentActivity {
 
                             @Override
                             public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-                                if(picturesDES.get(position).getLocpath()!=null){
-                                    GlideApp.with(TestBAct.this).asBitmap().centerCrop().load(picturesDES.get(position).getLocpath()).into(holder.imageView);
-                                }else{
-                                    GlideApp.with(TestBAct.this).asBitmap().centerCrop().load(R.color.white).into(holder.imageView);
-                                }
+                                GlideApp.with(TestBAct.this).asBitmap().centerCrop().load(R.color.black).into(holder.imageView);
+//                                if(picturesDES.get(position).getLocpath()!=null){
+//                                    GlideApp.with(TestBAct.this).asBitmap().centerCrop().load(picturesDES.get(position).getLocpath()).into(holder.imageView);
+//                                }else{
+//                                    GlideApp.with(TestBAct.this).asBitmap().centerCrop().load(R.color.white).into(holder.imageView);
+//                                }
                             }
 
                             @Override

@@ -18,11 +18,13 @@ public class AlbumHomeDE extends DE {
                 if(albumListData!=null&&albumListData.getData()!=null){
                     progressI.onProgress("getAllAlbums",OnProgressI.SUCCESS,albumListData.getData());
                 }
+                progressI.onProgress("getAllAlbums",OnProgressI.END,null);
             }
 
             @Override
             public void onError(int code, String error) {
                 super.onError(code, error);
+                progressI.onProgress("getAllAlbums",OnProgressI.END,null);
             }
         });
     }

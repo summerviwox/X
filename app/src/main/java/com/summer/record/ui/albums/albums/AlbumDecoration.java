@@ -38,7 +38,7 @@ public class AlbumDecoration extends RecyclerView.ItemDecoration {
         outRect.right = Value.DP_1*2;
         outRect.top = Value.DP_1*2;
         outRect.bottom = Value.DP_1*2;
-        if(pos<4){
+        if(pos<num){
             outRect.top = Value.DP_1*30;
         }
     }

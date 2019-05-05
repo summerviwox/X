@@ -15,6 +15,8 @@ import butterknife.OnClick;
 
 public class MenuFrag extends XFragment<MenuUI,MenuDE,MenuVA> implements BaseQuickAdapter.OnItemClickListener{
 
+    public static final String COUNT = "COUNT";
+
     public static MenuFrag getOldInstance(ArrayList<String> items){
         MenuFrag menuFrag = new MenuFrag();
         menuFrag.setArguments(new Bundle());
@@ -29,13 +31,22 @@ public class MenuFrag extends XFragment<MenuUI,MenuDE,MenuVA> implements BaseQui
         return menuFrag;
     }
 
+    public static MenuFrag getInstance(ArrayList<HashMap<String,String>> items,int count){
+        MenuFrag menuFrag = new MenuFrag();
+        menuFrag.setArguments(new Bundle());
+        menuFrag.getVA().setMaps(items);
+        menuFrag.getArguments().putInt(COUNT,count);
+        return menuFrag;
+    }
+
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
+        getVA().setCount(getArguments().getInt(COUNT,1));
         if(getVA().getItems()!=null&&getVA().getItems().size()!=0){
             getVA().changeToMap(getVA().getItems());
         }
-        getUI().initList(getAct(),getVA().getMaps(),this);
+        getUI().initList(getAct(),getVA().getMaps(),this,getVA().getCount());
     }
 
     @Override

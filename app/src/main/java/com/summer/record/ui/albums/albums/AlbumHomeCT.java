@@ -15,11 +15,12 @@ import com.summer.x.base.ui.XFragment;
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * 照片首页
  */
-public class AlbumHomeCT extends XFragment<AlbumHomeUI, AlbumHomeDE, AlbumHomeVA> implements BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemLongClickListener{
+public class AlbumHomeCT extends XFragment<AlbumHomeUI, AlbumHomeDE, AlbumHomeVA> implements BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static AlbumHomeCT getInstance(){
         AlbumHomeCT albumHomeCT = new AlbumHomeCT();
@@ -30,8 +31,8 @@ public class AlbumHomeCT extends XFragment<AlbumHomeUI, AlbumHomeDE, AlbumHomeVA
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        getUI().initRecord(getAct(),this,this);
-        getAllAlbums();
+        getUI().initRecord(getAct(),this,this,this);
+        onRefresh();
     }
 
     public void getAllAlbums(){
@@ -42,6 +43,9 @@ public class AlbumHomeCT extends XFragment<AlbumHomeUI, AlbumHomeDE, AlbumHomeVA
                     case SUCCESS:
                         getVA().setAlbums((ArrayList<Album>) data);
                         getUI().refreshRecord(getVA().getAlbums());
+                        break;
+                    case END:
+                        getUI().endRefresh();
                         break;
                 }
             }
@@ -102,5 +106,10 @@ public class AlbumHomeCT extends XFragment<AlbumHomeUI, AlbumHomeDE, AlbumHomeVA
         getVA().setSelectedAlbum(getVA().getAlbums().get(position));
         extraTransaction().startForResultDontHideSelf(MenuFrag.getOldInstance(getVA().getMenus()),1);
         return true;
+    }
+
+    @Override
+    public void onRefresh() {
+        getAllAlbums();
     }
 }

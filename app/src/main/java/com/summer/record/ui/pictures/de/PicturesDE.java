@@ -32,6 +32,7 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -45,12 +46,7 @@ public class PicturesDE extends DE {
     public void synchLocalAndNetToDB(Context context, OnProgressI progressI){
         progressI.onProgress("synchLocalAndNetToDB",OnProgressI.PREPARE,"开始同步");
         final CursorLoader[] cursorLoader = new CursorLoader[1];
-        Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                emitter.onNext("start");
-            }
-        })
+        Disposable subscribe = Observable.just("1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<String, String>() {
@@ -65,13 +61,13 @@ public class PicturesDE extends DE {
                     @Override
                     public void accept(String s) throws Exception {
                         //初始化文件获取
-                        cursorLoader[0] = new FileTool().getCursor(context,new String[]{s,StringUtil.getStr(System.currentTimeMillis())});
+                        cursorLoader[0] = new FileTool().getCursor(context, new String[]{s, StringUtil.getStr(System.currentTimeMillis())});
                     }
                 })
                 .doOnNext(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        progressI.onProgress("synchLocalAndNetToDB",OnProgressI.DOING,"开始获取网络数据");
+                        progressI.onProgress("synchLocalAndNetToDB", OnProgressI.DOING, "开始获取网络数据");
                     }
                 })
                 .observeOn(Schedulers.io())
@@ -79,14 +75,14 @@ public class PicturesDE extends DE {
                     @Override
                     public ObservableSource<ListData<PictureB>> apply(String s) throws Exception {
                         //网络获取数据
-                        return Net.getInstance().getAllPictures2(s,StringUtil.getStr(System.currentTimeMillis()));
+                        return Net.getInstance().getAllPictures2(s, StringUtil.getStr(System.currentTimeMillis()));
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<ListData<PictureB>>() {
                     @Override
                     public void accept(ListData<PictureB> pictureBListData) throws Exception {
-                        progressI.onProgress("synchLocalAndNetToDB",OnProgressI.DOING,"开始获取本地数据");
+                        progressI.onProgress("synchLocalAndNetToDB", OnProgressI.DOING, "开始获取本地数据");
                     }
                 })
                 .observeOn(Schedulers.io())
@@ -95,14 +91,14 @@ public class PicturesDE extends DE {
                     public Object[] apply(ListData<PictureB> pictureBListData) throws Exception {
                         //本地获取数据
                         ArrayList<PictureB> arrayList = new FileTool().getData(cursorLoader[0]);
-                        return new Object[]{pictureBListData.getData(),arrayList};
+                        return new Object[]{pictureBListData.getData(), arrayList};
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<Object[]>() {
                     @Override
                     public void accept(Object[] objects) throws Exception {
-                        progressI.onProgress("synchLocalAndNetToDB",OnProgressI.DOING,"开始合并数据");
+                        progressI.onProgress("synchLocalAndNetToDB", OnProgressI.DOING, "开始合并数据");
                     }
                 })
                 .observeOn(Schedulers.io())
@@ -122,7 +118,7 @@ public class PicturesDE extends DE {
                 .doOnNext(new Consumer<ArrayList<PictureB>>() {
                     @Override
                     public void accept(ArrayList<PictureB> pictureBS) throws Exception {
-                        progressI.onProgress("synchLocalAndNetToDB",OnProgressI.DOING,"开始保存数据");
+                        progressI.onProgress("synchLocalAndNetToDB", OnProgressI.DOING, "开始保存数据");
                     }
                 })
                 .map(new Function<ArrayList<PictureB>, ArrayList<PictureB>>() {
@@ -135,22 +131,15 @@ public class PicturesDE extends DE {
                 .subscribe(new Consumer<ArrayList<PictureB>>() {
                     @Override
                     public void accept(ArrayList<PictureB> pictureBS) throws Exception {
-                        progressI.onProgress("synchLocalAndNetToDB",OnProgressI.END,"操作完成");
+                        progressI.onProgress("synchLocalAndNetToDB", OnProgressI.END, "操作完成");
                     }
-                })
-        ;
+                });
     }
 
     @SuppressLint("CheckResult")
     public void getDataFromDBByTime(Context context, Long[] time,OnProgressI onProgressI){
         onProgressI.onProgress("getDataFromDBByTime",OnProgressI.PREPARE,"");
-        Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                emitter.onNext("1");
-            }
-        })
-                .subscribeOn(Schedulers.io())
+        Observable.just("1").subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<String, ArrayList<PictureB>>() {
                     @Override

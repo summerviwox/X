@@ -19,9 +19,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.OnClick;
 
-public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemLongClickListener{
+public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static AlbumCT getInstance(String albumid){
         AlbumCT albumCT = new AlbumCT();
@@ -32,8 +33,8 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        getUI().initUI(getAct(),this,this);
-        getAllAlbumItemsById();
+        getUI().initUI(getAct(),this,this,this);
+        onRefresh();
     }
 
     public void getAllAlbumItemsById(){
@@ -44,6 +45,7 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
                     case SUCCESS:
                         getVA().setDatas((ArrayList<PictureB>) data);
                         getUI().setNewData(getVA().getDatas());
+                        getUI().endRefresh();
                         break;
                 }
             }
@@ -192,4 +194,8 @@ public class AlbumCT extends XFragment<AlbumUI,AlbumDE,AlbumVA> implements BaseQ
     }
 
 
+    @Override
+    public void onRefresh() {
+        getAllAlbumItemsById();
+    }
 }

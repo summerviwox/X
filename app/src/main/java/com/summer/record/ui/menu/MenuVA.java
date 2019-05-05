@@ -12,6 +12,8 @@ import lombok.Setter;
 @Setter
 public class MenuVA extends VA {
 
+    private int count;
+
     private ArrayList<String> items;
 
     private ArrayList<HashMap<String,String>> maps = new ArrayList<>();

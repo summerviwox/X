@@ -9,15 +9,16 @@ import com.summer.x.base.ui.UI;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class MenuUI extends UI<FragMenuBinding> {
 
     private MenuAdapter menuAdapter;
 
-    public void initList(Context context, ArrayList<HashMap<String,String>> items, BaseQuickAdapter.OnItemClickListener onItemClickListener){
+    public void initList(Context context, ArrayList<HashMap<String,String>> items, BaseQuickAdapter.OnItemClickListener onItemClickListener,int count){
         menuAdapter = new MenuAdapter();
-        getUI().recycle.setLayoutManager(new LinearLayoutManager(context));
+        getUI().recycle.setLayoutManager(new GridLayoutManager(context,count));
         getUI().recycle.getLayoutManager().setAutoMeasureEnabled(true);
         menuAdapter.bindToRecyclerView(getUI().recycle);
         menuAdapter.setOnItemClickListener(onItemClickListener);

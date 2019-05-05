@@ -55,7 +55,7 @@ public class PictureHomeUI extends UI<FragPictureHomeBinding> {
     }
 
     public void scrollToPosition(int pos){
-        getUI().recycle.getLayoutManager().scrollToPosition(pos);
+        getUI().recycle.smoothScrollToPosition(pos);
     }
 
 }

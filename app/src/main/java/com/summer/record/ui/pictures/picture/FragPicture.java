@@ -40,8 +40,8 @@ public class FragPicture extends XFragment<PictureUI, PictureDE,PictureVA> {
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         getVA().setPicture((PictureB)(getArguments().getSerializable("data")));
         getUI().initPicture(getVA().getPicture());
     }
@@ -103,7 +103,7 @@ public class FragPicture extends XFragment<PictureUI, PictureDE,PictureVA> {
                     public void onProgress(String tag, int status, Object data) {
                         switch (status){
                             case SUCCESS:
-                                findFragment(PictureDetailCT.class).extraTransaction().startForResultDontHideSelf(MenuFrag.getInstance(getVA().getMenu((ArrayList<Album>) data)),0);
+                                findFragment(PictureDetailCT.class).extraTransaction().startForResultDontHideSelf(MenuFrag.getInstance(getVA().getMenu((ArrayList<Album>) data),4),0);
                                 break;
                         }
                     }

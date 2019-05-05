@@ -11,21 +11,28 @@ import com.summer.x.base.ui.UI;
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class AlbumHomeUI extends UI<FragAlbumHomeBinding> {
 
     private AlbumHomeAdapter recordAdapter;
 
-    public void initRecord(Context context, BaseQuickAdapter.OnItemClickListener onItemClickListener, BaseQuickAdapter.OnItemLongClickListener onItemLongClickListener){
+    public void initRecord(Context context, BaseQuickAdapter.OnItemClickListener onItemClickListener, BaseQuickAdapter.OnItemLongClickListener onItemLongClickListener, SwipeRefreshLayout.OnRefreshListener onRefreshListener){
         recordAdapter= new AlbumHomeAdapter(context);
-        getUI().recycle.setLayoutManager(new GridLayoutManager(context,4));
+        getUI().recycle.setLayoutManager(new GridLayoutManager(context,5));
         recordAdapter.bindToRecyclerView(getUI().recycle);
-        getUI().recycle.addItemDecoration(new AlbumDecoration(context,4));
+        getUI().recycle.addItemDecoration(new AlbumDecoration(context,5));
         recordAdapter.setOnItemClickListener(onItemClickListener);
         recordAdapter.setOnItemLongClickListener(onItemLongClickListener);
+        getUI().refresh.setOnRefreshListener(onRefreshListener);
     }
 
     public void refreshRecord(ArrayList<Album> str){
         recordAdapter.setNewData(str);
+    }
+
+
+    public void endRefresh(){
+        getUI().refresh.setRefreshing(false);
     }
 }

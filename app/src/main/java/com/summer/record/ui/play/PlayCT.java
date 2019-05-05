@@ -18,6 +18,7 @@ import com.summer.x.base.ui.XFragment;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import butterknife.OnClick;
 import butterknife.Optional;
@@ -34,8 +35,8 @@ public class PlayCT extends XFragment<PlayUI, PictureDE,PlayVA> {
 
 
     @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         getUI().initPlayer(getAct(),getVA().getPictureB());
     }
 
@@ -96,7 +97,7 @@ public class PlayCT extends XFragment<PlayUI, PictureDE,PlayVA> {
                     public void onProgress(String tag, int status, Object data) {
                         switch (status){
                             case SUCCESS:
-                                findFragment(PictureDetailCT.class).extraTransaction().startForResultDontHideSelf(MenuFrag.getInstance(getVA().getMenu((ArrayList<Album>) data)),0);
+                                findFragment(PictureDetailCT.class).extraTransaction().startForResultDontHideSelf(MenuFrag.getInstance(getVA().getMenu((ArrayList<Album>) data),4),0);
                                 break;
                         }
                     }
