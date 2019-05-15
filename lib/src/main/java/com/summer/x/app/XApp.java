@@ -11,6 +11,9 @@ import com.summer.x.data.net.ObjectData;
 import com.summer.x.exception.Crash;
 import com.summer.x.exception.CrashHander;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import androidx.multidex.MultiDex;
 
 
@@ -35,6 +38,8 @@ public class XApp extends Application implements OnFinishI {
         crash.setError(o.toString());
         crash.setPlatform("android");
         crash.setUser("summer");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        crash.setTimestr(simpleDateFormat.format(new Date()));
         XNet.getInstance().sendCrash(GsonUtils.toJson(crash)).enqueue(new BaseCallBack<ObjectData<Boolean>>(){});
     }
 
