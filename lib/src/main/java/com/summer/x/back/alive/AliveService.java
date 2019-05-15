@@ -6,10 +6,11 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import com.summer.x.R;
+import com.summer.x.base.i.OnFinishI;
 
 import androidx.annotation.Nullable;
 
-public class AliveService extends Service {
+public class AliveService extends Service implements OnFinishI {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -23,6 +24,7 @@ public class AliveService extends Service {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mediaPlayer.start();
+                onFinished(mp);
             }
         });
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -32,5 +34,10 @@ public class AliveService extends Service {
             }
         });
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onFinished(Object o) {
+
     }
 }
