@@ -25,6 +25,9 @@ public class LiveReceiver extends BroadcastReceiver {
     }
 
     public static void unRegist(Context context){
-        context.unregisterReceiver(liveReceiver);
+        if(liveReceiver!=null){
+
+            context.unregisterReceiver(liveReceiver);
+        }
     }
 }
