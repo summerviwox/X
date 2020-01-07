@@ -162,6 +162,9 @@ dependencies {
     //有时间选择器和选项选择器
     api 'com.contrarywind:Android-PickerView:4.1.8'
 
+    //底部菜单
+    api 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
+
     //数据库
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
     api "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"

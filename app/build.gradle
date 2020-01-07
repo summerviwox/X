@@ -46,7 +46,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':lib')
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 }
