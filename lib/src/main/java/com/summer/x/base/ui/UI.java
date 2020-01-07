@@ -46,10 +46,10 @@ public class UI<A extends ViewDataBinding>{
                     ui = (A) method.invoke(null, LayoutInflater.from(context));
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
-                    LogUtils.e(e.getMessage());
+                    LogUtils.e(e.toString());
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
-                    LogUtils.e(e.getMessage());
+                    LogUtils.e(e.getTargetException().getMessage());
                 }
             }
         }
