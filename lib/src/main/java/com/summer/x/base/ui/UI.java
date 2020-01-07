@@ -74,7 +74,7 @@ public class UI<A extends ViewDataBinding>{
                     LogUtils.e(e.getMessage());
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
-                    LogUtils.e(e.getMessage());
+                    LogUtils.e(e.getTargetException().getMessage());
                 }
             }
         }
