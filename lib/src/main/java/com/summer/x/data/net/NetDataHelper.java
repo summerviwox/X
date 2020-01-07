@@ -23,6 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class NetDataHelper {
 
+    public static boolean DEBUG = false;
+
     private static NetDataHelper instance;
 
     private Retrofit retrofit;
@@ -42,7 +44,7 @@ public class NetDataHelper {
                 readTimeout(600, TimeUnit.SECONDS).
                 writeTimeout(600, TimeUnit.SECONDS);
 
-        if (BuildConfig.DEBUG) {
+        if (DEBUG) {
             LoggingInterceptor httpLoggingInterceptor = new LoggingInterceptor.Builder()
                     .loggable(BuildConfig.DEBUG)
                     .setLevel(Level.BASIC)
