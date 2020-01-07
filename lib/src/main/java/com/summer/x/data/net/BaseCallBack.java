@@ -6,16 +6,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BaseCallBack<T> implements Callback<T> {
+public abstract class BaseCallBack<T> implements Callback<T> {
 
 
-    public void onSuccess(T t){
+    public abstract void onSuccess(T t);
 
-    }
-
-    public void onError(int code,String error){
-
-    }
+    public abstract void onError(int code,String error);
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
