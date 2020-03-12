@@ -169,6 +169,10 @@ dependencies {
     //底部菜单
     api 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
 
+    implementation 'com.rxjava.rxhttp:rxhttp:1.4.4'
+    annotationProcessor 'com.rxjava.rxhttp:rxhttp-compiler:1.4.4'
+    implementation 'com.rxjava.rxlife:rxlife:1.1.0'
+
     //数据库
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
     api "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
