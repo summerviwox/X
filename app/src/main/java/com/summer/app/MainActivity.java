@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.summer.x.GlideApp;
 import com.summer.x.base.ui.XActivity;
 import com.summer.x.data.net.BaseCallBack;
 import com.summer.x.data.net.NetDataHelper;
@@ -35,6 +37,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 LogUtils.e(error);
             }
         });
+        ImageView imageView = findViewById(R.id.image);
+        GlideApp.with(this).load(R.color.red).into(imageView);
     }
 
 

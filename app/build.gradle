@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
 
@@ -47,5 +49,5 @@ android {
 
 dependencies {
     implementation project(':lib')
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    kapt 'com.jakewharton:butterknife-compiler:10.2.1'
 }
