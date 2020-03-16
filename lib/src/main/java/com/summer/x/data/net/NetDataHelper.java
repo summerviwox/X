@@ -46,7 +46,7 @@ public class NetDataHelper {
 
         if (DEBUG) {
             LoggingInterceptor httpLoggingInterceptor = new LoggingInterceptor.Builder()
-                    .loggable(BuildConfig.DEBUG)
+                    .loggable(true)
                     .setLevel(Level.BASIC)
                     .log(Platform.INFO)
                     .request("Request")
