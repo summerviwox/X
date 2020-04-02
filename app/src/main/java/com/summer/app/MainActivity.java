@@ -7,9 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.summer.x.GlideApp;
+import com.summer.x.base.ui.DE;
+import com.summer.x.base.ui.VA;
 import com.summer.x.base.ui.XActivity;
 import com.summer.x.data.net.BaseCallBack;
 import com.summer.x.data.net.NetDataHelper;
@@ -18,13 +22,11 @@ import com.summer.x.data.net.ObjectData;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends XActivity<MainUI, DE, VA> implements View.OnClickListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
         NetDataHelper.DEBUG = true;
         Net.getInstance().onLogin().enqueue(new BaseCallBack<ObjectData<String>>() {
             @Override
@@ -40,7 +42,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         ImageView imageView = findViewById(R.id.image);
         GlideApp.with(this).load(R.color.red).into(imageView);
     }
-
 
     @OnClick({R.id.root})
     public void onClick(View v) {
