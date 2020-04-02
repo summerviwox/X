@@ -115,8 +115,8 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
     //数据库
-    kapt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
-    api "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
-    api "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
-    api "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dbflow_version}"
+//    kapt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+//    api "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+//    api "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+//    api "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dbflow_version}"
 }
