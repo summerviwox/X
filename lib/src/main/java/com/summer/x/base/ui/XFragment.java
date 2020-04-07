@@ -65,6 +65,9 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         if(isRegistEvent()){
             EventBus.getDefault().register(this);
         }
+        if(getUI().SetTitleBar()!=null){
+            ImmersionBar.with(this).titleBar(getUI().SetTitleBar()).init();
+        }
     }
 
     @Override

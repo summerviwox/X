@@ -87,4 +87,8 @@ public class UI<A extends ViewDataBinding>{
     public Context getContext() {
         return context;
     }
+
+    public View SetTitleBar(){
+        return null;
+    }
 }
