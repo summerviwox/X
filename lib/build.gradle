@@ -64,13 +64,8 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     //android 基本支持库
-    api 'androidx.multidex:multidex:2.0.1'
-    api 'androidx.annotation:annotation:1.1.0'
-    api 'androidx.fragment:fragment:1.1.0'
-    api 'androidx.legacy:legacy-support-core-ui:1.0.0'
-    api 'androidx.core:core:1.2.0'
-    api 'androidx.legacy:legacy-support-v4:1.0.0'
     api 'androidx.appcompat:appcompat:1.1.0'
+    api 'androidx.multidex:multidex:2.0.1'
     api 'androidx.cardview:cardview:1.0.0'
     api 'com.google.android.material:material:1.1.0'
     api 'androidx.recyclerview:recyclerview:1.1.0'
