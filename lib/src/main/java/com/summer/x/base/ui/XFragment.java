@@ -15,6 +15,9 @@ import java.lang.reflect.ParameterizedType;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.gyf.barlibrary.ImmersionBar;
+
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportFragment;
 
