@@ -32,7 +32,9 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
-        ImmersionBar.with(this).transparentBar().transparentNavigationBar().transparentStatusBar().init();//默认状态栏透明
+        if(initImmersionBar()){
+            ImmersionBar.with(this).transparentBar().transparentNavigationBar().transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
+        }
         initOpe();
         setContentView(getOpe().getUI().getUI().getRoot());
         ButterKnife.bind(this,getOpe().getUI().getUI().getRoot());
@@ -44,7 +46,9 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ImmersionBar.with(this).destroy();
+        if(initImmersionBar()){
+            ImmersionBar.with(this).destroy();
+        }
         if(isRegistEvent()){
             EventBus.getDefault().unregister(this);
         }
@@ -111,6 +115,10 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
     }
 
     protected boolean isRegistEvent(){
+        return true;
+    }
+
+    protected boolean initImmersionBar(){
         return true;
     }
 

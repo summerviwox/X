@@ -49,10 +49,6 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         return getUI().getUI().getRoot();
     }
 
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-    }
 
     /**
      *完成UI,DE,VA的初始化
@@ -68,8 +64,12 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         if(isRegistEvent()){
             EventBus.getDefault().register(this);
         }
-        if(getUI().SetTitleBar()!=null){
-            ImmersionBar.with(this).titleBar(getUI().SetTitleBar()).init();
+        if(initImmersionBar()){
+            if(getUI().SetTitleBar()!=null){
+                ImmersionBar.with(this).transparentBar().transparentNavigationBar().transparentStatusBar().keyboardEnable(true).titleBar(getUI().SetTitleBar()).init();//默认状态栏透明
+            }else{
+                ImmersionBar.with(this).transparentBar().transparentNavigationBar().transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
+            }
         }
     }
 
@@ -144,6 +144,10 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
                 e.printStackTrace();
             }
         }
+    }
+
+    protected boolean initImmersionBar(){
+        return true;
     }
 
     protected boolean isRegistEvent(){
