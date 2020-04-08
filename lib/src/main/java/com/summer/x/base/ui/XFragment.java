@@ -76,9 +76,13 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if(initImmersionBar()){
+            ImmersionBar.with(this).destroy();
+        }
         if(isRegistEvent()){
             EventBus.getDefault().unregister(this);
         }
+
     }
 
     @Override
