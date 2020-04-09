@@ -27,7 +27,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
 
     private XActivity activity;
 
-    private XFragment fragment;
+    private XFragment fragment = this;
 
     public XFragment(){
         setArguments(new Bundle());
@@ -111,7 +111,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
                 Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
                 Constructor<A> uic =ui.getConstructor();
                 A aa = uic.newInstance();
-                aa.bindUI(getActivity(),viewGroup);
+                aa.bindUI(getXFragment(),viewGroup);
                 aa.initUI();
                 getOpe().setUI(aa);
             } catch (Exception e) {
@@ -174,13 +174,11 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         return ope;
     }
 
-    public XActivity getAct() {
+    public XActivity getXActivity() {
         return activity;
     }
 
-    public XFragment getFragment() {
+    public XFragment getXFragment() {
         return fragment;
     }
-
-
 }
