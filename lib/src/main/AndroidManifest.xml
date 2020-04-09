@@ -49,6 +49,15 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
          >
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="PhotoPicker"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/photo_path" />
+        </provider>
         <service android:name=".back.alive.AliveService" android:process=":live">
             <intent-filter android:priority="2147483647">
                 <action android:name="com.summer.live"/>
