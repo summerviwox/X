@@ -44,6 +44,12 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
     }
 
     @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        getUI().lazyInitUI();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if(initImmersionBar()){
