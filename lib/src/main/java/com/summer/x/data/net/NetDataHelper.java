@@ -1,7 +1,7 @@
 package com.summer.x.data.net;
 
-import com.ihsanbal.logging.Level;
-import com.ihsanbal.logging.LoggingInterceptor;
+import com.summer.net.logging.Level;
+import com.summer.net.logging.LoggingInterceptor;
 import com.summer.x.BuildConfig;
 
 import java.io.IOException;
