@@ -15,6 +15,9 @@ import java.lang.reflect.ParameterizedType;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.gyf.barlibrary.ImmersionBar;
+
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -24,7 +27,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
 
     private XActivity activity;
 
-    private XFragment fragment;
+    private XFragment fragment = this;
 
     public XFragment(){
         setArguments(new Bundle());
@@ -46,10 +49,6 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         return getUI().getUI().getRoot();
     }
 
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-    }
 
     /**
      *完成UI,DE,VA的初始化
@@ -65,14 +64,25 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         if(isRegistEvent()){
             EventBus.getDefault().register(this);
         }
+        if(initImmersionBar()){
+            if(getUI().SetTitleBar()!=null){
+                ImmersionBar.with(this).transparentBar().transparentNavigationBar().transparentStatusBar().keyboardEnable(true).titleBar(getUI().SetTitleBar()).init();//默认状态栏透明
+            }else{
+                ImmersionBar.with(this).transparentBar().transparentNavigationBar().transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
+            }
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if(initImmersionBar()){
+            ImmersionBar.with(this).destroy();
+        }
         if(isRegistEvent()){
             EventBus.getDefault().unregister(this);
         }
+
     }
 
     @Override
@@ -101,7 +111,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
                 Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
                 Constructor<A> uic =ui.getConstructor();
                 A aa = uic.newInstance();
-                aa.bindUI(getActivity(),viewGroup);
+                aa.bindUI(getXFragment(),viewGroup);
                 aa.initUI();
                 getOpe().setUI(aa);
             } catch (Exception e) {
@@ -140,6 +150,10 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         }
     }
 
+    protected boolean initImmersionBar(){
+        return true;
+    }
+
     protected boolean isRegistEvent(){
         return true;
     }
@@ -160,13 +174,11 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         return ope;
     }
 
-    public XActivity getAct() {
+    public XActivity getXActivity() {
         return activity;
     }
 
-    public XFragment getFragment() {
+    public XFragment getXFragment() {
         return fragment;
     }
-
-
 }

@@ -1,9 +1,10 @@
 package com.summer.x.base.ui;
 
-import android.content.Context;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.databinding.ViewDataBinding;
 
 import com.blankj.utilcode.util.LogUtils;
 
@@ -11,14 +12,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-
 public class UI<A extends ViewDataBinding>{
 
     private A ui;
 
-    private Context context;
+    private XActivity xActivity;
+
+    private XFragment xFragment;
 
     public UI(){
 
@@ -28,10 +28,10 @@ public class UI<A extends ViewDataBinding>{
 
     /**
      * 绑定xml
-     * @param context
+     * @param xActivity
      */
-    public void bindUI(Context context) {
-        this.context = context;
+    public void bindUI(XActivity xActivity) {
+        this.xActivity = xActivity;
         if (ui == null) {
             if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
                 Class<A> a = (Class<A>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -43,7 +43,7 @@ public class UI<A extends ViewDataBinding>{
                     e.printStackTrace();
                 }
                 try {
-                    ui = (A) method.invoke(null, LayoutInflater.from(context));
+                    ui = (A) method.invoke(null, LayoutInflater.from(xActivity));
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                     LogUtils.e(e.toString());
@@ -55,8 +55,9 @@ public class UI<A extends ViewDataBinding>{
         }
     }
 
-    public void bindUI(Context context, ViewGroup viewGroup) {
-        this.context = context;
+    public void bindUI(XFragment xFragment, ViewGroup viewGroup) {
+        this.xFragment = xFragment;
+        this.xActivity = xFragment.getXActivity();
         if (ui == null) {
             if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
                 Class<A> a = (Class<A>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -68,7 +69,7 @@ public class UI<A extends ViewDataBinding>{
                     e.printStackTrace();
                 }
                 try {
-                    ui = (A) method.invoke(null, LayoutInflater.from(context),viewGroup,false);
+                    ui = (A) method.invoke(null, LayoutInflater.from(xActivity),viewGroup,false);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                     LogUtils.e(e.getMessage());
@@ -84,7 +85,15 @@ public class UI<A extends ViewDataBinding>{
         return ui;
     }
 
-    public Context getContext() {
-        return context;
+    public XActivity getXActivity() {
+        return xActivity;
+    }
+
+    public XFragment getXFragment() {
+        return xFragment;
+    }
+
+    public View SetTitleBar(){
+        return null;
     }
 }
