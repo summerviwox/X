@@ -100,6 +100,7 @@ dependencies {
     api 'com.gyf.immersionbar:immersionbar:2.3.2'
     api 'com.contrarywind:Android-PickerView:4.1.8'
     api 'com.ashokvarma.android:bottom-navigation-bar:2.2.0'
+    compile 'com.github.Aspsine:SwipeToLoadLayout:1.0.4'
     //网络请求
     api 'com.squareup.okhttp3:okhttp:4.4.1'
     api 'com.squareup.retrofit2:retrofit:2.7.2'
