@@ -1,4 +1,4 @@
-package com.tongche.tongchat.base;
+package com.summer.x.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

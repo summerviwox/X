@@ -18,6 +18,7 @@ import com.summer.x.data.net.BaseCallBack;
 import com.summer.x.data.net.NetDataHelper;
 import com.summer.x.data.net.ObjectData;
 import com.summer.x.util.GlideImageEngine;
+import com.summer.x.util.HandleUtil;
 import com.summer.x.util.PermissionUtil;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -45,6 +46,8 @@ public class MainActivity extends XActivity<MainUI, DE, VA> implements View.OnCl
         });
         ImageView imageView = findViewById(R.id.image);
         GlideApp.with(this).load(R.color.red).into(imageView);
+
+
     }
     MediaStoreCompat mediaStoreCompat = new MediaStoreCompat(this);
     @OnClick({R.id.root})
@@ -64,6 +67,9 @@ public class MainActivity extends XActivity<MainUI, DE, VA> implements View.OnCl
 
         mediaStoreCompat.setCaptureStrategy(new CaptureStrategy(true,"PhotoPicker"));
         mediaStoreCompat.dispatchCaptureIntent(this,12);
+
+
+
 
 
     }

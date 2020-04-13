@@ -1,11 +1,13 @@
 package com.summer.x.util;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 public class StringUtil implements Serializable {
 
     public static String getStr(Object o){
-        if(o==null){
+        if(o==null|| TextUtils.isEmpty(o.toString())){
             return "";
         }
         return o.toString();
