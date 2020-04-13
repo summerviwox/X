@@ -66,9 +66,9 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         }
         if(initImmersionBar()){
             if(getUI().SetTitleBar()!=null){
-                ImmersionBar.with(this).transparentBar().transparentNavigationBar().transparentStatusBar().keyboardEnable(true).titleBar(getUI().SetTitleBar()).init();//默认状态栏透明
+                ImmersionBar.with(this).transparentStatusBar().keyboardEnable(true).titleBar(getUI().SetTitleBar()).init();//默认状态栏透明
             }else{
-                ImmersionBar.with(this).transparentBar().transparentNavigationBar().transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
+                ImmersionBar.with(this).transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
             }
         }
     }
