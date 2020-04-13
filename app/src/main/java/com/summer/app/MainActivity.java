@@ -53,17 +53,17 @@ public class MainActivity extends XActivity<MainUI, DE, VA> implements View.OnCl
             return;
         }
 
-        Matisse
-                .from(this)
-                .choose(MimeType.ofAll())
-                .maxSelectable(9)
-                .imageEngine(new GlideImageEngine())
-                .capture(true)
-                .captureStrategy(new CaptureStrategy(true,"PhotoPicker"))
-                .forResult(1);
+//        Matisse
+//                .from(this)
+//                .choose(MimeType.ofAll())
+//                .maxSelectable(9)
+//                .imageEngine(new GlideImageEngine())
+//                .capture(true)
+//                .captureStrategy(new CaptureStrategy(true,"PhotoPicker"))
+//                .forResult(1);
 
-//        mediaStoreCompat.setCaptureStrategy(new CaptureStrategy(true,"PhotoPicker"));
-//        mediaStoreCompat.dispatchCaptureIntent(this,12);
+        mediaStoreCompat.setCaptureStrategy(new CaptureStrategy(true,"PhotoPicker"));
+        mediaStoreCompat.dispatchCaptureIntent(this,12);
 
 
     }
