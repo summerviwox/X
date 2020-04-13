@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.summer.app.frag.FragCT;
 import com.summer.x.GlideApp;
 import com.summer.x.base.ui.DE;
 import com.summer.x.base.ui.VA;
@@ -46,6 +47,7 @@ public class MainActivity extends XActivity<MainUI, DE, VA> implements View.OnCl
         });
         ImageView imageView = findViewById(R.id.image);
         GlideApp.with(this).load(R.color.red).into(imageView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.root, FragCT.getInstance()).commit();
 
 
     }

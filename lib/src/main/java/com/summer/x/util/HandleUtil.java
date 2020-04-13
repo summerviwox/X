@@ -31,14 +31,14 @@ public class HandleUtil extends Handler implements Serializable {
 
     Runnable runnable ;
 
-    boolean stop = false;
+    public boolean stop = false;
 
     public void refresh(XFragment xFragment, int time, OnFinishI onFinishI){
         if(runnable==null){
             runnable= new Runnable() {
                 @Override
                 public void run() {
-                    if(xFragment.isDetached()||stop){
+                    if(!xFragment.isAdded()||stop){
                         return;
                     }
                     onFinishI.onFinished(this);
