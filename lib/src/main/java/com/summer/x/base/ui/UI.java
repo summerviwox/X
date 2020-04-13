@@ -26,6 +26,8 @@ public class UI<A extends ViewDataBinding>{
 
     public void initUI(){}
 
+    public void lazyInitUI(){}
+
     /**
      * 绑定xml
      * @param xActivity

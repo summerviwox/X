@@ -74,6 +74,13 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     }
 
     @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        getUI().lazyInitUI();
+    }
+
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if(initImmersionBar()){
