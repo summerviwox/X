@@ -33,6 +33,8 @@ public class HandleUtil extends Handler implements Serializable {
 
     public boolean stop = false;
 
+    public boolean pause = false;
+
     public void refresh(XFragment xFragment, int time, OnFinishI onFinishI){
         if(runnable==null){
             runnable= new Runnable() {
@@ -41,12 +43,21 @@ public class HandleUtil extends Handler implements Serializable {
                     if(!xFragment.isAdded()||stop){
                         return;
                     }
-                    onFinishI.onFinished(this);
+                    if(!pause){
+                        onFinishI.onFinished(this);
+                    }
                     refresh(xFragment,time,onFinishI);
                 }
             };
         }
         getInstance().postDelayed(runnable,time);
+    }
+
+    public void stopNow(){
+        stop = true;
+        if(runnable!=null){
+            getInstance().removeCallbacks(runnable);
+        }
     }
 
 }

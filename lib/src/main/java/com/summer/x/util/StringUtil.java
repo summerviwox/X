@@ -14,14 +14,14 @@ public class StringUtil implements Serializable {
     }
 
     public static String getStrWith(Object o,String defaults){
-        if(o==null){
+        if(o==null|| TextUtils.isEmpty(o.toString())){
             return defaults;
         }
         return o.toString();
     }
 
     public static String getStrWithDefault(Object o){
-        if(o==null){
+        if(o==null|| TextUtils.isEmpty(o.toString())){
             return " - - ";
         }
         return o.toString();
