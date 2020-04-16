@@ -1,5 +1,7 @@
 package com.summer.net.logging;
 
+import com.blankj.utilcode.util.LogUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,6 +9,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
+import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okio.Buffer;
@@ -101,6 +104,18 @@ class Printer {
 //        }
 //        if (builder.getLogger() == null)
 //            I.log(builder.getType(), tag, END_LINE, builder.isLogHackEnable());
+
+        FormBody formBody = (FormBody) request.body();
+        String s = "";
+        if(formBody!=null){
+            for(int i=0;i<formBody.size();i++){
+                s+= formBody.encodedName(i)+"="+formBody.encodedValue(i);
+                if(i!=formBody.size()-1){
+                    s+="&";
+                }
+            }
+            LogUtils.e(request.url()+"&"+s);
+        }
     }
 
     static void printFileResponse(LoggingInterceptor.Builder builder, long chainMs, boolean isSuccessful,
