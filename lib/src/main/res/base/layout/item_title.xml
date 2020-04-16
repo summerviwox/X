@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical"
+    android:id="@+id/title"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <ImageView
+        android:id="@+id/leftimg"
+        android:src="@drawable/icon_left_white"
+        android:paddingRight="10dp"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"/>
+    <TextView
+        android:singleLine="true"
+        android:id="@+id/midtext"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="消息中心"
+        android:textColor="#ffffffff"
+        android:textSize="18sp"
+        />
+
+    <LinearLayout
+        android:id="@+id/rightll"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/rightimg"
+            android:layout_width="22dp"
+            android:layout_height="22dp"/>
+
+        <TextView
+            android:id="@+id/righttext"
+            android:singleLine="true"
+            android:layout_marginLeft="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="我的"
+            android:textColor="#ffffffff"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+</RelativeLayout>

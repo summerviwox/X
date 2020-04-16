@@ -9,4 +9,8 @@ public class Value {
 
     public static final int SP_1 = SizeUtils.sp2px(1);
 
+
+    public static final String DEFAULTSTR = " - - ";
+
+
 }
