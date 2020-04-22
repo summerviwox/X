@@ -70,17 +70,8 @@ class Printer {
                 LogUtils.e(request.url());
                 break;
             case "post":
-                FormBody formBody = (FormBody) request.body();
-                String s = "";
-                if(formBody!=null){
-                    for(int i=0;i<formBody.size();i++){
-                        s+= formBody.encodedName(i)+"="+formBody.encodedValue(i);
-                        if(i!=formBody.size()-1){
-                            s+="&";
-                        }
-                    }
-                    LogUtils.e(request.url()+"&"+s);
-                }
+                LogUtils.e(request.url());
+                LogUtils.e(bodyToString(request));
                 break;
         }
     }

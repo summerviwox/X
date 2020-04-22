@@ -19,8 +19,7 @@ public interface ZXService {
     Call<ObjectData<String>> onLogin(@Query("name")String name,@Query("pwd")String pwd);
 
 
-    @FormUrlEncoded
     @POST("event/getDurationEvent")
-    Call<ObjectData<String>> getDurationEvent(@Field("startTime")long startTime,@Field("endTime")long endTime);
+    Call<ObjectData<String>> getDurationEvent(@Body EventReq eventReq);
 
 }

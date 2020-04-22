@@ -34,18 +34,21 @@ public class MainActivity extends XActivity<MainUI, DE, VA> implements View.OnCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NetDataHelper.DEBUG = true;
-        Net.getInstance().onLogin("summer","123456").enqueue(new BaseCallBack<ObjectData<String>>() {
-            @Override
-            public void onSuccess(ObjectData<String> stringObjectData) {
-                LogUtils.e(stringObjectData);
-            }
-
-            @Override
-            public void onError(int code, String error) {
-                LogUtils.e(error);
-            }
-        });
-        Net.getInstance().getDurationEvent(System.currentTimeMillis(),System.currentTimeMillis()).enqueue(new BaseCallBack<ObjectData<String>>() {
+//        Net.getInstance().onLogin("summer","123456").enqueue(new BaseCallBack<ObjectData<String>>() {
+//            @Override
+//            public void onSuccess(ObjectData<String> stringObjectData) {
+//                LogUtils.e(stringObjectData);
+//            }
+//
+//            @Override
+//            public void onError(int code, String error) {
+//                LogUtils.e(error);
+//            }
+//        });
+        EventReq eventReq = new EventReq();
+        eventReq.setStartTime(System.currentTimeMillis());
+        eventReq.setEndTime(System.currentTimeMillis());
+        Net.getInstance().getDurationEvent(eventReq).enqueue(new BaseCallBack<ObjectData<String>>() {
             @Override
             public void onSuccess(ObjectData<String> stringObjectData) {
 
