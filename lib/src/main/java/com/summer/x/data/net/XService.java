@@ -1,4 +1,4 @@
-package com.summer.net;
+package com.summer.x.data.net;
 
 
 import com.summer.x.data.net.ObjectData;

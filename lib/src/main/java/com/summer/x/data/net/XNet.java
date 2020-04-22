@@ -1,6 +1,4 @@
-package com.summer.net;
-
-import com.summer.x.data.net.NetDataHelper;
+package com.summer.x.data.net;
 
 public class XNet {
 

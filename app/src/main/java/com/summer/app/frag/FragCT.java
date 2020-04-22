@@ -22,12 +22,12 @@ public class FragCT extends XFragment<FragUI,FragDE,FragVA> {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         HandleUtil handleUtil = new HandleUtil(this);
-        handleUtil.refresh(this, 3000, new OnFinishI() {
-            @Override
-            public void onFinished(Object o) {
-                LogUtils.e("fdfdfd");
-            }
-        });
+//        handleUtil.refresh(this, 3000, new OnFinishI() {
+//            @Override
+//            public void onFinished(Object o) {
+//                LogUtils.e("fdfdfd");
+//            }
+//        });
         getUI().getUI().text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

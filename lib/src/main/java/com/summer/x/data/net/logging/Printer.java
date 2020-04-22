@@ -1,4 +1,4 @@
-package com.summer.net.logging;
+package com.summer.x.data.net.logging;
 
 import com.blankj.utilcode.util.LogUtils;
 
@@ -105,16 +105,23 @@ class Printer {
 //        if (builder.getLogger() == null)
 //            I.log(builder.getType(), tag, END_LINE, builder.isLogHackEnable());
 
-        FormBody formBody = (FormBody) request.body();
-        String s = "";
-        if(formBody!=null){
-            for(int i=0;i<formBody.size();i++){
-                s+= formBody.encodedName(i)+"="+formBody.encodedValue(i);
-                if(i!=formBody.size()-1){
-                    s+="&";
+        switch (request.method().toLowerCase()){
+            case "get":
+                LogUtils.e(request.url());
+                break;
+            case "post":
+                FormBody formBody = (FormBody) request.body();
+                String s = "";
+                if(formBody!=null){
+                    for(int i=0;i<formBody.size();i++){
+                        s+= formBody.encodedName(i)+"="+formBody.encodedValue(i);
+                        if(i!=formBody.size()-1){
+                            s+="&";
+                        }
+                    }
+                    LogUtils.e(request.url()+"&"+s);
                 }
-            }
-            LogUtils.e(request.url()+"&"+s);
+                break;
         }
     }
 

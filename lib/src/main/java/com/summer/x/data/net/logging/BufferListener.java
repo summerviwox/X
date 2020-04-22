@@ -1,4 +1,4 @@
-package com.summer.net.logging;
+package com.summer.x.data.net.logging;
 
 import java.io.IOException;
 

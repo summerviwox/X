@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.blankj.utilcode.util.GsonUtils;
-import com.summer.net.XNet;
+import com.summer.x.data.net.XNet;
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.data.net.BaseCallBack;
 import com.summer.x.data.net.ObjectData;

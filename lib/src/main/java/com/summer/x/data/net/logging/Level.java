@@ -1,4 +1,4 @@
-package com.summer.net.logging;
+package com.summer.x.data.net.logging;
 
 /**
  * @author ihsan on 21/02/2017.

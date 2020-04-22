@@ -34,7 +34,7 @@ public class MainActivity extends XActivity<MainUI, DE, VA> implements View.OnCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NetDataHelper.DEBUG = true;
-        Net.getInstance().onLogin().enqueue(new BaseCallBack<ObjectData<String>>() {
+        Net.getInstance().onLogin("summer","123456").enqueue(new BaseCallBack<ObjectData<String>>() {
             @Override
             public void onSuccess(ObjectData<String> stringObjectData) {
                 LogUtils.e(stringObjectData);
@@ -45,8 +45,18 @@ public class MainActivity extends XActivity<MainUI, DE, VA> implements View.OnCl
                 LogUtils.e(error);
             }
         });
+//        Net.getInstance().getDurationEvent(System.currentTimeMillis(),System.currentTimeMillis()).enqueue(new BaseCallBack<ObjectData<String>>() {
+//            @Override
+//            public void onSuccess(ObjectData<String> stringObjectData) {
+//
+//            }
+//
+//            @Override
+//            public void onError(int code, String error) {
+//
+//            }
+//        });
         ImageView imageView = findViewById(R.id.image);
-        GlideApp.with(this).load(R.color.red).into(imageView);
         getSupportFragmentManager().beginTransaction().replace(R.id.root, FragCT.getInstance()).commit();
 
 

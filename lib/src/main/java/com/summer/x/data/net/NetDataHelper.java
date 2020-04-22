@@ -1,18 +1,11 @@
 package com.summer.x.data.net;
 
-import com.summer.net.logging.Level;
-import com.summer.net.logging.LoggingInterceptor;
-import com.summer.x.BuildConfig;
+import com.summer.x.data.net.logging.Level;
+import com.summer.x.data.net.logging.LoggingInterceptor;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.internal.platform.Platform;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
