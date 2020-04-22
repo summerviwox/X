@@ -45,17 +45,17 @@ public class MainActivity extends XActivity<MainUI, DE, VA> implements View.OnCl
                 LogUtils.e(error);
             }
         });
-//        Net.getInstance().getDurationEvent(System.currentTimeMillis(),System.currentTimeMillis()).enqueue(new BaseCallBack<ObjectData<String>>() {
-//            @Override
-//            public void onSuccess(ObjectData<String> stringObjectData) {
-//
-//            }
-//
-//            @Override
-//            public void onError(int code, String error) {
-//
-//            }
-//        });
+        Net.getInstance().getDurationEvent(System.currentTimeMillis(),System.currentTimeMillis()).enqueue(new BaseCallBack<ObjectData<String>>() {
+            @Override
+            public void onSuccess(ObjectData<String> stringObjectData) {
+
+            }
+
+            @Override
+            public void onError(int code, String error) {
+
+            }
+        });
         ImageView imageView = findViewById(R.id.image);
         getSupportFragmentManager().beginTransaction().replace(R.id.root, FragCT.getInstance()).commit();
 

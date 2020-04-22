@@ -65,6 +65,24 @@ class Printer {
 //        }
 //        if (builder.getLogger() == null)
 //            I.log(builder.getType(), tag, END_LINE, builder.isLogHackEnable());
+        switch (request.method().toLowerCase()){
+            case "get":
+                LogUtils.e(request.url());
+                break;
+            case "post":
+                FormBody formBody = (FormBody) request.body();
+                String s = "";
+                if(formBody!=null){
+                    for(int i=0;i<formBody.size();i++){
+                        s+= formBody.encodedName(i)+"="+formBody.encodedValue(i);
+                        if(i!=formBody.size()-1){
+                            s+="&";
+                        }
+                    }
+                    LogUtils.e(request.url()+"&"+s);
+                }
+                break;
+        }
     }
 
     static void printJsonResponse(LoggingInterceptor.Builder builder, long chainMs, boolean isSuccessful,

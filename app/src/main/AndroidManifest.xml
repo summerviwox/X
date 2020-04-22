@@ -14,8 +14,9 @@
         android:supportsRtl="true">
 
         <provider
+            tools:replace="android:authorities"
             android:name="androidx.core.content.FileProvider"
-            android:authorities="PhotoPicker"
+            android:authorities="PhotoPicker1"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
