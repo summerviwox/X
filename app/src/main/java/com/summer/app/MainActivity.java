@@ -27,12 +27,20 @@ import com.zhihu.matisse.internal.entity.CaptureStrategy;
 import com.zhihu.matisse.internal.utils.MediaStoreCompat;
 
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
 
 public class MainActivity extends XActivity<MainUI, DE, VA> implements View.OnClickListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                LogUtils.e(throwable);
+            }
+        });
         NetDataHelper.DEBUG = true;
 //        Net.getInstance().onLogin("summer","123456").enqueue(new BaseCallBack<ObjectData<String>>() {
 //            @Override
