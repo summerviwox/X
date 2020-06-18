@@ -22,6 +22,8 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
 
     private XActivity activity;
 
+    private ImmersionBar immersionBar;
+
     /**
      * 完成UI,DE,VA的初始化
      * 注解初始化
@@ -33,7 +35,8 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
         super.onCreate(savedInstanceState);
         activity = this;
         if(initImmersionBar()){
-            ImmersionBar.with(this).transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
+            immersionBar = ImmersionBar.with(this);
+            immersionBar.transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
         }
         initOpe();
         setContentView(getOpe().getUI().getUI().getRoot());
@@ -53,7 +56,9 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
     protected void onDestroy() {
         super.onDestroy();
         if(initImmersionBar()){
-            ImmersionBar.with(this).destroy();
+            if(immersionBar!=null){
+                immersionBar.destroy();
+            }
         }
         if(isRegistEvent()){
             EventBus.getDefault().unregister(this);
@@ -146,5 +151,9 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
 
     public XActivity getActivity() {
         return activity;
+    }
+
+    public ImmersionBar getImmersionBar() {
+        return immersionBar;
     }
 }

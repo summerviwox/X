@@ -29,6 +29,8 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
 
     private XFragment fragment = this;
 
+    private ImmersionBar immersionBar;
+
     public XFragment(){
         setArguments(new Bundle());
         initDEVA();
@@ -65,10 +67,11 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
             EventBus.getDefault().register(this);
         }
         if(initImmersionBar()){
+            immersionBar = ImmersionBar.with(this);
             if(getUI().SetTitleBar()!=null){
-                ImmersionBar.with(this).transparentStatusBar().keyboardEnable(true).titleBar(getUI().SetTitleBar()).init();//默认状态栏透明
+                immersionBar.transparentStatusBar().keyboardEnable(true).titleBar(getUI().SetTitleBar()).init();//默认状态栏透明
             }else{
-                ImmersionBar.with(this).transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
+                immersionBar.transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
             }
         }
     }
@@ -89,7 +92,9 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     public void onDestroy() {
         super.onDestroy();
         if(initImmersionBar()){
-            ImmersionBar.with(this).destroy();
+            if(immersionBar!=null){
+                immersionBar.destroy();
+            }
         }
         if(isRegistEvent()){
             EventBus.getDefault().unregister(this);
