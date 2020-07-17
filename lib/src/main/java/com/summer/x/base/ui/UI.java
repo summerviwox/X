@@ -48,10 +48,10 @@ public class UI<A extends ViewDataBinding>{
                     ui = (A) method.invoke(null, LayoutInflater.from(xActivity));
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
-                    LogUtils.e(e.toString());
+                    LogUtils.e(getClass().getName()+":"+e.getCause().getLocalizedMessage());
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
-                    LogUtils.e(e.getTargetException().getLocalizedMessage());
+                    LogUtils.e(getClass().getName()+":"+e.getTargetException().getLocalizedMessage());
                 }
             }
         }
@@ -74,10 +74,10 @@ public class UI<A extends ViewDataBinding>{
                     ui = (A) method.invoke(null, LayoutInflater.from(xActivity),viewGroup,false);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
-                    LogUtils.e(e.getMessage());
+                    LogUtils.e(getClass().getName()+":"+e.getCause().getLocalizedMessage());
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
-                    LogUtils.e(e.getTargetException().getLocalizedMessage());
+                    LogUtils.e(getClass().getName()+":"+e.getTargetException().getLocalizedMessage());
                 }
             }
         }
