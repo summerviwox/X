@@ -76,7 +76,7 @@ public class NetDataHelper {
         return retrofit;
     }
 
-    public class Config extends VA{
+    public static class Config extends VA{
 
         long connectTimeout = 60;
 
