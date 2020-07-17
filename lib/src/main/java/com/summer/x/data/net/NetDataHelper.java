@@ -1,5 +1,6 @@
 package com.summer.x.data.net;
 
+import com.summer.x.base.ui.VA;
 import com.summer.x.data.net.logging.Level;
 import com.summer.x.data.net.logging.LoggingInterceptor;
 
@@ -7,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.internal.platform.Platform;
+import retrofit2.CallAdapter;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -22,6 +25,8 @@ public class NetDataHelper {
 
     private Retrofit retrofit;
 
+    private Config config;
+
     public static NetDataHelper getInstance(){
         if(instance==null){
             instance = new NetDataHelper();
@@ -33,9 +38,9 @@ public class NetDataHelper {
     public void init(String url){
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-        builder.connectTimeout(60, TimeUnit.SECONDS).
-                readTimeout(600, TimeUnit.SECONDS).
-                writeTimeout(600, TimeUnit.SECONDS);
+        builder.connectTimeout(getConfig().connectTimeout, TimeUnit.SECONDS).
+                readTimeout(getConfig().readTimeout, TimeUnit.SECONDS).
+                writeTimeout(getConfig().writeTimeout, TimeUnit.SECONDS);
 
         if (DEBUG) {
             LoggingInterceptor httpLoggingInterceptor = new LoggingInterceptor.Builder()
@@ -53,13 +58,34 @@ public class NetDataHelper {
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(getConfig().converter)
+                .addCallAdapterFactory(getConfig().callAdapter)
                 .build();
 
     }
 
+    public Config getConfig() {
+        return config;
+    }
+
+    public void setConfig(Config config) {
+        this.config = config;
+    }
+
     public Retrofit getRetrofit() {
         return retrofit;
+    }
+
+    public class Config extends VA{
+
+        long connectTimeout = 60;
+
+        long readTimeout = 600;
+
+        long writeTimeout =600;
+
+        Converter.Factory converter =GsonConverterFactory.create();
+
+        CallAdapter.Factory callAdapter = RxJava2CallAdapterFactory.create();
     }
 }

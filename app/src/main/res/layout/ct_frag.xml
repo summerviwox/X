@@ -27,5 +27,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+
+    <com.summer.x.view.SimpleTitleView
+        android:background="@color/color_grey_300"
+        tools:title_midtext="text"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
 </RelativeLayout>
 </layout>
