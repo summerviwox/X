@@ -26,7 +26,7 @@ public class NetDataHelper {
 
     private Retrofit retrofit;
 
-    private Config config;
+    private Config config = new Config();
 
     public static NetDataHelper getInstance(){
         if(instance==null){
