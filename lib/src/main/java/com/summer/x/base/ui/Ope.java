@@ -1,10 +1,10 @@
 package com.summer.x.base.ui;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class Ope<A extends UI,B extends DE,C extends VA>{
 
   private A UI;
