@@ -30,7 +30,7 @@ public class AView extends RelativeLayout {
                 LogUtils.e("ViewGroup:onTouchEvent:ACTION_UP");
                 break;
         }
-        return super.onTouchEvent(event);
+        return true;
     }
 
     @Override
@@ -62,6 +62,6 @@ public class AView extends RelativeLayout {
                 LogUtils.e("ViewGroup:onInterceptTouchEvent:ACTION_UP");
                 break;
         }
-        return super.onInterceptTouchEvent(event);
+        return true;
     }
 }

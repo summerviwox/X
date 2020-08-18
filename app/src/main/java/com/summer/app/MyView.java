@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewGroupCompat;
 
-public class MyView extends View {
+public class MyView extends ViewGroup {
 
 
     public MyView(Context context, AttributeSet attrs) {

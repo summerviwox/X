@@ -20,7 +20,7 @@ public class BView extends View {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 LogUtils.e("View:onTouchEvent:ACTION_DOWN");
-                return true;
+                break;
             case MotionEvent.ACTION_MOVE:
                 LogUtils.e("View:onTouchEvent:ACTION_MOVE");
                 break;
