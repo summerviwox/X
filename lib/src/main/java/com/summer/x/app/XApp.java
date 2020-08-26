@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.summer.x.data.net.XNet;
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.data.net.BaseCallBack;
@@ -43,15 +44,15 @@ public class XApp extends Application implements OnFinishI {
         crash.setUser("summer");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
         crash.setTimestr(simpleDateFormat.format(new Date()));
-        XNet.getInstance().sendCrash(GsonUtils.toJson(crash)).enqueue(new BaseCallBack<ObjectData<Boolean>>(){
+        XNet.getInstance().sendCrash(crash).enqueue(new BaseCallBack<ObjectData<Boolean>>(){
             @Override
             public void onSuccess(ObjectData<Boolean> booleanObjectData) {
-
+                LogUtils.e(booleanObjectData.getData());
             }
 
             @Override
             public void onError(int code, String error) {
-
+                LogUtils.e(error);
             }
         });
     }
