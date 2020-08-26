@@ -23,6 +23,8 @@ public class XApp extends Application implements OnFinishI {
 
     int b = 13;
 
+    int c = 45;
+
     private static XApp instance;
 
     @Override
