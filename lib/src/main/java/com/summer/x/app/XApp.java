@@ -20,6 +20,8 @@ import androidx.multidex.MultiDex;
 public class XApp extends Application implements OnFinishI {
 
 
+    int d = 555;
+
     private static XApp instance;
 
     @Override
