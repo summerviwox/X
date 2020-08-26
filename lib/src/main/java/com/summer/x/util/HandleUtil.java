@@ -49,6 +49,24 @@ public class HandleUtil extends Handler implements Serializable {
         getDefaultInstance().postDelayed(runnable,time);
     }
 
+    public void refreshDelay(XFragment xFragment, int time, OnFinishI onFinishI){
+        if(runnable==null){
+            runnable= new Runnable() {
+                @Override
+                public void run() {
+                    if(!xFragment.isAdded()||stop){
+                        return;
+                    }
+                    if(!pause){
+                        onFinishI.onFinished(this);
+                    }
+                    refreshDelay(xFragment,time,onFinishI);
+                }
+            };
+        }
+        getDefaultInstance().postDelayed(runnable,time);
+    }
+
     public void stopNow(){
         stop = true;
         if(runnable!=null){
