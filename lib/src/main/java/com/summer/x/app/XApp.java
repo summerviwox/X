@@ -18,6 +18,9 @@ import androidx.multidex.MultiDex;
 
 
 public class XApp extends Application implements OnFinishI {
+    /**
+     * test a
+     */
 
     private static XApp instance;
 
