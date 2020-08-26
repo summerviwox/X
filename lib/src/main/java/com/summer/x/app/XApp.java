@@ -19,11 +19,6 @@ import androidx.multidex.MultiDex;
 
 public class XApp extends Application implements OnFinishI {
 
-    int a=12;
-
-    int b = 13;
-
-    int c = 45;
 
     private static XApp instance;
 
