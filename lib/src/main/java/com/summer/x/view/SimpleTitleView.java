@@ -1,7 +1,9 @@
 package com.summer.x.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.summer.x.R;
 import com.summer.x.base.ui.XActivity;
 import com.summer.x.base.ui.XFragment;
+import com.summer.x.util.HandleUtil;
 
 
 public class SimpleTitleView extends RelativeLayout {
@@ -30,6 +36,8 @@ public class SimpleTitleView extends RelativeLayout {
     ImageView rightImg;
 
     XFragment xFragment;
+
+    Handler handler = new Handler();
 
 
     public SimpleTitleView(Context context) {
@@ -70,18 +78,21 @@ public class SimpleTitleView extends RelativeLayout {
                 leftImg.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!v.isEnabled()){
-                            return;
-                        }
-                        if(getxFragment()!=null){
-                            xFragment.onBackPressedSupport();
-                            return;
-                        }
+                        LogUtils.e("left on click");
+                        v.setEnabled(false);
                         if(getContext() instanceof XActivity){
                             XActivity xActivity = (XActivity) getContext();
-                            xActivity.onBackPressedSupport();
+                            xActivity.getTopFragment().getSupportDelegate().pop();
+                        }else{
+                            Activity activity = (Activity) getContext();
+                            activity.finish();
                         }
-                        v.setEnabled(false);
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                v.setEnabled(true);
+                            }
+                        }, 1000);
                     }
                 });
             }else{

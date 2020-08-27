@@ -2,6 +2,8 @@ package com.summer.x.util;
 
 import android.text.TextUtils;
 
+import com.summer.x.constant.Value;
+
 import java.io.Serializable;
 
 public class StringUtil implements Serializable {
@@ -22,7 +24,7 @@ public class StringUtil implements Serializable {
 
     public static String getStrWithDefault(Object o){
         if(o==null|| TextUtils.isEmpty(o.toString())){
-            return " - - ";
+            return Value.DEFAULTSTR;
         }
         return o.toString();
     }
