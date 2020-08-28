@@ -2,8 +2,6 @@ package com.summer.x.util;
 
 import android.os.Handler;
 
-import androidx.fragment.app.Fragment;
-
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.ui.XFragment;
 
@@ -15,7 +13,7 @@ public class HandleUtil extends Handler implements Serializable {
 
     XFragment xFragment;
 
-    public static HandleUtil getInstance() {
+    public static HandleUtil getDefaultInstance() {
         if (instance == null) {
             instance = new HandleUtil();
         }
@@ -23,11 +21,9 @@ public class HandleUtil extends Handler implements Serializable {
     }
 
     public HandleUtil() {
+
     }
 
-    public HandleUtil(XFragment xFragment){
-        this.xFragment = xFragment;
-    }
 
     Runnable runnable ;
 
@@ -36,6 +32,24 @@ public class HandleUtil extends Handler implements Serializable {
     public boolean pause = false;
 
     public void refresh(XFragment xFragment, int time, OnFinishI onFinishI){
+        if(!xFragment.isAdded()||stop){
+            return;
+        }
+        if(!pause){
+            onFinishI.onFinished(this);
+        }
+        if(runnable==null){
+            runnable= new Runnable() {
+                @Override
+                public void run() {
+                    refresh(xFragment,time,onFinishI);
+                }
+            };
+        }
+        getDefaultInstance().postDelayed(runnable,time);
+    }
+
+    public void refreshDelay(XFragment xFragment, int time, OnFinishI onFinishI){
         if(runnable==null){
             runnable= new Runnable() {
                 @Override
@@ -46,17 +60,17 @@ public class HandleUtil extends Handler implements Serializable {
                     if(!pause){
                         onFinishI.onFinished(this);
                     }
-                    refresh(xFragment,time,onFinishI);
+                    refreshDelay(xFragment,time,onFinishI);
                 }
             };
         }
-        getInstance().postDelayed(runnable,time);
+        getDefaultInstance().postDelayed(runnable,time);
     }
 
     public void stopNow(){
         stop = true;
         if(runnable!=null){
-            getInstance().removeCallbacks(runnable);
+            getDefaultInstance().removeCallbacks(runnable);
         }
     }
 

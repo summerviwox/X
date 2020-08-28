@@ -29,7 +29,7 @@ public class CountingSink extends ForwardingSink {
 
         bytesWritten += byteCount;
         if(onProgressI!=null){
-            HandleUtil.getInstance().post(new Runnable() {
+            HandleUtil.getDefaultInstance().post(new Runnable() {
                 @Override
                 public void run() {
                     onProgressI.onProgress("CountingSink", OnProgressI.DOING,bytesWritten*100/contentLength);

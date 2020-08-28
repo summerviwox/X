@@ -6,7 +6,7 @@ public class XNet {
 
     public static XService getInstance(){
         if(xService ==null){
-            NetDataHelper.getInstance().init("http://222.186.36.75:8888/"+"record/");
+            NetDataHelper.getInstance().init("http://222.186.36.75:9999/"+"record-b/");
             xService = NetDataHelper.getInstance().getRetrofit().create(XService.class);
         }
         return xService;

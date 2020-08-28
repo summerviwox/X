@@ -2,6 +2,7 @@ package com.summer.x.base.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import java.lang.reflect.ParameterizedType;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 
 import butterknife.ButterKnife;
@@ -32,7 +34,9 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     private ImmersionBar immersionBar;
 
     public XFragment(){
-        setArguments(new Bundle());
+        if(getArguments()==null){
+            setArguments(new Bundle());
+        }
         initDEVA();
     }
 
@@ -86,7 +90,6 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
             }
         });
     }
-
 
     @Override
     public void onDestroy() {
