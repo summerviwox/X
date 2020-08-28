@@ -24,11 +24,10 @@
                 android:resource="@xml/photo_path" />
         </provider>
         <activity
-            android:name=".MainActivity"
+            android:name=".fragment.MyFragmentActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.MONKEY"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

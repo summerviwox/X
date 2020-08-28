@@ -6,10 +6,12 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class EventReq extends VA {
 
     private long startTime;
 
     private long endTime;
+
 }
