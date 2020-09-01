@@ -2,7 +2,6 @@ package com.summer.x.base.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import java.lang.reflect.ParameterizedType;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.summer.x.R;
 
@@ -32,7 +30,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
 
     private XFragment fragment = this;
 
-    private ImmersionBar immersionBar;
+    protected ImmersionBar immersionBar;
 
     public XFragment(){
         if(getArguments()==null){
@@ -71,13 +69,17 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         if(isRegistEvent()){
             EventBus.getDefault().register(this);
         }
-        if(initImmersionBar()){
+        if(isInitImmersionBar()){
             immersionBar = ImmersionBar.with(this);
-            if(getUI().SetTitleBar()!=null){
-                //immersionBar.transparentStatusBar().keyboardEnable(true).fitsSystemWindows(true).statusBarColor(R.color.color_main).init();//默认状态栏透明
-            }else{
-               // immersionBar.transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
-            }
+            initImmersionBar();
+        }
+    }
+
+    protected void initImmersionBar(){
+        if(getUI().SetTitleBar()!=null){
+            immersionBar.transparentStatusBar().keyboardEnable(true).fitsSystemWindows(true).statusBarColor(R.color.color_main).init();//默认状态栏透明
+        }else{
+            immersionBar.transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
         }
     }
 
@@ -95,7 +97,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(initImmersionBar()){
+        if(isInitImmersionBar()){
             if(immersionBar!=null){
                 immersionBar.destroy();
             }
@@ -171,7 +173,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         }
     }
 
-    protected boolean initImmersionBar(){
+    protected boolean isInitImmersionBar(){
         return true;
     }
 
@@ -201,5 +203,9 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
 
     public XFragment getXFragment() {
         return fragment;
+    }
+
+    public ImmersionBar getImmersionBar() {
+        return immersionBar;
     }
 }

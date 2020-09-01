@@ -37,7 +37,8 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
         activity = this;
         if(initImmersionBar()){
             immersionBar = ImmersionBar.with(this);
-            immersionBar.transparentStatusBar().keyboardEnable(true).fitsSystemWindows(true).statusBarColor(R.color.color_main).init();//默认状态栏透明
+            immersionBar.init();
+           // immersionBar.transparentStatusBar().keyboardEnable(true).fitsSystemWindows(true).statusBarColor(R.color.color_main).init();//默认状态栏透明
         }
         initOpe();
         setContentView(getOpe().getUI().getUI().getRoot());
