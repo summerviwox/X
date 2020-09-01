@@ -74,9 +74,9 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         if(initImmersionBar()){
             immersionBar = ImmersionBar.with(this);
             if(getUI().SetTitleBar()!=null){
-                immersionBar.transparentStatusBar().keyboardEnable(true).fitsSystemWindows(true).statusBarColor(R.color.color_main).init();//默认状态栏透明
+                //immersionBar.transparentStatusBar().keyboardEnable(true).fitsSystemWindows(true).statusBarColor(R.color.color_main).init();//默认状态栏透明
             }else{
-                immersionBar.transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
+               // immersionBar.transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
             }
         }
     }
