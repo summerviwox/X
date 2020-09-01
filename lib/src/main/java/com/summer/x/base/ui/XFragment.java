@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
+import com.summer.x.R;
 
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -73,7 +74,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         if(initImmersionBar()){
             immersionBar = ImmersionBar.with(this);
             if(getUI().SetTitleBar()!=null){
-                immersionBar.transparentStatusBar().keyboardEnable(true).titleBar(getUI().SetTitleBar()).init();//默认状态栏透明
+                immersionBar.transparentStatusBar().keyboardEnable(true).fitsSystemWindows(true).statusBarColor(R.color.color_main).init();//默认状态栏透明
             }else{
                 immersionBar.transparentStatusBar().keyboardEnable(true).init();//默认状态栏透明
             }
