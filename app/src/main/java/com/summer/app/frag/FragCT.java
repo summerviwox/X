@@ -21,7 +21,7 @@ public class FragCT extends XFragment<FragUI,FragDE,FragVA> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        HandleUtil handleUtil = new HandleUtil(this);
+        HandleUtil handleUtil = new HandleUtil();
 //        handleUtil.refresh(this, 3000, new OnFinishI() {
 //            @Override
 //            public void onFinished(Object o) {

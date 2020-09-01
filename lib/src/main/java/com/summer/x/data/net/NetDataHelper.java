@@ -7,6 +7,8 @@ import com.summer.x.data.net.logging.LoggingInterceptor;
 import java.util.concurrent.TimeUnit;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.OkHttpClient;
 import okhttp3.internal.platform.Platform;
 import retrofit2.CallAdapter;
@@ -77,7 +79,8 @@ public class NetDataHelper {
         return retrofit;
     }
 
-    @Data
+    @Getter
+    @Setter
     public static class Config extends VA{
 
         long connectTimeout = 60;
