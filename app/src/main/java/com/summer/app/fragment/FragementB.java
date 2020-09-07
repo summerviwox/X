@@ -1,6 +1,7 @@
 package com.summer.app.fragment;
 
 import android.animation.AnimatorSet;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,16 @@ import androidx.fragment.app.Fragment;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.summer.app.R;
+import com.summer.x.util.HandleUtil;
 
 import java.util.UUID;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class FragementB extends Fragment implements View.OnClickListener {
 
@@ -37,7 +46,33 @@ public class FragementB extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        HandleUtil.getDefaultInstance().postDelayed(new Runnable() {
+            @SuppressLint("CheckResult")
+            @Override
+            public void run() {
+                TextView textView = view.findViewById(R.id.text);
+                textView.setText("text is :" + MyFragmentActivity.count++);
+                textView.setOnClickListener(FragementB.this::onClick);
+                Observable.create(new ObservableOnSubscribe<String>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                        String str = "";
+                        for(int i=0;i<3000;i++){
+                            str+= i;
+                        }
+                        emitter.onNext(str);
+                    }
+                })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<String>() {
+                            @Override
+                            public void accept(String s) throws Exception {
+                                textView.setText(textView.getText()+"\n"+s);
+                            }
+                        });
+            }
+        }, 10);
     }
 
     @Override
@@ -53,7 +88,7 @@ public class FragementB extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.text:
                 LogUtils.e(getClass().getSimpleName()+"--"+tag + "backstack:"+getChildFragmentManager().getBackStackEntryCount()+"fragments:"+getChildFragmentManager().getFragments().size());
-                 getChildFragmentManager().beginTransaction().setCustomAnimations(R.anim.h_fragment_enter,R.anim.h_fragment_exit,R.anim.h_fragment_enter,R.anim.h_fragment_exit).add(R.id.fragmentb_root,new FragementA()).addToBackStack(tag).commit();
+                getChildFragmentManager().beginTransaction().setCustomAnimations(R.anim.h_fragment_enter,R.anim.h_fragment_exit,R.anim.h_fragment_enter,R.anim.h_fragment_exit).add(R.id.fragmentb_root,new FragementA()).addToBackStack(tag).commit();
                 break;
         }
     }
