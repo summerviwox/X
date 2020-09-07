@@ -95,7 +95,4 @@ public class UI<A extends ViewDataBinding>{
         return xFragment;
     }
 
-    public View SetTitleBar(){
-        return null;
-    }
 }
