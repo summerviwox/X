@@ -30,6 +30,8 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
 
     private XFragment fragment = this;
 
+    public boolean loadedData =false;
+
     public XFragment(){
         if(getArguments()==null){
             setArguments(new Bundle());
@@ -49,7 +51,18 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initUI(container);
-        return getUI().getUI().getRoot();
+        View view = getUI().getUI().getRoot();
+        ButterKnife.bind(this,view);
+        if(isRegistEvent()){
+            EventBus.getDefault().register(this);
+        }
+        onBeforeReturnView(view,savedInstanceState);
+        return view;
+    }
+
+
+    public void onBeforeReturnView(View  view,@Nullable Bundle savedInstanceState){
+
     }
 
 
@@ -63,21 +76,11 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this,view);
-        if(isRegistEvent()){
-            EventBus.getDefault().register(this);
-        }
     }
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        post(new Runnable() {
-            @Override
-            public void run() {
-                getUI().lazyInitUI();
-            }
-        });
     }
 
     @Override
