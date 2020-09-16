@@ -1,6 +1,10 @@
 package com.summer.app;
 
+import com.summer.app.model.Record;
+import com.summer.x.data.net.ListData;
 import com.summer.x.data.net.ObjectData;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -21,5 +25,8 @@ public interface ZXService {
 
     @POST("event/getDurationEvent")
     Call<ObjectData<String>> getDurationEvent(@Body EventReq eventReq);
+
+    @GET("record/selectAll")
+    Call<ArrayList<Record>> selectAll();
 
 }

@@ -2,6 +2,8 @@ package com.summer.x.util;
 
 import android.os.Handler;
 
+import androidx.fragment.app.Fragment;
+
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.ui.XFragment;
 
@@ -31,7 +33,7 @@ public class HandleUtil extends Handler implements Serializable {
 
     public boolean pause = false;
 
-    public void refresh(XFragment xFragment, int time, OnFinishI onFinishI){
+    public void refresh(Fragment xFragment, int time, OnFinishI onFinishI){
         if(!xFragment.isAdded()||stop){
             return;
         }
@@ -49,7 +51,7 @@ public class HandleUtil extends Handler implements Serializable {
         getDefaultInstance().postDelayed(runnable,time);
     }
 
-    public void refreshDelay(XFragment xFragment, int time, OnFinishI onFinishI){
+    public void refreshDelay(Fragment xFragment, int time, OnFinishI onFinishI){
         if(runnable==null){
             runnable= new Runnable() {
                 @Override

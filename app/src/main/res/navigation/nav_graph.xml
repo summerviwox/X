@@ -3,26 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/blankFragment">
+    app:startDestination="@id/AFragment">
 
     <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.summer.app.BlankFragment"
+        android:id="@+id/AFragment"
+        android:name="com.summer.app.AFragment"
         android:label="blank_fragment"
-        tools:layout="@layout/blank_fragment">
+        tools:layout="@layout/afragment">
         <action
             android:id="@+id/action_blankFragment_to_blankFragment2"
-            app:destination="@id/blankFragment2"
+            app:destination="@id/BFragment"
             app:enterAnim="@anim/h_fragment_enter"
             app:exitAnim="@anim/h_fragment_exit"
             app:launchSingleTop="false"
-            app:popEnterAnim="@anim/h_fragment_enter"
-            app:popExitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_popenter"
+            app:popExitAnim="@anim/h_fragment_popexit"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
-        android:id="@+id/blankFragment2"
-        android:name="com.summer.app.BlankFragment2"
+        android:id="@+id/BFragment"
+        android:name="com.summer.app.BFragment"
         android:label="fragment_blank2"
-        tools:layout="@layout/fragment_blank2" />
+        tools:layout="@layout/bfragment" >
+        <action
+            app:enterAnim="@anim/h_fragment_enter"
+            app:exitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_popenter"
+            app:popExitAnim="@anim/h_fragment_popexit"
+            android:id="@+id/action_BFragment_to_AFragment"
+            app:destination="@id/AFragment" />
+    </fragment>
 </navigation>

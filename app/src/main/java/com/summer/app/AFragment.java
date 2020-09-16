@@ -1,7 +1,8 @@
 package com.summer.app;
 
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,17 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.summer.app.fragment.BActivity;
 
-import butterknife.OnClick;
-
-public class BlankFragment extends Fragment implements View.OnClickListener {
+public class AFragment extends Fragment implements View.OnClickListener {
 
     private BlankViewModel mViewModel;
 
     View v;
 
-    public static BlankFragment newInstance() {
-        return new BlankFragment();
+    public static AFragment newInstance() {
+        return new AFragment();
     }
 
     @Override
@@ -40,17 +40,18 @@ public class BlankFragment extends Fragment implements View.OnClickListener {
         if(v!=null){
             return v;
         }
-        v = inflater.inflate(R.layout.blank_fragment, container, false);
+        v = inflater.inflate(R.layout.afragment, container, false);
         return v;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setRetainInstance(true);
-        mViewModel = ViewModelProviders.of(this).get(BlankViewModel.class);
+        //setRetainInstance(true);
+        mViewModel = new ViewModelProvider(this).get(BlankViewModel.class);
         LogUtils.e("BlankFragment onActivityCreated");
         getView().findViewById(R.id.text).setOnClickListener(this);
+        getView().findViewById(R.id.activitytext).setOnClickListener(this);
     }
 
     @Override
@@ -75,6 +76,10 @@ public class BlankFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.text:
                 Navigation.findNavController(v).navigate(R.id.action_blankFragment_to_blankFragment2);
+                break;
+            case R.id.activitytext:
+                getActivity().startActivity(new Intent(getContext(), BActivity.class));
+                getActivity().overridePendingTransition(R.anim.h_fragment_enter,R.anim.h_fragment_exit);
                 break;
         }
     }

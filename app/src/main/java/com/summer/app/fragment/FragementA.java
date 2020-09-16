@@ -52,7 +52,7 @@ public class FragementA extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.text:
                 LogUtils.e(getClass().getSimpleName()+"--"+tag + "backstack:"+getChildFragmentManager().getBackStackEntryCount()+"fragments:"+getChildFragmentManager().getFragments().size());
-                getChildFragmentManager().beginTransaction().setCustomAnimations(R.anim.h_fragment_enter,R.anim.h_fragment_exit,R.anim.h_fragment_enter,R.anim.h_fragment_exit).add(R.id.fragmenta_root,new FragementB()).addToBackStack(tag).commit();
+                getChildFragmentManager().beginTransaction().setCustomAnimations(R.anim.h_fragment_enter,R.anim.h_fragment_exit,R.anim.h_fragment_pop_enter,R.anim.h_fragment_pop_exit).add(R.id.fragmenta_root,new FragementB()).addToBackStack(tag).commit();
                 break;
         }
     }
