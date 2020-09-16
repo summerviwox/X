@@ -23,7 +23,6 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
 
     private XActivity activity;
 
-    private ImmersionBar immersionBar;
 
     /**
      * 完成UI,DE,VA的初始化
@@ -35,11 +34,6 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
-        if(initImmersionBar()){
-            immersionBar = ImmersionBar.with(this);
-            immersionBar.init();
-           // immersionBar.transparentStatusBar().keyboardEnable(true).fitsSystemWindows(true).statusBarColor(R.color.color_main).init();//默认状态栏透明
-        }
         initOpe();
         setContentView(getOpe().getUI().getUI().getRoot());
         ButterKnife.bind(this,getOpe().getUI().getUI().getRoot());
@@ -51,17 +45,11 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        getUI().lazyInitUI();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(initImmersionBar()){
-            if(immersionBar!=null){
-                immersionBar.destroy();
-            }
-        }
         if(isRegistEvent()){
             EventBus.getDefault().unregister(this);
         }
@@ -131,9 +119,6 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
         return true;
     }
 
-    protected boolean initImmersionBar(){
-        return true;
-    }
 
     public A getUI(){
         return getOpe().getUI();
@@ -155,7 +140,4 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportAc
         return activity;
     }
 
-    public ImmersionBar getImmersionBar() {
-        return immersionBar;
-    }
 }

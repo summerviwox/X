@@ -23,7 +23,7 @@ public class XApp extends Application implements OnFinishI {
 
     int d = 555;
 
-    private static XApp instance;
+    private static Application instance;
 
     @Override
     public void onCreate() {
@@ -64,7 +64,7 @@ public class XApp extends Application implements OnFinishI {
     }
 
 
-    public static XApp getInstance(){
+    public static Application getInstance(){
         return instance;
     }
 

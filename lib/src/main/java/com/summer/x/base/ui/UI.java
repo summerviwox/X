@@ -26,7 +26,6 @@ public class UI<A extends ViewDataBinding>{
 
     public void initUI(){}
 
-    public void lazyInitUI(){}
 
     /**
      * 绑定xml
@@ -95,7 +94,4 @@ public class UI<A extends ViewDataBinding>{
         return xFragment;
     }
 
-    public View SetTitleBar(){
-        return null;
-    }
 }

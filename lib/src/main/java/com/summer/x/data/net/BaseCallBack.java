@@ -9,6 +9,7 @@ import retrofit2.Response;
 public abstract class BaseCallBack<T> implements Callback<T> {
 
 
+
     public abstract void onSuccess(T t);
 
     public abstract void onError(int code,String error);
