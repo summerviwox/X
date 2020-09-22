@@ -16,6 +16,7 @@ import java.lang.reflect.ParameterizedType;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.summer.x.R;
 
@@ -123,6 +124,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
                 getOpe().setUI(aa);
             } catch (Exception e) {
                 e.printStackTrace();
+                LogUtils.e(e.toString());
             }
         }
     }
@@ -141,6 +143,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
                 getOpe().setDE(de);
             } catch (Exception e) {
                 e.printStackTrace();
+                LogUtils.e(e.toString());
             }
         }
         //生成VA文件
@@ -153,6 +156,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
                 getOpe().setVA(va);
             } catch (Exception e) {
                 e.printStackTrace();
+                LogUtils.e(e.toString());
             }
         }
     }
