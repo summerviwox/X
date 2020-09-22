@@ -3,6 +3,7 @@ package com.summer.x.util;
 import android.os.Handler;
 
 import com.summer.x.base.i.OnFinishI;
+import com.summer.x.base.ui.XActivity;
 import com.summer.x.base.ui.XFragment;
 
 import java.io.Serializable;
@@ -66,6 +67,26 @@ public class HandleUtil extends Handler implements Serializable {
         }
         getDefaultInstance().postDelayed(runnable,time);
     }
+
+
+    public void refreshDelay(XActivity activity, int time, OnFinishI onFinishI){
+        if(runnable==null){
+            runnable= new Runnable() {
+                @Override
+                public void run() {
+                    if(activity.isDestroyed()||stop){
+                        return;
+                    }
+                    if(!pause){
+                        onFinishI.onFinished(this);
+                    }
+                    refreshDelay(activity,time,onFinishI);
+                }
+            };
+        }
+        getDefaultInstance().postDelayed(runnable,time);
+    }
+
 
     public void stopNow(){
         stop = true;

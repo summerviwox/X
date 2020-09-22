@@ -22,4 +22,11 @@
         <item name="android:activityCloseEnterAnimation">@anim/anim_pop_enter</item>
         <item name="android:activityCloseExitAnimation">@anim/anim_pop_exit</item>
     </style>
+
+    <style name="fade" parent="@android:style/Animation.Translucent">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_alpha_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_alpha_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_pop_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_pop_exit</item>
+    </style>
 </resources>

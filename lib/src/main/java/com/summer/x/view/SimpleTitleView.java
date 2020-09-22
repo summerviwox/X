@@ -82,7 +82,9 @@ public class SimpleTitleView extends RelativeLayout {
                         v.setEnabled(false);
                         if(getContext() instanceof XActivity){
                             XActivity xActivity = (XActivity) getContext();
-                            xActivity.getTopFragment().getSupportDelegate().pop();
+                            //xActivity.getTopFragment().getSupportDelegate().pop();
+
+                            xActivity.finish();
                         }else{
                             Activity activity = (Activity) getContext();
                             activity.finish();
