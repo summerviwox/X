@@ -35,7 +35,6 @@ public class SimpleTitleView extends RelativeLayout {
 
     ImageView rightImg;
 
-    XFragment xFragment;
 
     Handler handler = new Handler();
 
@@ -45,13 +44,7 @@ public class SimpleTitleView extends RelativeLayout {
         init(context,null);
     }
 
-    public XFragment getxFragment() {
-        return xFragment;
-    }
 
-    public void setxFragment(XFragment xFragment) {
-        this.xFragment = xFragment;
-    }
 
     public SimpleTitleView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);

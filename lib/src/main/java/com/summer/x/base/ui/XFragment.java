@@ -15,6 +15,7 @@ import java.lang.reflect.ParameterizedType;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
@@ -23,7 +24,7 @@ import com.summer.x.R;
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportFragment;
 
-public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFragment implements View.OnClickListener {
+public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment implements View.OnClickListener {
 
     private Ope<A,B,C> ope;
 
@@ -79,10 +80,6 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends SupportFr
         super.onViewCreated(view, savedInstanceState);
     }
 
-    @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
-    }
 
     @Override
     public void onDestroy() {

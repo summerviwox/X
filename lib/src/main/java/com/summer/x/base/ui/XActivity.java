@@ -14,10 +14,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportActivity;
 
-public class XActivity<A extends UI,B extends DE,C extends VA> extends SupportActivity implements View.OnClickListener {
+public class XActivity<A extends UI,B extends DE,C extends VA> extends AppCompatActivity implements View.OnClickListener {
 
     private Ope<A,B,C> ope;
 
