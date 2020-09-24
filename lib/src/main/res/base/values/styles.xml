@@ -16,6 +16,15 @@
         <item name="android:windowAnimationStyle">@style/trans</item>
     </style>
 
+
+    <style name="inputTheme" parent="AppTheme">
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/trans</item>
+    </style>
+
     <style name="trans" parent="@android:style/Animation.Translucent">
         <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>
         <item name="android:activityOpenExitAnimation">@anim/anim_exit</item>
