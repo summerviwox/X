@@ -23,7 +23,7 @@ public class RefreshHeaderView extends AppCompatTextView implements SwipeRefresh
 
     @Override
     public void onRefresh() {
-        setText("刷新中");
+        setText("加载中");
     }
 
     @Override
@@ -35,12 +35,12 @@ public class RefreshHeaderView extends AppCompatTextView implements SwipeRefresh
     public void onMove(int yScrolled, boolean isComplete, boolean automatic) {
         if (!isComplete) {
             if (yScrolled >= getHeight()) {
-                setText("释放刷新");
+                setText("释放加载");
             } else {
-                setText("下拉刷新");
+                setText("下拉加载");
             }
         } else {
-            setText("下拉刷新");
+            setText("下拉加载");
         }
     }
 
@@ -50,7 +50,7 @@ public class RefreshHeaderView extends AppCompatTextView implements SwipeRefresh
 
     @Override
     public void onComplete() {
-        setText("刷新完成");
+        setText("加载完成");
     }
 
     @Override
