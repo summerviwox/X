@@ -16,6 +16,14 @@
         <item name="android:windowAnimationStyle">@style/trans</item>
     </style>
 
+    <style name="welcomeTheme" parent="AppTheme">
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/welcomeanim</item>
+    </style>
+
 
     <style name="inputTheme" parent="AppTheme">
         <item name="android:windowDisablePreview">true</item>
@@ -39,6 +47,14 @@
         <item name="android:activityCloseExitAnimation">@anim/anim_pop_exit</item>
     </style>
 
+    <style name="welcomeanim" parent="@android:style/Animation.Translucent">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_alpha_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_alpha_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_alpha_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_alpha_out</item>
+    </style>
+
+
     <style name="MyTransparent" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowBackground">@color/transparent</item>
@@ -53,4 +69,7 @@
         <item name="android:activityCloseEnterAnimation">@anim/no_anim</item>
         <item name="android:activityCloseExitAnimation">@anim/no_anim</item>
     </style>
+
+
+
 </resources>
