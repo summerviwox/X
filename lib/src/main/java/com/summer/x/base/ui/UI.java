@@ -23,6 +23,8 @@ public class UI<A extends ViewDataBinding>{
 
     private XFragment xFragment;
 
+    private XView xView;
+
     public UI(){
 
     }
@@ -36,10 +38,6 @@ public class UI<A extends ViewDataBinding>{
      */
     public void bindUI(XActivity xActivity) {
         this.xActivity = xActivity;
-//        if(uiMap.get(getClass().getName())!=null){
-//            ui = (A) uiMap.get(getClass().getName());
-//            return;
-//        }
         if (ui == null) {
             if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
                 Class<A> a = (Class<A>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -63,13 +61,14 @@ public class UI<A extends ViewDataBinding>{
         }
     }
 
+    public void bindUI(XActivity xActivity,XView xView) {
+        this.xView = xView;
+        bindUI(xActivity);
+    }
+
     public void bindUI(XFragment xFragment, ViewGroup viewGroup) {
         this.xFragment = xFragment;
         this.xActivity = xFragment.getXActivity();
-//        if(uiMap.get(getClass().getName())!=null&&isCache()){
-//            ui = (A) uiMap.get(getClass().getName());
-//            return;
-//        }
         if (ui == null) {
             if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
                 Class<A> a = (Class<A>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -82,9 +81,6 @@ public class UI<A extends ViewDataBinding>{
                 }
                 try {
                     ui = (A) method.invoke(null, LayoutInflater.from(xActivity),viewGroup,false);
-//                    if(isCache()){
-//                        uiMap.put(getClass().getName(),ui);
-//                    }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                     LogUtils.e(getClass().getName()+":"+e.getCause().getLocalizedMessage());
@@ -108,8 +104,8 @@ public class UI<A extends ViewDataBinding>{
         return xFragment;
     }
 
-    public boolean isCache(){
-        return false;
-    }
 
+    public XView getxView() {
+        return xView;
+    }
 }

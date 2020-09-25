@@ -33,7 +33,7 @@ public class HandleUtil extends Handler implements Serializable {
     public boolean pause = false;
 
     public void refresh(XFragment xFragment, int time, OnFinishI onFinishI){
-        if(!xFragment.isAdded()||stop){
+        if(xFragment==null||!xFragment.isAdded()||stop){
             return;
         }
         if(!pause){
@@ -50,12 +50,32 @@ public class HandleUtil extends Handler implements Serializable {
         getDefaultInstance().postDelayed(runnable,time);
     }
 
+
+    public void refresh(XActivity xActivity, int time, OnFinishI onFinishI){
+        if(xActivity==null||xActivity.isDestroyed()||stop){
+            return;
+        }
+        if(!pause){
+            onFinishI.onFinished(this);
+        }
+        if(runnable==null){
+            runnable= new Runnable() {
+                @Override
+                public void run() {
+                    refresh(xActivity,time,onFinishI);
+                }
+            };
+        }
+        getDefaultInstance().postDelayed(runnable,time);
+    }
+
+
     public void refreshDelay(XFragment xFragment, int time, OnFinishI onFinishI){
         if(runnable==null){
             runnable= new Runnable() {
                 @Override
                 public void run() {
-                    if(!xFragment.isAdded()||stop){
+                    if(xFragment==null||!xFragment.isAdded()||stop){
                         return;
                     }
                     if(!pause){
@@ -74,7 +94,7 @@ public class HandleUtil extends Handler implements Serializable {
             runnable= new Runnable() {
                 @Override
                 public void run() {
-                    if(activity.isDestroyed()||stop){
+                    if(activity==null||activity.isDestroyed()||stop){
                         return;
                     }
                     if(!pause){

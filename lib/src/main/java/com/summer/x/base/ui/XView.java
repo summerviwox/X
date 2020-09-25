@@ -35,13 +35,17 @@ public class XView<A extends UI,B extends DE,C extends VA> extends FrameLayout i
             activity = (XActivity) context;
         }
         initDEVA();
+        BeforeInitUI();
         initUI(this);
-        View view = getUI().getUI().getRoot();
-        addView(view,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        addView(getUI().getUI().getRoot(),new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         ButterKnife.bind(this);
         if(isRegistEvent()){
             EventBus.getDefault().register(this);
         }
+    }
+
+    protected void BeforeInitUI(){
+
     }
 
 
@@ -79,7 +83,7 @@ public class XView<A extends UI,B extends DE,C extends VA> extends FrameLayout i
                 Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
                 Constructor<A> uic =ui.getConstructor();
                 A aa = uic.newInstance();
-                aa.bindUI(getXActivity());
+                aa.bindUI(getXActivity(),this);
                 aa.initUI();
                 getOpe().setUI(aa);
             } catch (Exception e) {
