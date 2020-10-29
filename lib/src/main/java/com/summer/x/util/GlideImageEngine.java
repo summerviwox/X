@@ -46,6 +46,7 @@ public class GlideImageEngine implements ImageEngine {
     public void loadGifImage(Context context, int resizeX, int resizeY, ImageView imageView, Uri uri) {
         GlideApp.with(context)
                 .asGif()
+                .load(uri)
                 .override(resizeX, resizeY)
                 .priority(Priority.HIGH)
                 .into(imageView);
