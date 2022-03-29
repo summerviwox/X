@@ -25,7 +25,7 @@
         </provider>
 
         <activity
-            android:name=".fragment.MyFragmentActivity"
+            android:name=".StartAct"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,15 @@
                 <category android:name="android.intent.category.LAUNCHER_APP" />
             </intent-filter>
         </activity>
-
+        <receiver android:name=".TimeWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="summer.timewidget"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/timewidget" />
+        </receiver>
     </application>
 
 </manifest>
