@@ -114,7 +114,7 @@ public class PermissionUtil {
         try {
             Intent intent = new Intent("com.meizu.safe.security.SHOW_APPSEC");
             intent.addCategory(Intent.CATEGORY_DEFAULT);
-            intent.putExtra("packageName", BuildConfig.APPLICATION_ID);
+            intent.putExtra("packageName", BuildConfig.LIBRARY_PACKAGE_NAME);
             context.startActivityForResult(intent,1);
         } catch (Exception e) {
             e.printStackTrace();

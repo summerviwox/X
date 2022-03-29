@@ -27,7 +27,7 @@ class ViewControlCT : XActivity<ViewControlUI,ViewControlDE,ViewControlVA>(){
         }
     }
 
-    override fun onBackPressedSupport() {
+    fun onBackPressedSupport() {
         var aview = ui.ui.ctroot.getChildAt(ui.ui.ctroot.childCount-1)
         if(aview is AView){
             ViewAnimator.animate(aview).translationX(0F, aview.width.toFloat()).duration(500).accelerate().onStop {

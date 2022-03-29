@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.summer.x.R;
+import com.summer.x.base.i.OnProgressI;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -19,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportActivity;
 
-public class XActivity<A extends UI,B extends DE,C extends VA> extends AppCompatActivity implements View.OnClickListener {
+public class XActivity<A extends UI,B extends DE,C extends VA> extends AppCompatActivity implements View.OnClickListener, OnProgressI {
 
     private Ope<A,B,C> ope;
 
@@ -68,42 +69,48 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends AppCompat
     private void initOpe(){
         if(getOpe()==null){
             ope =  new Ope<>(null,null,null);
-            //生成UI文件
+            //生成VA文件
             if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+                Class<C> vacl = (Class<C>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[2];
+                Constructor<C> vaco = null;
+                C va = null;
                 try {
-                    Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-                    Constructor<A> uic =ui.getConstructor();
-                    A aa = uic.newInstance();
-                    aa.bindUI(getActivity());
-                    aa.initUI();
-                    getOpe().setUI(aa);
+                    vaco = vacl.getConstructor();
+                    va = vaco.newInstance();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                getOpe().setVA(va);
+                va.initVA(getActivity().getIntent());
+            }
+            //生成UI文件
+            if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+                Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+                Constructor<A> uic = null;
+                A aa = null;
+                try {
+                    uic = ui.getConstructor();
+                    aa = uic.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                aa.bindUI(getActivity());
+                getOpe().setUI(aa);
+                aa.initUI(getVA());
             }
             //生成DE文件
             if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+                Class<B> decl = (Class<B>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+                Constructor<B> deco = null;
+                B de = null;
                 try {
-                    Class<B> decl = (Class<B>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-                    Constructor<B> deco = decl.getConstructor();
-                    B de = deco.newInstance();
-                    de.initDE();
-                    getOpe().setDE(de);
+                    deco = decl.getConstructor();
+                    de = deco.newInstance();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            //生成VA文件
-            if(getClass().getGenericSuperclass() instanceof ParameterizedType){
-                try {
-                    Class<C> vacl = (Class<C>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[2];
-                    Constructor<C> vaco = vacl.getConstructor();
-                    C va = vaco.newInstance();
-                    va.initVA();
-                    getOpe().setVA(va);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                getOpe().setDE(de);
+                de.initDE(getVA(),this::onProgress);
             }
 
         }
@@ -142,4 +149,8 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends AppCompat
         return activity;
     }
 
+    @Override
+    public void onProgress(String tag, int status, Object data) {
+
+    }
 }

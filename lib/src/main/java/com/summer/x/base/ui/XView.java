@@ -1,6 +1,7 @@
 package com.summer.x.base.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.summer.x.base.i.OnProgressI;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,7 +25,7 @@ import java.lang.reflect.ParameterizedType;
 
 import butterknife.ButterKnife;
 
-public class XView<A extends UI,B extends DE,C extends VA> extends FrameLayout implements View.OnClickListener {
+public class XView<A extends UI,B extends DE,C extends VA> extends FrameLayout implements View.OnClickListener, OnProgressI {
 
     private Ope<A,B,C> ope;
 
@@ -34,18 +36,12 @@ public class XView<A extends UI,B extends DE,C extends VA> extends FrameLayout i
         if(context instanceof XActivity){
             activity = (XActivity) context;
         }
-        initDEVA();
-        BeforeInitUI();
-        initUI(this);
+        initOpe(this);
         addView(getUI().getUI().getRoot(),new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         ButterKnife.bind(this);
         if(isRegistEvent()){
             EventBus.getDefault().register(this);
         }
-    }
-
-    protected void BeforeInitUI(){
-
     }
 
 
@@ -70,58 +66,53 @@ public class XView<A extends UI,B extends DE,C extends VA> extends FrameLayout i
 
     }
 
-    /**
-     * 自动化反射生成UI,DA,VA文件
-     */
-    private void initUI(ViewGroup viewGroup){
+    private void initOpe(XView container){
         if(getOpe()==null) {
             ope = new Ope<>(null, null, null);
-        }
-        //生成UI文件
-        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
-            try {
-                Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-                Constructor<A> uic =ui.getConstructor();
-                A aa = uic.newInstance();
-                aa.bindUI(getXActivity(),this);
-                aa.initUI();
-                getOpe().setUI(aa);
-            } catch (Exception e) {
-                e.printStackTrace();
-                LogUtils.e(e.toString());
-            }
-        }
-    }
-
-    public void initDEVA(){
-        if(getOpe()==null) {
-            ope = new Ope<>(null, null, null);
-        }
-        //生成DE文件
-        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
-            try {
-                Class<B> decl = (Class<B>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-                Constructor<B> deco = decl.getConstructor();
-                B de = deco.newInstance();
-                de.initDE();
-                getOpe().setDE(de);
-            } catch (Exception e) {
-                e.printStackTrace();
-                LogUtils.e(e.toString());
-            }
         }
         //生成VA文件
         if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+            Class<C> vacl = (Class<C>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[2];
+            Constructor<C> vaco = null;
+            C va = null;
             try {
-                Class<C> vacl = (Class<C>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[2];
-                Constructor<C> vaco = vacl.getConstructor();
-                C va = vaco.newInstance();
-                va.initVA();
-                getOpe().setVA(va);
+                vaco = vacl.getConstructor();
+                va = vaco.newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
-                LogUtils.e(e.toString());
             }
+            getOpe().setVA(va);
+            Intent intent = getXActivity().getIntent();
+            va.initVA(intent);
+        }
+        //生成UI文件
+        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+            Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+            Constructor<A> uic = null;
+            A aa = null;
+            try {
+                uic = ui.getConstructor();
+                aa = uic.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            aa.bindUI(getXActivity(),container);
+            getOpe().setUI(aa);
+            aa.initUI(getVA());
+        }
+        //生成DE文件
+        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+            Class<B> decl = (Class<B>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+            Constructor<B> deco = null;
+            B de = null;
+            try {
+                deco = decl.getConstructor();
+                de = deco.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            getOpe().setDE(de);
+            de.initDE(getVA(),this::onProgress);
         }
     }
 
@@ -151,4 +142,8 @@ public class XView<A extends UI,B extends DE,C extends VA> extends FrameLayout i
     }
 
 
+    @Override
+    public void onProgress(String tag, int status, Object data) {
+
+    }
 }

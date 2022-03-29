@@ -1,6 +1,7 @@
 package com.summer.x.base.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +21,12 @@ import androidx.fragment.app.Fragment;
 import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.summer.x.R;
+import com.summer.x.base.i.OnProgressI;
 
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportFragment;
 
-public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment implements View.OnClickListener {
+public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment implements View.OnClickListener, OnProgressI {
 
     private Ope<A,B,C> ope;
 
@@ -38,7 +40,6 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment 
         if(getArguments()==null){
             setArguments(new Bundle());
         }
-        initDEVA();
     }
 
     @Override
@@ -52,13 +53,13 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        initUI(container);
+        LogUtils.e("onCreateView:"+getClass().getName());
+        initOpe(container);
         View view = getUI().getUI().getRoot();
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this,getUI().getUI().getRoot());
         if(isRegistEvent()){
             EventBus.getDefault().register(this);
         }
-        onBeforeReturnView(view,savedInstanceState);
         return view;
     }
 
@@ -103,58 +104,54 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment 
 
     }
 
-    /**
-     * 自动化反射生成UI,DA,VA文件
-     */
-    private void initUI(ViewGroup viewGroup){
+    private void initOpe(ViewGroup container){
         if(getOpe()==null) {
             ope = new Ope<>(null, null, null);
-        }
-        //生成UI文件
-        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
-            try {
-                Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-                Constructor<A> uic =ui.getConstructor();
-                A aa = uic.newInstance();
-                aa.bindUI(getXFragment(),viewGroup);
-                aa.initUI();
-                getOpe().setUI(aa);
-            } catch (Exception e) {
-                e.printStackTrace();
-                LogUtils.e(e.toString());
-            }
-        }
-    }
-
-    public void initDEVA(){
-        if(getOpe()==null) {
-            ope = new Ope<>(null, null, null);
-        }
-        //生成DE文件
-        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
-            try {
-                Class<B> decl = (Class<B>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-                Constructor<B> deco = decl.getConstructor();
-                B de = deco.newInstance();
-                de.initDE();
-                getOpe().setDE(de);
-            } catch (Exception e) {
-                e.printStackTrace();
-                LogUtils.e(e.toString());
-            }
         }
         //生成VA文件
         if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+            Class<C> vacl = (Class<C>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[2];
+            Constructor<C> vaco = null;
+            C va = null;
             try {
-                Class<C> vacl = (Class<C>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[2];
-                Constructor<C> vaco = vacl.getConstructor();
-                C va = vaco.newInstance();
-                va.initVA();
-                getOpe().setVA(va);
+                vaco = vacl.getConstructor();
+                va = vaco.newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
-                LogUtils.e(e.toString());
             }
+            getOpe().setVA(va);
+            Intent intent = new Intent();
+            intent.putExtras(getArguments());
+            va.initVA(intent);
+        }
+        //生成UI文件
+        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+            Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+            Constructor<A> uic = null;
+            A aa = null;
+            try {
+                uic = ui.getConstructor();
+                aa = uic.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            aa.bindUI(getXFragment(),container);
+            getOpe().setUI(aa);
+            aa.initUI(getVA());
+        }
+        //生成DE文件
+        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+            Class<B> decl = (Class<B>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+            Constructor<B> deco = null;
+            B de = null;
+            try {
+                deco = decl.getConstructor();
+                de = deco.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            getOpe().setDE(de);
+            de.initDE(getVA(),this::onProgress);
         }
     }
 
@@ -187,4 +184,8 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment 
         return fragment;
     }
 
+    @Override
+    public void onProgress(String tag, int status, Object data) {
+
+    }
 }

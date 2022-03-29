@@ -29,8 +29,33 @@ public class UI<A extends ViewDataBinding>{
 
     }
 
-    public void initUI(){}
 
+    public void initUI(VA va) {
+
+    }
+
+    public void refreshUI(VA va){
+
+    }
+
+    public boolean checkUI(VA va){
+        return true;
+    }
+
+    /**
+     * 不会自动调用 统一方法名称 部分数据映射到ui
+     * @param va
+     */
+    public void VAToUI(VA va){
+
+    }
+    /**
+     * 不会自动调用 统一方法名称 ui映射到数据
+     * @param va
+     */
+    public void UIToVA(VA va){
+
+    }
 
     /**
      * 绑定xml
