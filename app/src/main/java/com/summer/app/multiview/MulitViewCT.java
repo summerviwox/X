@@ -16,7 +16,6 @@ public class MulitViewCT extends XActivity<MulitViewUI,MulitViewDE,MulitViewVA> 
         getUI().getUI().root.addView(new AView(this,null));
     }
 
-    @Override
     public void onBackPressedSupport() {
         getUI().getUI().root.onBackPress();
     }
