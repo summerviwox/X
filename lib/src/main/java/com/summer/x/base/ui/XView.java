@@ -2,9 +2,17 @@ package com.summer.x.base.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.blankj.utilcode.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -13,81 +21,40 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import com.blankj.utilcode.util.LogUtils;
-import com.gyf.barlibrary.ImmersionBar;
-import com.summer.x.R;
-
 import butterknife.ButterKnife;
-import me.yokeyword.fragmentation.SupportFragment;
 
-public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment implements View.OnClickListener {
+public class XView<A extends UI,B extends DE,C extends VA> extends FrameLayout implements View.OnClickListener {
 
     private Ope<A,B,C> ope;
 
     private XActivity activity;
 
-    private XFragment fragment = this;
-
-    public boolean loadedData =false;
-
-    public XFragment(){
-        if(getArguments()==null){
-            setArguments(new Bundle());
-        }
-        initDEVA();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public XView(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
         if(context instanceof XActivity){
             activity = (XActivity) context;
         }
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        initUI(container);
-        View view = getUI().getUI().getRoot();
-        ButterKnife.bind(this,view);
+        initDEVA();
+        BeforeInitUI();
+        initUI(this);
+        addView(getUI().getUI().getRoot(),new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        ButterKnife.bind(this);
         if(isRegistEvent()){
             EventBus.getDefault().register(this);
         }
-        onBeforeReturnView(view,savedInstanceState);
-        return view;
     }
 
+    protected void BeforeInitUI(){
 
-    public void onBeforeReturnView(View  view,@Nullable Bundle savedInstanceState){
-
-    }
-
-
-    /**
-     *完成UI,DE,VA的初始化
-     *注解初始化
-     *eventbus初始化
-     * @param view
-     * @param savedInstanceState
-     */
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
         if(isRegistEvent()){
             EventBus.getDefault().unregister(this);
         }
-
     }
 
     @Override
@@ -116,7 +83,7 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment 
                 Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
                 Constructor<A> uic =ui.getConstructor();
                 A aa = uic.newInstance();
-                aa.bindUI(getXFragment(),viewGroup);
+                aa.bindUI(getXActivity(),this);
                 aa.initUI();
                 getOpe().setUI(aa);
             } catch (Exception e) {
@@ -183,8 +150,5 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment 
         return activity;
     }
 
-    public XFragment getXFragment() {
-        return fragment;
-    }
 
 }

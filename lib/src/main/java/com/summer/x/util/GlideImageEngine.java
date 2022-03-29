@@ -14,7 +14,6 @@ public class GlideImageEngine implements ImageEngine {
     @Override
     public void loadThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri) {
         GlideApp.with(context)
-                .asBitmap()
                 .load(uri)
                 .placeholder(placeholder)
                 .override(resize, resize)
@@ -26,7 +25,7 @@ public class GlideImageEngine implements ImageEngine {
     public void loadGifThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView,
                                  Uri uri) {
         GlideApp.with(context)
-                .asBitmap()
+                .asGif()
                 .load(uri)
                 .placeholder(placeholder)
                 .override(resize, resize)

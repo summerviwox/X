@@ -11,14 +11,19 @@ import com.blankj.utilcode.util.LogUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
 
 public class UI<A extends ViewDataBinding>{
+
+    public static HashMap<String,ViewDataBinding> uiMap = new HashMap<>();
 
     private A ui;
 
     private XActivity xActivity;
 
     private XFragment xFragment;
+
+    private XView xView;
 
     public UI(){
 
@@ -54,6 +59,11 @@ public class UI<A extends ViewDataBinding>{
                 }
             }
         }
+    }
+
+    public void bindUI(XActivity xActivity,XView xView) {
+        this.xView = xView;
+        bindUI(xActivity);
     }
 
     public void bindUI(XFragment xFragment, ViewGroup viewGroup) {
@@ -94,4 +104,8 @@ public class UI<A extends ViewDataBinding>{
         return xFragment;
     }
 
+
+    public XView getxView() {
+        return xView;
+    }
 }

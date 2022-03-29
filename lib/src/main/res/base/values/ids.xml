@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="data" type="id"/>
+    <item name="data2" type="id"/>
     <item name="position" type="id"/>
 </resources>

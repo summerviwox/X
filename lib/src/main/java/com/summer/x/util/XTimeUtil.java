@@ -20,7 +20,11 @@ public class XTimeUtil {
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+08"));
         Long l = null;
         try {
-            l = Long.parseLong(time)*1000;
+            if(time.length()==13){
+                l = Long.parseLong(time);
+            }else{
+                l = Long.parseLong(time)*1000;
+            }
         } catch (NumberFormatException e) {
             e.printStackTrace();
             return defaults;
