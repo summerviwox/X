@@ -1,6 +1,6 @@
 package com.summer.x.base.i;
 
-public interface OnFinishI {
+public interface OnFinishI<T> {
 
-    public void onFinished(Object o);
+    public void onFinished(T o);
 }

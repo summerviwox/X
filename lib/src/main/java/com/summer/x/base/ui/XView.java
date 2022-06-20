@@ -66,6 +66,29 @@ public class XView<A extends UI,B extends DE,C extends VA> extends FrameLayout i
 
     }
 
+    /**
+     * 自动化反射生成UI,DA,VA文件
+     */
+    private void initUI(ViewGroup viewGroup){
+        if(getOpe()==null) {
+            ope = new Ope<>(null, null, null);
+        }
+        //生成UI文件
+        if(getClass().getGenericSuperclass() instanceof ParameterizedType){
+            Class<A> ui = (Class<A>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+            Constructor<A> uic = null;
+            A aa = null;
+            try {
+                uic = ui.getConstructor();
+                aa = uic.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            aa.bindUI(getXActivity(),this);
+            getOpe().setUI(aa);
+        }
+    }
+
     private void initOpe(XView container){
         if(getOpe()==null) {
             ope = new Ope<>(null, null, null);

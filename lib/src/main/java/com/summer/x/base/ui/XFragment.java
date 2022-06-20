@@ -64,22 +64,9 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment 
     }
 
 
-    public void onBeforeReturnView(View  view,@Nullable Bundle savedInstanceState){
-
-    }
 
 
-    /**
-     *完成UI,DE,VA的初始化
-     *注解初始化
-     *eventbus初始化
-     * @param view
-     * @param savedInstanceState
-     */
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
+
 
 
     @Override
@@ -153,6 +140,16 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment 
             getOpe().setDE(de);
             de.initDE(getVA(),this::onProgress);
         }
+    }
+
+    /**
+     * 自动化反射生成UI,DA,VA文件
+     */
+    private void initUI(ViewGroup viewGroup){
+        if(getOpe()==null) {
+            ope = new Ope<>(null, null, null);
+        }
+
     }
 
 

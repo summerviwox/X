@@ -3,8 +3,6 @@ package com.summer.x.base.ui;
 import android.os.Bundle;
 import android.view.View;
 
-import com.gyf.barlibrary.ImmersionBar;
-import com.summer.x.R;
 import com.summer.x.base.i.OnProgressI;
 
 import org.greenrobot.eventbus.EventBus;
@@ -18,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
-import me.yokeyword.fragmentation.SupportActivity;
 
 public class XActivity<A extends UI,B extends DE,C extends VA> extends AppCompatActivity implements View.OnClickListener, OnProgressI {
 
@@ -45,10 +42,6 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends AppCompat
         }
     }
 
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-    }
 
     @Override
     protected void onDestroy() {
