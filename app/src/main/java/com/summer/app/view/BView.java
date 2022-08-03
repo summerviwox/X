@@ -2,6 +2,7 @@ package com.summer.app.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -19,13 +20,13 @@ public class BView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                LogUtils.e("View:onTouchEvent:ACTION_DOWN");
+                Log.e("BView","onTouchEvent:ACTION_DOWN");
                 break;
             case MotionEvent.ACTION_MOVE:
-                LogUtils.e("View:onTouchEvent:ACTION_MOVE");
+                Log.e("BView","onTouchEvent:ACTION_MOVE");
                 break;
             case MotionEvent.ACTION_UP:
-                LogUtils.e("View:onTouchEvent:ACTION_UP");
+                Log.e("BView","onTouchEvent:ACTION_UP");
                 break;
         }
         return super.onTouchEvent(event);
@@ -35,13 +36,13 @@ public class BView extends View {
     public boolean dispatchTouchEvent(MotionEvent event) {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                LogUtils.e( "View:dispatchTouchEvent:ACTION_DOWN");
+                Log.e("BView","dispatchTouchEvent:ACTION_DOWN");
                 break;
             case MotionEvent.ACTION_MOVE:
-                LogUtils.e("View:dispatchTouchEvent:ACTION_MOVE");
+                Log.e("BView","dispatchTouchEvent:ACTION_MOVE");
                 break;
             case MotionEvent.ACTION_UP:
-                LogUtils.e("View:dispatchTouchEvent:ACTION_UP");
+                Log.e("BView","dispatchTouchEvent:ACTION_UP");
                 break;
         }
         return super.dispatchTouchEvent(event);

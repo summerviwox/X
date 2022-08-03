@@ -2,6 +2,7 @@ package com.summer.app.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,29 +22,29 @@ public class AView extends RelativeLayout {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                LogUtils.e("ViewGroup:onTouchEvent:ACTION_DOWN");
+                Log.e("AView","onTouchEvent:ACTION_DOWN");
                 break;
             case MotionEvent.ACTION_MOVE:
-                LogUtils.e("ViewGroup:onTouchEvent:ACTION_MOVE");
+                Log.e("AView","onTouchEvent:ACTION_MOVE");
                 break;
             case MotionEvent.ACTION_UP:
-                LogUtils.e("ViewGroup:onTouchEvent:ACTION_UP");
+                Log.e("AView","onTouchEvent:ACTION_UP");
                 break;
         }
-        return true;
+        return super.onTouchEvent(event);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                LogUtils.e("ViewGroup:dispatchTouchEvent:ACTION_DOWN");
+                Log.e("AView","dispatchTouchEvent:ACTION_DOWN");
                 break;
             case MotionEvent.ACTION_MOVE:
-                LogUtils.e("ViewGroup:dispatchTouchEvent:ACTION_MOVE");
+                Log.e("AView","dispatchTouchEvent:ACTION_MOVE");
                 break;
             case MotionEvent.ACTION_UP:
-                LogUtils.e("ViewGroup:dispatchTouchEvent:ACTION_UP");
+                Log.e("AView","dispatchTouchEvent:ACTION_UP");
                 break;
         }
         return super.dispatchTouchEvent(event);
@@ -53,15 +54,15 @@ public class AView extends RelativeLayout {
     public boolean onInterceptTouchEvent(MotionEvent event) {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                LogUtils.e("ViewGroup:onInterceptTouchEvent:ACTION_DOWN");
+                Log.e("AView","onInterceptTouchEvent:ACTION_DOWN");
                 break;
             case MotionEvent.ACTION_MOVE:
-                LogUtils.e("ViewGroup:onInterceptTouchEvent:ACTION_MOVE");
+                Log.e("AView","onInterceptTouchEvent:ACTION_MOVE");
                 break;
             case MotionEvent.ACTION_UP:
-                LogUtils.e("ViewGroup:onInterceptTouchEvent:ACTION_UP");
+                Log.e("AView","onInterceptTouchEvent:ACTION_UP");
                 break;
         }
-        return true;
+        return super.onInterceptTouchEvent(event);
     }
 }

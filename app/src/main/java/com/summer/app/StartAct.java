@@ -35,4 +35,5 @@ public class StartAct extends Activity {
         canvas.drawCircle(ScreenUtils.getScreenWidth()/2,ScreenUtils.getScreenHeight()/2, SizeUtils.dp2px(100),paint);
 
     }
+
 }
