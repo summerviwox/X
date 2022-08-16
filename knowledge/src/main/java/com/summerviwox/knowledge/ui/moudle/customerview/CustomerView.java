@@ -23,10 +23,10 @@ public class CustomerView extends View {
 
     //start
     //绘制流程通常重写下面3个方法
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
     }
 
     @Override

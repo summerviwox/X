@@ -1,0 +1,6 @@
+自定义view根据复杂度可以分为一下几种:
+继承view
+继承viewgroup
+继承系统view
+继承系统layout
+xml组合view
