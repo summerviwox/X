@@ -1,5 +1,6 @@
 package com.summerviwox.knowledge.ui.view.treeview;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.summerviwox.knowledge.R;
-import com.summerviwox.knowledge.databinding.ItemTreeviewBinding;
+import com.summerviwox.knowledge.ui.moudle.customerview.CustomerViewActivity;
 
 /**
  * summer 2022/8/4 16:09
  **/
-public class TreeViewAdapter extends RecyclerView.Adapter<TreeViewAdapter.TreeViewHolder>{
+public class TreeViewAdapter extends RecyclerView.Adapter<TreeViewAdapter.TreeViewHolder> implements View.OnClickListener {
 
 
     @NonNull
@@ -32,11 +33,25 @@ public class TreeViewAdapter extends RecyclerView.Adapter<TreeViewAdapter.TreeVi
     @Override
     public void onBindViewHolder(@NonNull TreeViewHolder holder, int position) {
         LogUtils.e(222);
+        holder.itemView.setOnClickListener(this);
+        holder.itemView.setTag(R.id.position,position);
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 100;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int position = (int) v.getTag(R.id.position);
+        Intent intent = null;
+        switch (position){
+            case 0:
+                intent = new Intent(v.getContext(), CustomerViewActivity.class);
+                v.getContext().startActivity(intent);
+                break;
+        }
     }
 
     public static class TreeViewHolder extends RecyclerView.ViewHolder{

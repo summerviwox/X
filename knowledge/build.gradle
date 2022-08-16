@@ -48,6 +48,7 @@ android {
             res.srcDirs = [
                     'src/main/res',
                     'src/main/res/base',
+                    'src/main/res/customerview',
             ]
             jniLibs.srcDirs = [
                     'libDir',

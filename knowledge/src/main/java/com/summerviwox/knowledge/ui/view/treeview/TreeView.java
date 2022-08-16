@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +27,7 @@ public class TreeView extends RecyclerView {
 
     public void setData(){
         TreeViewAdapter treeViewAdapter = new TreeViewAdapter();
-        setLayoutManager(new LinearLayoutManager(getContext()));
+        setLayoutManager(new GridLayoutManager(getContext(),3));
         setAdapter(treeViewAdapter);
     }
 }
