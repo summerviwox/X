@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"/>
 
-        <com.summerviwox.knowledge.ui.view.treeview.TreeView
+        <com.summerviwox.knowledge.ui.main.view.treeview.TreeView
             android:id="@+id/recyclerview"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/top"

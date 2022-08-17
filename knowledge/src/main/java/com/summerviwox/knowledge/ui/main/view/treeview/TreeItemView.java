@@ -1,4 +1,4 @@
-package com.summerviwox.knowledge.ui.view.treeview;
+package com.summerviwox.knowledge.ui.main.view.treeview;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;

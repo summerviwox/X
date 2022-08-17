@@ -1,4 +1,4 @@
-package com.summerviwox.knowledge.ui.view.CustomerViewGroup;
+package com.summerviwox.knowledge.ui.main.view.CustomerViewGroup;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -28,7 +28,20 @@
                 <category android:name="android.intent.category.HOME"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.moudle.customerview.CustomerViewActivity" android:configChanges="orientation|keyboard" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.moudle.customerview.CustomerViewActivity"
+            android:configChanges="orientation|keyboard" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="knowledge.customerview"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.moudle.activity.WindowViewActivity"
+            android:configChanges="orientation|keyboard" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="knowledge.windowview"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -1,16 +1,18 @@
-package com.summerviwox.knowledge.ui.view.treeview;
+package com.summerviwox.knowledge.ui.main.view.treeview;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.summerviwox.knowledge.R;
+import com.summerviwox.knowledge.ui.main.MoudleList;
+import com.summerviwox.knowledge.ui.moudle.activity.WindowViewActivity;
 import com.summerviwox.knowledge.ui.moudle.customerview.CustomerViewActivity;
 
 /**
@@ -32,32 +34,33 @@ public class TreeViewAdapter extends RecyclerView.Adapter<TreeViewAdapter.TreeVi
 
     @Override
     public void onBindViewHolder(@NonNull TreeViewHolder holder, int position) {
-        LogUtils.e(222);
         holder.itemView.setOnClickListener(this);
         holder.itemView.setTag(R.id.position,position);
+        holder.textView.setText(MoudleList.list[position].name);
     }
 
     @Override
     public int getItemCount() {
-        return 100;
+        return MoudleList.list.length;
     }
 
     @Override
     public void onClick(View v) {
         int position = (int) v.getTag(R.id.position);
         Intent intent = null;
-        switch (position){
-            case 0:
-                intent = new Intent(v.getContext(), CustomerViewActivity.class);
-                v.getContext().startActivity(intent);
-                break;
+        intent = new Intent("knowledge."+MoudleList.list[position].name);
+        if(intent!=null){
+            v.getContext().startActivity(intent);
         }
     }
 
     public static class TreeViewHolder extends RecyclerView.ViewHolder{
 
+        TextView textView;
+
         public TreeViewHolder(@NonNull View itemView) {
             super(itemView);
+            textView = itemView.findViewById(R.id.text);
         }
     }
 }
