@@ -8,6 +8,7 @@ import java.util.List;
 public class MoudleList {
     public static Moudle[] list = new Moudle[]{
             new Moudle("customerview"),
-            new Moudle("windowview")
+            new Moudle("windowviewactivity"),
+            new Moudle("service"),
     };
 }

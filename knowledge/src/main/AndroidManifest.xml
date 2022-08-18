@@ -38,10 +38,18 @@
         <activity android:name=".ui.moudle.activity.WindowViewActivity"
             android:configChanges="orientation|keyboard" android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="knowledge.windowview"/>
+                <action android:name="knowledge.windowviewactivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+        <activity android:name=".ui.moudle.service.TestServiceActivity"
+            android:configChanges="orientation|keyboard" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="knowledge.service"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <service android:name=".ui.moudle.service.TestService"/>
     </application>
 
 </manifest>

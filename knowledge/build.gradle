@@ -50,6 +50,7 @@ android {
                     'src/main/res/base',
                     'src/main/res/customerview',
                     'src/main/res/windowviewactivity',
+                    'src/main/res/service',
             ]
             jniLibs.srcDirs = [
                     'libDir',
