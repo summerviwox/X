@@ -58,7 +58,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/photo_path" />
         </provider>
-        <service android:name=".back.alive.AliveService" android:process=":live">
+        <service android:name=".back.alive.AliveService" android:process=":live" android:exported="true">
             <intent-filter android:priority="2147483647">
                 <action android:name="com.summer.live"/>
             </intent-filter>

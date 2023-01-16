@@ -38,12 +38,12 @@ public class XApp extends Application implements OnFinishI {
     @Override
     public void onFinished(Object o) {
         Crash crash = new Crash();
-        crash.setCreatedtime(System.currentTimeMillis());
-        crash.setError(o.toString());
-        crash.setPlatform("android");
-        crash.setUser("summer");
+        crash.createdtime = System.currentTimeMillis();
+        crash.error = o.toString();
+        crash.platform = "android";
+        crash.user = "summer";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-        crash.setTimestr(simpleDateFormat.format(new Date()));
+        crash.timestr = simpleDateFormat.format(new Date());
         XNet.getInstance().sendCrash(crash).enqueue(new BaseCallBack<ObjectData<Boolean>>(){
             @Override
             public void onSuccess(ObjectData<Boolean> booleanObjectData) {

@@ -1,26 +1,23 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-kapt'
 android {
-    compileSdk 30
-
-
+    compileSdk 32
+    buildToolsVersion '33.0.1'
     defaultConfig {
         applicationId "com.summer.app"
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdk 32
         versionCode 1
         versionName "1.0"
-
-        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
+        javaCompileOptions {
+            annotationProcessorOptions {
+               // includeCompileClasspath = true
+            }
         }
         multiDexEnabled true
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -44,6 +41,10 @@ android {
         jumboMode true
         javaMaxHeapSize "4g"
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
 }
 
 dependencies {
@@ -53,7 +54,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
     def nav_version = "2.3.0"
-    kapt 'com.jakewharton:butterknife-compiler:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.navigation:navigation-fragment:$nav_version"
