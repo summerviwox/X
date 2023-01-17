@@ -1,5 +1,7 @@
 package com.summer.app.view;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -130,6 +132,7 @@ public class PullView extends ViewGroup {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 mPositions[2].set((int) event.getX(), (int) event.getY());
+                down();
                 stop();
                 return true;
         }
@@ -161,6 +164,35 @@ public class PullView extends ViewGroup {
 
 
     private void reset(){
-        getChildAt(0).layout(0,0,getChildAt(0).getMeasuredWidth(),getChildAt(0).getMeasuredHeight());
+        int deltaY = lastDeltaY+Position.getDeltaY(mPositions[0],mPositions[1]);
+        if(deltaY>=MAX_DELTA_Y){
+            getChildAt(0).layout(0,0,getChildAt(0).getMeasuredWidth(),getChildAt(0).getMeasuredHeight());
+            return;
+        }
+
+    }
+
+    private void down(){
+        int deltaY = lastDeltaY+Position.getDeltaY(mPositions[0],mPositions[1]);
+        if(deltaY>=MAX_DELTA_Y){
+            animDown(getChildAt(0),deltaY,getMeasuredHeight());
+            //getChildAt(0).layout(0,getMeasuredHeight(),getChildAt(0).getMeasuredWidth(),getMeasuredHeight()+getChildAt(0).getMeasuredHeight());
+            return;
+        }
+
+    }
+
+    public void animDown(View view,float start,float end){
+        ValueAnimator valueAnimator = ObjectAnimator.ofFloat(start,end);
+        valueAnimator.setDuration(400);
+
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value = (int)((float) animation.getAnimatedValue());
+                view.layout(0,value,view.getMeasuredWidth(),view.getMeasuredHeight()+value);
+            }
+        });
+        valueAnimator.start();
     }
 }
