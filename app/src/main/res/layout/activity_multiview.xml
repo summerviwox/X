@@ -12,7 +12,7 @@
     android:layout_height="match_parent"
     android:id="@+id/root"
     android:background="@color/white"
-    tools:context=".MainActivity">
+    tools:context=".main.MainActivity">
 
 
 

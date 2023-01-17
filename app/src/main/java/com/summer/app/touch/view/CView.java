@@ -1,4 +1,4 @@
-package com.summer.app.view;
+package com.summer.app.touch.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

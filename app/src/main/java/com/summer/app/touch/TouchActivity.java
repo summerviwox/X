@@ -1,4 +1,4 @@
-package com.summer.app;
+package com.summer.app.touch;
 
 import android.util.Log;
 import android.view.MotionEvent;
@@ -8,7 +8,7 @@ import com.summer.x.base.ui.DE;
 import com.summer.x.base.ui.VA;
 import com.summer.x.base.ui.XActivity;
 
-public class MainActivity extends XActivity<MainUI, DE, VA> implements View.OnClickListener {
+public class TouchActivity extends XActivity<TouchUI, DE, VA> implements View.OnClickListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

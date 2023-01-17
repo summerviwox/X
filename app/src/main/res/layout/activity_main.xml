@@ -5,31 +5,74 @@
             name="abc"
             type="String" />
     </data>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/root"
-    tools:context=".MainActivity">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/root"
+        tools:context=".main.MainActivity">
+
+<!--<ScrollView-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+<!--    <TextView-->
+<!--        android:id="@+id/textview"-->
+<!--        android:background="@color/white"-->
+<!--        android:text="@string/longtext"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
+<!--</ScrollView>-->
 
 
 
+        <com.summer.app.view.PullView
 
-    <com.summer.app.view.AView
-        android:layout_centerInParent="true"
-        android:background="@color/color_blue_300"
-        android:layout_width="200dp"
-        android:layout_height="200dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <com.summer.app.view.BView
-            android:layout_centerInParent="true"
-            android:background="@color/color_grey_300"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            <LinearLayout
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.summer.app.view.MyTextView
+                    android:background="@color/white"
+                    android:text="@string/midtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-    </com.summer.app.view.AView>
+                <com.summer.app.view.MyTextView
+                    android:background="@color/white"
+                    android:text="@string/midtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.summer.app.view.MyTextView
+                    android:background="@color/white"
+                    android:text="@string/midtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.summer.app.view.MyTextView
+                    android:background="@color/white"
+                    android:text="@string/midtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.summer.app.view.MyTextView
+                    android:background="@color/white"
+                    android:text="@string/midtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
 
-</RelativeLayout>
+
+        </com.summer.app.view.PullView>
+
+
+
+    </RelativeLayout>
 </layout>

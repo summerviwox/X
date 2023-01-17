@@ -9,4 +9,8 @@
         <item name="android:activityCloseExitAnimation">@anim/h_fragment_popexit</item>
     </style>
 
+    <declare-styleable name="PullView">
+        <attr name="enabled" format="boolean"></attr>
+    </declare-styleable>
+
 </resources>
