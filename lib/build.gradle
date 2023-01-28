@@ -1,18 +1,13 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'kotlin-kapt'
 apply plugin: 'com.jakewharton.butterknife'
-def dbflow_version = "4.2.4"
 android {
-    compileSdk 32
-    buildToolsVersion '33.0.1'
+    compileSdk COMPILE_SDK as int
+    buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 32
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK as int
         versionCode 1
         versionName "1.0.0"
-        //解决annotationProcessor注解类继承不了的问题
         javaCompileOptions {
             annotationProcessorOptions {
                 // includeCompileClasspath = true
@@ -39,29 +34,11 @@ android {
             ]
         }
     }
-
-    dataBinding {
-        enabled = true
-    }
-
-    //为了解决部分第三方库重复打包了META-INF的问题
-    packagingOptions {
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-    }
-    lintOptions {
-        abortOnError false
-        checkReleaseBuilds false
-    }
-    dexOptions {
-        preDexLibraries false
-        jumboMode true
-        javaMaxHeapSize "4g"
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
+    dataBinding rootProject.ext.dataBinding
+    packagingOptions rootProject.ext.packagingOptions
+    lintOptions rootProject.ext.lintOptions
+    dexOptions rootProject.ext.dexOptions
+    compileOptions rootProject.ext.compileOptions
 }
 
 dependencies {
@@ -72,8 +49,10 @@ dependencies {
     api 'androidx.cardview:cardview:1.0.0'
     api 'com.google.android.material:material:1.1.0'
     api 'androidx.recyclerview:recyclerview:1.1.0'
-    api 'androidx.constraintlayout:constraintlayout:1.1.3'
+    api 'androidx.constraintlayout:constraintlayout:2.0.0'
     api 'me.yokeyword:fragmentationx:1.0.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     //注解
     implementation 'com.jakewharton:butterknife:10.2.3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'

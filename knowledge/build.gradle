@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdk 32
-    buildToolsVersion '33.0.1'
+    compileSdk COMPILE_SDK as int
+    buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.summer.knowledge"
-        minSdkVersion 19
-        targetSdk 32
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK as int
         versionCode 1
         versionName "1.0"
         javaCompileOptions {
@@ -21,50 +21,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
-    }
-    //为了解决部分第三方库重复打包了META-INF的问题
-    packagingOptions {
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-    }
-    lintOptions {
-        abortOnError false
-        checkReleaseBuilds false
-    }
-    dexOptions {
-        preDexLibraries false
-        jumboMode true
-        javaMaxHeapSize "4g"
-    }
-    //自定义资源目录
     sourceSets {
         main {
-            res.srcDirs = [
-                    'src/main/res',
-                    'src/main/res/base',
-                    'src/main/res/customerview',
-                    'src/main/res/windowviewactivity',
-                    'src/main/res/service',
-            ]
-            jniLibs.srcDirs = [
-                    'libDir',
-            ]
+            res.srcDirs = ['src/main/res',
+                           'src/main/res/base',
+                           'src/main/res/customerview',
+                           'src/main/res/windowviewactivity',
+                           'src/main/res/service',]
+            jniLibs.srcDirs = ['libDir',]
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
+    dataBinding rootProject.ext.dataBinding
+    packagingOptions rootProject.ext.packagingOptions
+    lintOptions rootProject.ext.lintOptions
+    dexOptions rootProject.ext.dexOptions
+    compileOptions rootProject.ext.compileOptions
 }
 
 dependencies {
     implementation project(':lib')
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
 

@@ -1,19 +1,16 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'kotlin-kapt'
 android {
-    compileSdk 32
-    buildToolsVersion '33.0.1'
+    compileSdk COMPILE_SDK as int
+    buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.summer.app"
-        minSdkVersion 19
-        targetSdk 32
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK as int
         versionCode 1
         versionName "1.0"
         javaCompileOptions {
             annotationProcessorOptions {
-               // includeCompileClasspath = true
+                // includeCompileClasspath = true
             }
         }
         multiDexEnabled true
@@ -29,43 +26,19 @@ android {
             renderscriptDebuggable true
         }
     }
-    dataBinding {
-        enabled = true
-    }
-    //为了解决部分第三方库重复打包了META-INF的问题
-    packagingOptions {
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-    }
-    lintOptions {
-        abortOnError false
-        checkReleaseBuilds false
-    }
-    dexOptions {
-        preDexLibraries false
-        jumboMode true
-        javaMaxHeapSize "4g"
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
+    dataBinding rootProject.ext.dataBinding
+    packagingOptions rootProject.ext.packagingOptions
+    lintOptions rootProject.ext.lintOptions
+    dexOptions rootProject.ext.dexOptions
+    compileOptions rootProject.ext.compileOptions
 }
 
 dependencies {
     implementation project(':lib')
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
-    def nav_version = "2.3.0"
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
-
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-fragment:$nav_version"
-    implementation "androidx.navigation:navigation-ui:$nav_version"
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
-
-
+    implementation "androidx.navigation:navigation-fragment-ktx:${NAR_VERSION}"
+    implementation "androidx.navigation:navigation-ui-ktx:${NAR_VERSION}"
+    implementation "androidx.navigation:navigation-fragment:${NAR_VERSION}"
+    implementation "androidx.navigation:navigation-ui:${NAR_VERSION}"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:${NAR_VERSION}"
 }
