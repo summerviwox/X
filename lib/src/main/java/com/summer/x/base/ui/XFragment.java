@@ -17,16 +17,14 @@ import java.lang.reflect.ParameterizedType;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.gyf.barlibrary.ImmersionBar;
-import com.summer.x.R;
 import com.summer.x.base.i.OnProgressI;
 
 import butterknife.ButterKnife;
-import me.yokeyword.fragmentation.SupportFragment;
 
-public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment implements View.OnClickListener, OnProgressI {
+public class XFragment<A extends UI,B extends DE,C extends DA> extends Fragment implements View.OnClickListener, OnProgressI {
 
     private Ope<A,B,C> ope;
 
@@ -100,12 +98,13 @@ public class XFragment<A extends UI,B extends DE,C extends VA> extends Fragment 
             Class<C> vacl = (Class<C>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[2];
             Constructor<C> vaco = null;
             C va = null;
-            try {
-                vaco = vacl.getConstructor();
-                va = vaco.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                vaco = vacl.getConstructor();
+//                va = vaco.newInstance();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+            va = new ViewModelProvider(this).get(vacl);
             getOpe().setVA(va);
             Intent intent = new Intent();
             intent.putExtras(getArguments());

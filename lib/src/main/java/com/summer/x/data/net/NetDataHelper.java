@@ -1,12 +1,11 @@
 package com.summer.x.data.net;
 
-import com.summer.x.base.ui.VA;
+import com.summer.x.base.ui.DA;
 import com.summer.x.data.net.logging.Level;
 import com.summer.x.data.net.logging.LoggingInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import okhttp3.OkHttpClient;
@@ -81,7 +80,7 @@ public class NetDataHelper {
 
     @Getter
     @Setter
-    public static class Config extends VA{
+    public static class Config extends DA {
 
         long connectTimeout = 60;
 

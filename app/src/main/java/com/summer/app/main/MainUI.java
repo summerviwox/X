@@ -1,12 +1,10 @@
 package com.summer.app.main;
 
-import android.view.View;
 import android.widget.Toast;
 
-import com.summer.app.R;
 import com.summer.app.databinding.ActivityMainBinding;
 import com.summer.x.base.ui.UI;
-import com.summer.x.base.ui.VA;
+import com.summer.x.base.ui.DA;
 
 public class MainUI extends UI<ActivityMainBinding> {
 
@@ -45,7 +43,7 @@ public class MainUI extends UI<ActivityMainBinding> {
     MainUIChatImp mainUIChatImp;
 
     @Override
-    public void initUI(VA va) {
+    public void initUI(DA va) {
         super.initUI(va);
         mainUIChatImp = new MainUIChatImp();
     }

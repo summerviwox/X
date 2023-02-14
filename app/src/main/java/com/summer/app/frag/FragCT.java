@@ -6,12 +6,10 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.summer.x.base.i.OnFinishI;
 import com.summer.x.base.ui.XFragment;
 import com.summer.x.util.HandleUtil;
 
-public class FragCT extends XFragment<FragUI,FragDE,FragVA> {
+public class FragCT extends XFragment<FragUI,FragDE, FragDA> {
 
     public static FragCT getInstance(){
         FragCT fragCT = new FragCT();

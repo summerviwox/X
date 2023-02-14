@@ -5,10 +5,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.summer.x.base.ui.DE;
-import com.summer.x.base.ui.VA;
+import com.summer.x.base.ui.DA;
 import com.summer.x.base.ui.XActivity;
 
-public class TouchActivity extends XActivity<TouchUI, DE, VA> implements View.OnClickListener {
+public class TouchActivity extends XActivity<TouchUI, DE, DA> implements View.OnClickListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

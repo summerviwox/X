@@ -3,12 +3,11 @@ package com.summer.x.app;
 import android.app.Application;
 import android.content.Context;
 
-import com.blankj.utilcode.util.GsonUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.summer.x.data.net.XNet;
 import com.summer.x.base.i.OnFinishI;
 import com.summer.x.data.net.BaseCallBack;
-import com.summer.x.data.net.ObjectData;
+import com.summer.x.data.net.ObjectDA;
 import com.summer.x.exception.Crash;
 import com.summer.x.exception.CrashHander;
 
@@ -44,9 +43,9 @@ public class XApp extends Application implements OnFinishI {
         crash.user = "summer";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
         crash.timestr = simpleDateFormat.format(new Date());
-        XNet.getInstance().sendCrash(crash).enqueue(new BaseCallBack<ObjectData<Boolean>>(){
+        XNet.getInstance().sendCrash(crash).enqueue(new BaseCallBack<ObjectDA<Boolean>>(){
             @Override
-            public void onSuccess(ObjectData<Boolean> booleanObjectData) {
+            public void onSuccess(ObjectDA<Boolean> booleanObjectData) {
                 LogUtils.e(booleanObjectData.getData());
             }
 

@@ -17,11 +17,11 @@ public class DE implements Serializable {
 
     }
 
-    public void initDE(VA va, OnProgressI onProgressI){
+    public void initDE(DA va, OnProgressI onProgressI){
 
     }
 
-    public void refresh(VA va, OnProgressI onProgressI){
+    public void refresh(DA va, OnProgressI onProgressI){
 
     }
 }

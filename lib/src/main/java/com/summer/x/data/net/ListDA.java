@@ -1,10 +1,10 @@
 package com.summer.x.data.net;
 
-import com.summer.x.base.ui.VA;
+import com.summer.x.base.ui.DA;
 
 import java.util.ArrayList;
 
-public class ListData<T> extends VA {
+public class ListDA<T> extends DA {
 
     private ArrayList<T> data;
 

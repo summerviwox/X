@@ -1,7 +1,6 @@
 package com.summer.x.base.ui;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.ViewDataBinding;
@@ -30,15 +29,15 @@ public class UI<A extends ViewDataBinding>{
     }
 
 
-    public void initUI(VA va) {
+    public void initUI(DA va) {
 
     }
 
-    public void refreshUI(VA va){
+    public void refreshUI(DA va){
 
     }
 
-    public boolean checkUI(VA va){
+    public boolean checkUI(DA va){
         return true;
     }
 
@@ -46,14 +45,14 @@ public class UI<A extends ViewDataBinding>{
      * 不会自动调用 统一方法名称 部分数据映射到ui
      * @param va
      */
-    public void VAToUI(VA va){
+    public void VAToUI(DA va){
 
     }
     /**
      * 不会自动调用 统一方法名称 ui映射到数据
      * @param va
      */
-    public void UIToVA(VA va){
+    public void UIToVA(DA va){
 
     }
 

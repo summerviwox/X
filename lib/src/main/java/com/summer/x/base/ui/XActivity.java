@@ -14,10 +14,11 @@ import java.lang.reflect.ParameterizedType;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import butterknife.ButterKnife;
 
-public class XActivity<A extends UI,B extends DE,C extends VA> extends AppCompatActivity implements View.OnClickListener, OnProgressI {
+public class XActivity<A extends UI,B extends DE,C extends DA> extends AppCompatActivity implements View.OnClickListener, OnProgressI {
 
     private Ope<A,B,C> ope;
 
@@ -67,12 +68,15 @@ public class XActivity<A extends UI,B extends DE,C extends VA> extends AppCompat
                 Class<C> vacl = (Class<C>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[2];
                 Constructor<C> vaco = null;
                 C va = null;
-                try {
-                    vaco = vacl.getConstructor();
-                    va = vaco.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    vaco = vacl.getConstructor();
+//                    va = vaco.newInstance();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
+                va = new ViewModelProvider(this).get(vacl);
+
                 getOpe().setVA(va);
                 va.initVA(getActivity().getIntent());
             }

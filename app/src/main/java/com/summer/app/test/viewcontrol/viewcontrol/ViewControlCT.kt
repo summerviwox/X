@@ -1,18 +1,13 @@
 package com.summer.app.test.viewcontrol.viewcontrol;
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
-import android.view.ViewAnimationUtils
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import butterknife.OnClick
-import com.blankj.utilcode.util.LogUtils
 import com.github.florent37.viewanimator.ViewAnimator
 import com.summer.app.R
 import com.summer.x.base.ui.XActivity
 
-class ViewControlCT : XActivity<ViewControlUI,ViewControlDE,ViewControlVA>(){
+class ViewControlCT : XActivity<ViewControlUI,ViewControlDE,ViewControlDA>(){
 
 
     @OnClick(R.id.text)

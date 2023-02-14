@@ -35,7 +35,8 @@ android {
 
 dependencies {
     implementation project(':lib')
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+    implementation "com.jakewharton:butterknife:${BUTTER_KNIFE_VERSION}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE_VERSION}"
     implementation "androidx.navigation:navigation-fragment-ktx:${NAR_VERSION}"
     implementation "androidx.navigation:navigation-ui-ktx:${NAR_VERSION}"
     implementation "androidx.navigation:navigation-fragment:${NAR_VERSION}"

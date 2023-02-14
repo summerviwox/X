@@ -27,7 +27,7 @@
 
 
         <com.summer.app.view.PullView
-
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -71,6 +71,11 @@
 
 
         </com.summer.app.view.PullView>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
 

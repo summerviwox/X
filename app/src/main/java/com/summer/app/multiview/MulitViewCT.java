@@ -5,9 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.summer.x.base.ui.XActivity;
-import com.summer.x.base.ui.XFragment;
 
-public class MulitViewCT extends XActivity<MulitViewUI,MulitViewDE,MulitViewVA> {
+public class MulitViewCT extends XActivity<MulitViewUI,MulitViewDE, MulitViewDA> {
 
 
     @Override

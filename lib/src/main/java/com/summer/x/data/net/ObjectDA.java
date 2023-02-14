@@ -1,15 +1,13 @@
 package com.summer.x.data.net;
 
-import com.summer.x.base.ui.VA;
-
-import java.util.ArrayList;
+import com.summer.x.base.ui.DA;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ObjectData<T> extends VA {
+public class ObjectDA<T> extends DA {
 
     private T data;
 

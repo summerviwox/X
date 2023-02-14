@@ -78,7 +78,7 @@ public class PullView extends ViewGroup {
         //getChildAt(0).measure(widthMeasureSpec,heightMeasureSpec);
         //int height = getChildAt(0).getMeasuredHeight();
         //setMeasuredDimension(getMeasuredWidth(),height);
-        LogUtils.e(getChildAt(0).getMeasuredHeight());
+        //LogUtils.e(getChildAt(0).getMeasuredHeight());
 
     }
 
@@ -148,7 +148,7 @@ public class PullView extends ViewGroup {
             return;
         }
         int bottom = getChildAt(0).getMeasuredHeight()+deltaY;
-        LogUtils.e(getChildAt(0).getMeasuredHeight(),getMeasuredHeight(),deltaY);
+        //LogUtils.e(getChildAt(0).getMeasuredHeight(),getMeasuredHeight(),deltaY);
         if(bottom<=getMeasuredHeight()){
             return;
         }
