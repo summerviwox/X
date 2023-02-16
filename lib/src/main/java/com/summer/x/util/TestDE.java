@@ -1,10 +1,15 @@
 package com.summer.x.util;
 
+import com.summer.x.base.ui.DA;
 import com.summer.x.base.ui.DE;
 
 import java.util.ArrayList;
 
-public class TestDE extends DE {
+public class TestDE extends DE<DA> {
+
+    public TestDE(DA da) {
+        super(da);
+    }
 
     public ArrayList<String> getTestText(int count){
         ArrayList<String> text = new ArrayList<>();

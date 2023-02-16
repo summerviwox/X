@@ -6,8 +6,12 @@ import com.summer.x.base.ui.DE;
 /**
  * tangjie 2023/1/18 16:28
  **/
-public class MainDE extends DE implements MainDEChatInf{
+public class MainDE extends DE<MainDA> implements MainDEChatInf{
 
+
+    public MainDE(MainDA da) {
+        super(da);
+    }
 
     @Override
     public void getTextData() {

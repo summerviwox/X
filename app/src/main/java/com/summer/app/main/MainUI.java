@@ -1,12 +1,19 @@
 package com.summer.app.main;
 
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
 import com.summer.app.databinding.ActivityMainBinding;
 import com.summer.x.base.ui.UI;
 import com.summer.x.base.ui.DA;
+import com.summer.x.base.ui.XActivity;
+import com.summer.x.base.ui.XFragment;
 
-public class MainUI extends UI<ActivityMainBinding> {
+public class MainUI extends UI<ActivityMainBinding,MainDA> {
 
     MainUIInitInf mainUIInitInf = new MainUIInitInf() {
         @Override
@@ -42,9 +49,8 @@ public class MainUI extends UI<ActivityMainBinding> {
     };
     MainUIChatImp mainUIChatImp;
 
-    @Override
-    public void initUI(DA va) {
-        super.initUI(va);
-        mainUIChatImp = new MainUIChatImp();
+    public MainUI(@NonNull XActivity xActivity, @Nullable XFragment xFragment, @Nullable ViewGroup viewGroup) {
+        super(xActivity, xFragment, viewGroup);
     }
+
 }

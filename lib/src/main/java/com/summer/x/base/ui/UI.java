@@ -3,6 +3,8 @@ package com.summer.x.base.ui;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -12,11 +14,13 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 
-public class UI<A extends ViewDataBinding>{
+public class UI<A extends ViewDataBinding,B extends DA>{
 
     public static HashMap<String,ViewDataBinding> uiMap = new HashMap<>();
 
     private A ui;
+
+    private B da;
 
     private XActivity xActivity;
 
@@ -24,87 +28,37 @@ public class UI<A extends ViewDataBinding>{
 
     private XView xView;
 
-    public UI(){
-
-    }
-
-
-    public void initUI(DA va) {
-
-    }
-
-    public void refreshUI(DA va){
-
-    }
-
-    public boolean checkUI(DA va){
-        return true;
-    }
-
-    /**
-     * 不会自动调用 统一方法名称 部分数据映射到ui
-     * @param va
-     */
-    public void VAToUI(DA va){
-
-    }
-    /**
-     * 不会自动调用 统一方法名称 ui映射到数据
-     * @param va
-     */
-    public void UIToVA(DA va){
-
-    }
-
-    /**
-     * 绑定xml
-     * @param xActivity
-     */
-    public void bindUI(XActivity xActivity) {
+    public UI(@NonNull XActivity xActivity, @Nullable XFragment xFragment,@Nullable ViewGroup viewGroup) {
         this.xActivity = xActivity;
-        if (ui == null) {
-            if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
-                Class<A> a = (Class<A>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-                Method method = null;
-                try {
-                    method = a.getMethod("inflate", LayoutInflater.class);
-                } catch (NoSuchMethodException e) {
-                    LogUtils.e(e.getMessage());
-                    e.printStackTrace();
-                }
-                try {
-                    ui = (A) method.invoke(null, LayoutInflater.from(xActivity));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                    LogUtils.e(getClass().getName()+":"+e.getCause().getLocalizedMessage());
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                    LogUtils.e(getClass().getName()+":"+e.getTargetException().getLocalizedMessage());
-                }
-            }
-        }
-    }
-
-    public void bindUI(XActivity xActivity,XView xView) {
-        this.xView = xView;
-        bindUI(xActivity);
-    }
-
-    public void bindUI(XFragment xFragment, ViewGroup viewGroup) {
         this.xFragment = xFragment;
-        this.xActivity = xFragment.getXActivity();
+
+        if(this.xFragment!=null){
+            da = (B) this.xFragment.getVA();
+        }else{
+            da = (B) this.xActivity.getVA();
+        }
+
         if (ui == null) {
             if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
                 Class<A> a = (Class<A>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
                 Method method = null;
                 try {
-                    method = a.getMethod("inflate", LayoutInflater.class,ViewGroup.class,boolean.class);
+                    if(viewGroup==null){
+                        method = a.getMethod("inflate", LayoutInflater.class);
+                    }else{
+                        method = a.getMethod("inflate", LayoutInflater.class,ViewGroup.class,boolean.class);
+                    }
                 } catch (NoSuchMethodException e) {
                     LogUtils.e(e.getMessage());
                     e.printStackTrace();
                 }
                 try {
-                    ui = (A) method.invoke(null, LayoutInflater.from(xActivity),viewGroup,false);
+                    if(viewGroup==null){
+                        ui = (A) method.invoke(null, LayoutInflater.from(xActivity));
+                    }else{
+                        ui = (A) method.invoke(null, LayoutInflater.from(xActivity),viewGroup,false);
+                    }
+
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                     LogUtils.e(getClass().getName()+":"+e.getCause().getLocalizedMessage());
@@ -118,6 +72,10 @@ public class UI<A extends ViewDataBinding>{
 
     public A getUI() {
         return ui;
+    }
+
+    public B getDA(){
+        return da;
     }
 
     public XActivity getXActivity() {

@@ -1,6 +1,5 @@
 package com.summer.x.base.ui;
 
-@lombok.Data
 public class Ope<A extends UI,B extends DE,C extends DA>{
 
   private A UI;

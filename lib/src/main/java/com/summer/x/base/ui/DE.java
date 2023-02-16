@@ -1,10 +1,8 @@
 package com.summer.x.base.ui;
 
-import com.summer.x.base.i.OnProgressI;
-
 import java.io.Serializable;
 
-public class DE implements Serializable {
+public class DE<A extends DA> implements Serializable {
 
     public static final String add = "add";
     public static final String delete = "delete";
@@ -13,15 +11,10 @@ public class DE implements Serializable {
     public static final String refresh = "refresh";
     public static final String finish = "finish";
     public static final String none = "none";
-    public DE(){
 
-    }
+    private A da;
 
-    public void initDE(DA va, OnProgressI onProgressI){
-
-    }
-
-    public void refresh(DA va, OnProgressI onProgressI){
-
+    public DE(A da){
+        this.da = da;
     }
 }

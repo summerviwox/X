@@ -1,18 +1,15 @@
-package com.summer.app.test.test1;
+package com.summer.app.test;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import com.summer.x.base.ui.DA;
-import com.summer.x.base.ui.DE;
-import com.summer.x.base.ui.UI;
 import com.summer.x.base.ui.XActivity;
 
 /**
- * tangjie 2023/2/14 16:01
+ * tangjie 2023/2/15 10:36
  **/
-public class Test1CT extends XActivity<Test1UI, Test1DE, Test1DA> {
+public class TestCT extends XActivity<TestUI,TestDE,TestDA> {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
