@@ -1,8 +1,8 @@
-apply plugin: 'maven-publish'
+apply plugin: 'maven-publish'//gradle 6.3 后maven插件不再能使用 改用maven-publish
 
-def domain= "https://www.summerviwox.com:8443/repository/X/"
-def userName= "admin"
-def passWord= "canVAS700217#"
+def domain= "https://www.summerviwox.com:8443/repository/X/" //存储库名称
+def userName= "admin"//用户名
+def passWord= "canVAS700217#"//密码 记得修改为自己真实的密码
 
 def groupId = "com.summer"
 def artifactId = "lib"
@@ -61,7 +61,7 @@ afterEvaluate {
 //            }
             Develop(MavenPublication) {
                 from components.release
-                setGroupId(groupId) //直接赋值不行 查看MavenPublication文件里面只有赋值方法
+                setGroupId(groupId) //直接赋值不行 会导致groupId赋值失败 查看MavenPublication文件里面没有暴露变量只能getset
                 //groupId = groupId
                 setArtifactId(artifactId)
                 //artifactId = artifactId

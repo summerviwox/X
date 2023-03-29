@@ -44,6 +44,7 @@ android {
     lintOptions rootProject.ext.lintOptions
     dexOptions rootProject.ext.dexOptions
     compileOptions rootProject.ext.compileOptions
+    namespace 'com.summer.x'
 }
 
 dependencies {
