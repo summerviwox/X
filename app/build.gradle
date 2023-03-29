@@ -14,6 +14,7 @@ android {
             }
         }
         multiDexEnabled true
+
     }
     buildTypes {
         release {
@@ -34,7 +35,8 @@ android {
 }
 
 dependencies {
-    implementation project(':lib')
+    //implementation project(':lib')
+    implementation 'com.summer:lib:1.0.1-20230329.083745-1'
     implementation "com.jakewharton:butterknife:${BUTTER_KNIFE_VERSION}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE_VERSION}"
     implementation "androidx.navigation:navigation-fragment-ktx:${NAR_VERSION}"
@@ -42,4 +44,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:${NAR_VERSION}"
     implementation "androidx.navigation:navigation-ui:${NAR_VERSION}"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:${NAR_VERSION}"
+    api  project(':javalib')
+    annotationProcessor project(':javalib')
 }

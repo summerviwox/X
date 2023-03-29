@@ -1,16 +1,11 @@
 package com.summer.app.model;
 
 import java.io.Serializable;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * record
  * @author 
  */
-@Getter
-@Setter
 public class Record implements Serializable {
     private Integer id;
 

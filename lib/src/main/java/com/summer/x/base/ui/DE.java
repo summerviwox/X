@@ -17,4 +17,8 @@ public class DE<A extends DA> implements Serializable {
     public DE(A da){
         this.da = da;
     }
+
+    public A getDA() {
+        return da;
+    }
 }

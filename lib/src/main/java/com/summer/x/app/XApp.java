@@ -10,6 +10,7 @@ import com.summer.x.data.net.BaseCallBack;
 import com.summer.x.data.net.ObjectDA;
 import com.summer.x.exception.Crash;
 import com.summer.x.exception.CrashHander;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +30,8 @@ public class XApp extends Application implements OnFinishI {
         super.onCreate();
         instance = this;
         if(registCrash()){
-            CrashHander.getInstance().init(this,this);
+            CrashReport.initCrashReport(getApplicationContext(), "5119c103be", false);
+            //CrashHander.getInstance().init(this,this);
         }
     }
 

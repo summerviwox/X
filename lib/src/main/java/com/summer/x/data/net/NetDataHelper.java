@@ -6,8 +6,6 @@ import com.summer.x.data.net.logging.LoggingInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
-import lombok.Getter;
-import lombok.Setter;
 import okhttp3.OkHttpClient;
 import okhttp3.internal.platform.Platform;
 import retrofit2.CallAdapter;
@@ -78,19 +76,19 @@ public class NetDataHelper {
         return retrofit;
     }
 
-    @Getter
-    @Setter
     public static class Config extends DA {
 
-        long connectTimeout = 60;
+        public long connectTimeout = 60;
 
-        long readTimeout = 600;
+        public long readTimeout = 600;
 
-        long writeTimeout =600;
+        public long writeTimeout =600;
 
-        Converter.Factory converter =GsonConverterFactory.create();
+        public Converter.Factory converter =GsonConverterFactory.create();
 
-        CallAdapter.Factory callAdapter = RxJava2CallAdapterFactory.create();
+        public CallAdapter.Factory callAdapter = RxJava2CallAdapterFactory.create();
+
+
 
 
     }

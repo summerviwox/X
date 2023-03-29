@@ -2,11 +2,6 @@ package com.summer.app;
 
 import com.summer.x.base.ui.DA;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class EventReq extends DA {
 
     private long startTime;

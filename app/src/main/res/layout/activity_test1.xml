@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="test"
             type="String" />
     </data>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/root"
         android:background="@color/white"
         tools:context=".test.TestActivity">
 
-   <!--     <ImageView
-            android:id="@+id/image"
-            android:layout_margin="20dp"
+        <com.summer.app.test1.MyScrollView
+            android:id="@+id/myscrollview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>-->
+            android:layout_height="match_parent"/>
 
+        <Button
+            android:id="@+id/button1"
+            android:layout_alignParentBottom="true"
+            android:text="button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-        <com.summer.app.image.MyView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="0dp"/>
-
-
+        <Button
+            android:id="@+id/button2"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 </layout>

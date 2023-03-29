@@ -51,5 +51,15 @@
       <option name="name" value="maven2" />
       <option name="url" value="https://maven.aliyun.com/repository/central" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven3" />
+      <option name="name" value="maven3" />
+      <option name="url" value="https://www.summerviwox.com:8443/repository/summerviwox/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven3" />
+      <option name="name" value="maven3" />
+      <option name="url" value="https://www.summerviwox.com:8443/repository/X/" />
+    </remote-repository>
   </component>
 </project>
