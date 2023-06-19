@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.summer.app.R;
 
 import butterknife.BindView;
@@ -16,46 +17,16 @@ import butterknife.ButterKnife;
 
 public class AActivity extends FragmentActivity {
 
-    private AViewModelBusiImp mAViewModelBusiImp;
-    @BindView(R.id.tv_name)
-    TextView mNameTv;
-    @BindView(R.id.tv_type)
-    TextView mTypetv;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImmersionBar.with(this).init();
         setContentView(R.layout.layout_a);
-        ButterKnife.bind(this);
-        mAViewModelBusiImp = new ViewModelProvider(this).get(AViewModelBusiImp.class);
-        mAViewModelBusiImp.getABeanLiveData().observe(this, new Observer<ABean>() {
-            @Override
-            public void onChanged(ABean aBean) {
-                mNameTv.setText(aBean.name);
-            }
-        });
-
-        mAViewModelBusiImp.getBBeanLiveData().observe(this, new Observer<BBean>() {
-            @Override
-            public void onChanged(BBean bBean) {
-                mTypetv.setText(bBean.type);
-            }
-        });
-
-        mNameTv.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAViewModelBusiImp.goToOnlineServer(AActivity.this);
+                PromptDialog.newInstance("aaa",getResources().getString(R.string.midtext)).show(getSupportFragmentManager(),"");
             }
         });
-
-        mTypetv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAViewModelBusiImp.precessPlanContent();
-            }
-        });
-
-        mAViewModelBusiImp.startBusi();
     }
 }

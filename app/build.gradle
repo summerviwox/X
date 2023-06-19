@@ -27,6 +27,22 @@ android {
             renderscriptDebuggable true
         }
     }
+
+
+    buildFeatures {
+        viewBinding true
+    }
+
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res/dialog',
+            ]
+        }
+    }
+
     dataBinding rootProject.ext.dataBinding
     packagingOptions rootProject.ext.packagingOptions
     lintOptions rootProject.ext.lintOptions

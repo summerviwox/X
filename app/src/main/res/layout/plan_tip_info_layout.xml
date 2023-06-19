@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <View
+        android:id="@+id/alpha_mask"
+        android:background="@color/plan_color_FF000000"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constr_dialog_root"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/rl_anchor"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x110"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/x42"
+                android:layout_marginTop="@dimen/x35"
+                android:layout_marginEnd="@dimen/x42"
+                android:ellipsize="end"
+                android:gravity="center_horizontal"
+                android:lines="1"
+                android:maxWidth="@dimen/x500"
+                android:textColor="@color/plan_color_333333"
+                android:textSize="@dimen/x40"
+                android:textStyle="bold"
+                tools:text="asdfasdf" />
+
+            <ImageView
+                android:id="@+id/img__sub_business_dialog_close"
+                android:layout_width="@dimen/x40"
+                android:layout_height="@dimen/x40"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/x42"/>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/title_line"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/x1"
+            android:layout_marginStart="@dimen/x42"
+            android:layout_marginEnd="@dimen/x42"
+            android:background="@color/plan_color_e5e5e5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rl_anchor" />
+
+        <Button
+            android:id="@+id/btn_know"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x90"
+            android:layout_marginStart="@dimen/x42"
+            android:layout_marginEnd="@dimen/x42"
+            android:layout_marginBottom="@dimen/x24"
+            android:textColor="@color/plan_color_FFFFFF"
+            android:textSize="@dimen/x32"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <ScrollView
+            android:id="@+id/sl_content"
+            android:overScrollMode="never"
+            app:height_percent="0.65"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x60"
+            android:layout_marginTop="@dimen/x36"
+            android:layout_marginEnd="@dimen/x20"
+            android:layout_marginBottom="@dimen/x24"
+            android:paddingEnd="@dimen/x34"
+            android:scrollbarSize="@dimen/x6"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@id/btn_know"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_line">
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:paddingBottom="@dimen/x24"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/x10"
+                tools:text="asdf"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="@dimen/x5"
+                android:textColor="@color/plan_color_333333"
+                android:textSize="@dimen/x28" />
+
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

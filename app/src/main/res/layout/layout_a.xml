@@ -6,18 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_name"
-        android:text="唐杰"
-        android:gravity="center"
+    <Button
+        android:id="@+id/a"
+        android:text="a"
+        android:layout_marginTop="40dp"
         android:layout_width="100dp"
-        android:layout_height="100dp"/>
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/b"
+        android:text="b"
+        android:layout_marginTop="40dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/c"
+        android:text="c"
+        android:layout_marginTop="40dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"/>
 
 
-    <TextView
-        android:id="@+id/tv_type"
-        android:text="唐杰"
-        android:gravity="center"
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
 </LinearLayout>
